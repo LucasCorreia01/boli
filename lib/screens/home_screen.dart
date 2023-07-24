@@ -13,10 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  bool balanceVisibility = false;
   String salutation = 'Bom dia';
   @override
-  void initState(){
+  void initState() {
     salutation = funcSalutation();
     super.initState();
   }
@@ -33,14 +33,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         elevation: 0,
-        toolbarHeight: 90,
+        toolbarHeight: 80,
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  balanceVisibility = !balanceVisibility;
+                });
+              },
+              icon: (balanceVisibility)
+                  ? const Icon(Icons.visibility_off_outlined)
+                  : const Icon(Icons.visibility_outlined))
+        ],
       ),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: BalanceSection(),
+            child: BalanceSection(
+              balanceVisibility: balanceVisibility,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
@@ -91,16 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-    String funcSalutation(){
+  String funcSalutation() {
     DateTime now = DateTime.now();
-    if(now.hour >= 6 && now.hour <= 11){
+    if (now.hour >= 6 && now.hour <= 11) {
       return 'Bom dia';
-    } else if(now.hour >= 12 && now.hour <= 18){
+    } else if (now.hour >= 12 && now.hour <= 18) {
       return 'Boa tarde';
-    } else if(now.hour >= 19 && now.hour <= 5){
+    } else if (now.hour >= 19 && now.hour <= 5) {
       return 'Boa noite';
     }
     return 'Boa noite';
-
   }
 }

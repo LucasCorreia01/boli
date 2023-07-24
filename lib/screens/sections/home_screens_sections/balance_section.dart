@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class BalanceSection extends StatefulWidget {
-  BalanceSection({super.key});
+  bool balanceVisibility;
+  BalanceSection({super.key, required this.balanceVisibility});
 
   List<String> items = ['BRL', 'USD', 'EUR'];
 
@@ -26,7 +27,8 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '\$10,000,000.00',
+              (widget.balanceVisibility)?
+              '\$10,000,000.00' : '\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             DropdownButtonHideUnderline(
@@ -88,7 +90,8 @@ class _BalanceSectionState extends State<BalanceSection> {
                         ],
                       ),
                       Text(
-                        '\$32,003,000',
+                        (widget.balanceVisibility)?
+                        '\$32,003,000' : '\$****',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Padding(
