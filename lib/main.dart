@@ -1,3 +1,4 @@
+import 'package:boli_digital_bank/screens/autentication_screen.dart';
 import 'package:boli_digital_bank/screens/home_screen.dart';
 import 'package:boli_digital_bank/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: boliTheme,
-      home: HomeScreen(),
+      home: AuthenticationScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

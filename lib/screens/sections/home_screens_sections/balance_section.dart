@@ -1,3 +1,4 @@
+import 'package:boli_digital_bank/components/credit_card_home.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -27,8 +28,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              (widget.balanceVisibility)?
-              '\$10,000,000.00' : '\$****',
+              (widget.balanceVisibility) ? '\$10,000,000.00' : '\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             DropdownButtonHideUnderline(
@@ -56,64 +56,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.69,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: (MediaQuery.of(context).size.width * 0.7) *
-                                0.62,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 3.0),
-                              child: Text(
-                                'Saldo da conta',
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 60,
-                            child: Image.asset(
-                              'assets/images/mastercard-logo.png',
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        (widget.balanceVisibility)?
-                        '\$32,003,000' : '\$****',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '**** **** **** 7348',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                            Text(
-                              '12/26',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              CreditCardHome(balanceVisibility: widget.balanceVisibility),
               InkWell(
                 onTap: () => print('Item tocado'),
                 borderRadius: BorderRadius.circular(100),

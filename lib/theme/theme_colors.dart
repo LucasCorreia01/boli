@@ -7,4 +7,9 @@ class ThemeColors {
   static Color secondaryColor = const Color.fromRGBO(255, 235, 166, 1);
   static const Color highlightColor = Colors.white;
   static const MaterialColor primarySwatch = Colors.yellow;
+
+  static const List<Color> gradientColorsLogin = [
+    Color.fromRGBO(0, 0, 0, 0.8),
+    Colors.transparent
+  ];
 }
