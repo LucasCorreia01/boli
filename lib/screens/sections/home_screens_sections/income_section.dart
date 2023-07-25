@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/components/card_item.dart';
+import 'package:boli_digital_bank/components/card_item_home.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -42,7 +42,7 @@ class IncomeSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CardItem(
+              CardItemHome(
                 title: 'Empresa',
                 icon: Icon(
                   Icons.paypal_rounded,
@@ -50,15 +50,15 @@ class IncomeSection extends StatelessWidget {
                   size: 24,
                 ),
               ),
-              CardItem(
-                title: 'Ventas día',
+              CardItemHome(
+                title: 'Vendas diárias',
                 icon: Icon(
                   Icons.offline_bolt,
                   color: Theme.of(context).highlightColor,
                   size: 24,
                 ),
               ),
-              CardItem(
+              CardItemHome(
                 title: 'Social',
                 icon: Icon(
                   Bootstrap.instagram,

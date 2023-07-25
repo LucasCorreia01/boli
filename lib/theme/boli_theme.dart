@@ -46,6 +46,11 @@ ThemeData boliTheme = ThemeData(
     bodyMedium: const TextStyle(
       fontSize: 13,
       overflow: TextOverflow.ellipsis
+    ), 
+    displayMedium: TextStyle(
+      fontSize: 23,
+      fontWeight: FontWeight.normal,
+      color: ThemeColors.onPrimaryColor,
     )
   ),
   appBarTheme: const AppBarTheme(

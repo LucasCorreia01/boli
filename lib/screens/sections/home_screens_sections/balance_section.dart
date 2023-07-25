@@ -58,7 +58,9 @@ class _BalanceSectionState extends State<BalanceSection> {
             children: [
               CreditCardHome(balanceVisibility: widget.balanceVisibility),
               InkWell(
-                onTap: () => print('Item tocado'),
+                onTap: () {
+                  Navigator.of(context).pushNamed('screen-card');
+                },
                 borderRadius: BorderRadius.circular(100),
                 child: Container(
                   width: 50,

@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             '$salutation, Lucas!',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
         elevation: 0,
@@ -37,14 +37,21 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-              onPressed: () {
-                setState(() {
-                  balanceVisibility = !balanceVisibility;
-                });
-              },
-              icon: (balanceVisibility)
-                  ? const Icon(Icons.visibility_off_outlined)
-                  : const Icon(Icons.visibility_outlined))
+            onPressed: () {
+              setState(() {
+                balanceVisibility = !balanceVisibility;
+              });
+            },
+            icon: (balanceVisibility)
+                ? const Icon(Icons.visibility_off_outlined)
+                : const Icon(Icons.visibility_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('login-screen');
+            },
+            icon: const Icon(Icons.exit_to_app)
+          )
         ],
       ),
       body: ListView(

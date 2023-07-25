@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CardItem extends StatelessWidget {
+class CardItemHome extends StatelessWidget {
   final String title;
   final Icon icon;
-  const CardItem({
+  const CardItemHome({
     super.key,
     required this.title,
     required this.icon,
