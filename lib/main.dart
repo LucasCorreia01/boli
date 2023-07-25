@@ -1,17 +1,25 @@
 import 'package:boli_digital_bank/screens/autentication_screen.dart';
 import 'package:boli_digital_bank/screens/card_screen.dart';
+import 'package:boli_digital_bank/screens/card_screen_single.dart';
 import 'package:boli_digital_bank/screens/home_screen.dart';
 import 'package:boli_digital_bank/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'models/cardCreditItemModel.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.black, systemNavigationBarColor: Colors.black));
+    [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
+  );
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+      systemNavigationBarColor: Colors.black,
+    ),
+  );
   runApp(const MainApp());
 }
 
@@ -33,13 +41,21 @@ class MainApp extends StatelessWidget {
             return const HomeScreen();
           });
         } else if (settings.name == 'screen-card') {
-            return PageTransition(
+          return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
               child: const CardScreen(),
               childCurrent: const HomeScreen(),
-              isIos: true
-            );
+              isIos: true);
+        } else if (settings.name == 'screen-card-single') {
+          var arguments = settings.arguments as CardCredit;
+          return PageTransition(
+            settings: settings,
+            type: PageTransitionType.rightToLeftJoined,
+            child: CardScreenSingle(arguments),
+            childCurrent: const CardScreen(),
+            isIos: true,
+          );
         } else {
           return MaterialPageRoute(builder: (context) {
             return const AuthenticationScreen();

@@ -17,27 +17,30 @@ class CreditCardHome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: (MediaQuery.of(context).size.width * 0.7) * 0.62,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 3.0),
-                    child: Text(
-                      'Saldo da conta',
-                      style: Theme.of(context).textTheme.titleSmall,
+            SizedBox(
+              height: 35,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: (MediaQuery.of(context).size.width * 0.7) * 0.62,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 3.0),
+                      child: Text(
+                        'Saldo da conta',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 60,
-                  child: Image.asset(
-                    'assets/images/mastercard-logo.png',
+                  SizedBox(
+                    width: 60,
+                    child: Image.asset(
+                      'assets/images/mastercard-logo.png',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Text(
               (balanceVisibility) ? '\$32,003,000' : '\$****',

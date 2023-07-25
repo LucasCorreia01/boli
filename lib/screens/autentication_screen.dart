@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:boli_digital_bank/service/local_auth_service.dart';
 import 'package:boli_digital_bank/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       if (!authenticated) {
         isLocalAuthFailed.value = true;
       } else {
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacementNamed('home-screen');
       }
     }
@@ -40,9 +43,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             return Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/background-login.png'),
-                      fit: BoxFit.cover)),
+                image: DecorationImage(
+                  image: AssetImage('assets/images/background-login.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
               child: Container(
                 decoration:
                     const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
@@ -68,7 +73,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: Text(
                                   'A autenticação falhou, por favor tente novamente.',
-                                  style: Theme.of(context).textTheme.headlineLarge,
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
                                 ),
                               ),
                             ),
@@ -80,7 +86,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     width: (MediaQuery.of(context).size.width *
                                             0.300) -
                                         48,
-                                    padding: EdgeInsets.all(20),
+                                    padding: const EdgeInsets.all(20),
                                     decoration: BoxDecoration(
                                       color: Theme.of(context).primaryColor,
                                     ),
@@ -103,9 +109,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: checkLocalAuth,
-                                    child: Icon(
+                                  IconButton(
+                                    onPressed: checkLocalAuth,
+                                    icon: Icon(
                                       FontAwesome.fingerprint,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
@@ -114,9 +120,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               ),
                             ),
                             TextButton.icon(
-                                onPressed: () {
-                                  print(MediaQuery.of(context).size.width);
-                                },
+                                onPressed: () {},
                                 icon: Icon(
                                   BoxIcons.bx_refresh,
                                   color: Theme.of(context).highlightColor,
@@ -139,12 +143,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
           return Container(
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/background-login.png'),
-                    fit: BoxFit.cover)),
+              image: DecorationImage(
+                image: AssetImage('assets/images/background-login.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Container(
-              decoration:
-                  const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5)),
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -170,7 +177,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                   width: (MediaQuery.of(context).size.width *
                                           0.300) -
                                       48,
-                                  padding: EdgeInsets.all(20),
+                                  padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -204,18 +211,16 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                             ),
                           ),
                           TextButton.icon(
-                              onPressed: () {
-                                print(MediaQuery.of(context).size.width);
-                              },
-                              icon: Icon(
-                                BoxIcons.bx_refresh,
-                                color: Theme.of(context).highlightColor,
-                              ),
-                              label: Text(
-                                'Trocar de conta',
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
-                              ))
+                            onPressed: () {},
+                            icon: Icon(
+                              BoxIcons.bx_refresh,
+                              color: Theme.of(context).highlightColor,
+                            ),
+                            label: Text(
+                              'Trocar de conta',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                          )
                         ],
                       ),
                     ),

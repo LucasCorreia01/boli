@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CardCreditItem extends StatelessWidget {
-  final String balanceCard;
-  final String cardNumber;
-  final String cvv;
-  final String dueDate;
-  final Color colorCard;
-  final Color colorText;
-  final IconData iconCard;
-  const CardCreditItem({
-    super.key,
-    required this.balanceCard,
-    required this.cardNumber,
-    required this.cvv,
-    required this.dueDate,
-    required this.colorCard,
-    required this.colorText,
-    required this.iconCard,
-  });
+import '../models/cardCreditItemModel.dart';
+
+class CardCreditItemWidget extends StatelessWidget {
+  final CardCredit card;
+  const CardCreditItemWidget({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +12,7 @@ class CardCreditItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 6),
       child: Container(
         decoration: BoxDecoration(
-          color: colorCard,
+          color: card.colorCard,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -33,37 +20,40 @@ class CardCreditItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: (MediaQuery.of(context).size.width * 0.7) * 0.62,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 3.0),
-                      child: Text(
-                        'Saldo da conta',
-                        style: TextStyle(
-                            color: colorText,
-                            fontSize: 15,
-                            overflow: TextOverflow.ellipsis),
+              SizedBox(
+                height: 35,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: (MediaQuery.of(context).size.width * 0.7) * 0.62,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3.0),
+                        child: Text(
+                          'Saldo da conta',
+                          style: TextStyle(
+                              color: card.colorText,
+                              fontSize: 15,
+                              overflow: TextOverflow.ellipsis),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Image.asset(
-                      'assets/images/mastercard-logo.png',
+                    SizedBox(
+                      width: 60,
+                      child: Image.asset(
+                        '${card.imageLogo}',
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Text(
-                '\$$balanceCard',
+                '\$${card.balanceCard}',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
-                    color: colorText,
+                    color: card.colorText,
                     overflow: TextOverflow.ellipsis),
               ),
               Padding(
@@ -72,25 +62,25 @@ class CardCreditItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      cardNumber,
+                      card.cardNumber,
                       style: TextStyle(
-                        color: colorText,
+                        color: card.colorText,
                         fontSize: 14.5,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
-                      dueDate,
+                      card.dueDate,
                       style: TextStyle(
-                        color: colorText,
+                        color: card.colorText,
                         fontSize: 14.5,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
-                      'CVV $cvv',
+                      'CVV ${card.cvv}',
                       style: TextStyle(
-                        color: colorText,
+                        color: card.colorText,
                         fontSize: 14.5,
                         overflow: TextOverflow.ellipsis,
                       ),

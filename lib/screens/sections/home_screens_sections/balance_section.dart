@@ -35,12 +35,15 @@ class _BalanceSectionState extends State<BalanceSection> {
               child: DropdownButton(
                 value: widget.selectedItem,
                 items: widget.items
-                    .map((item) => DropdownMenuItem<String>(
+                    .map(
+                      (item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
                           item,
                           style: Theme.of(context).textTheme.headlineSmall,
-                        )))
+                        ),
+                      ),
+                    )
                     .toList(),
                 onChanged: (item) => setState(() {
                   print(item);
