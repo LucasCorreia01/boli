@@ -170,36 +170,6 @@ class CardScreen extends StatelessWidget {
           ),
         ],
       )),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: Theme.of(context).primaryColorDark,
-        unselectedItemColor: Theme.of(context).dividerColor,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(BoxIcons.bxs_home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(BoxIcons.bx_camera),
-            label: 'Escanear',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(BoxIcons.bx_bar_chart_alt_2),
-            label: 'Investimentos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
-            label: 'Notificações',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2_outlined),
-            label: 'Perfil',
-          ),
-        ],
-      ),
     );
   }
 }

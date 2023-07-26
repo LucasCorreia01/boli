@@ -42,28 +42,55 @@ class IncomeSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CardItemHome(
-                title: 'Empresa',
-                icon: Icon(
-                  Icons.paypal_rounded,
-                  color: Theme.of(context).highlightColor,
-                  size: 24,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed('income-screen-single',
+                      arguments: {
+                        'nameIncome': 'Empresa',
+                        'balance': '250.000.00'
+                      });
+                },
+                child: CardItemHome(
+                  title: 'Empresa',
+                  icon: Icon(
+                    Icons.paypal_rounded,
+                    color: Theme.of(context).highlightColor,
+                    size: 24,
+                  ),
                 ),
               ),
-              CardItemHome(
-                title: 'Vendas diárias',
-                icon: Icon(
-                  Icons.offline_bolt,
-                  color: Theme.of(context).highlightColor,
-                  size: 24,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed('income-screen-single',
+                      arguments: {
+                        'nameIncome': 'Vendas diárias',
+                        'balance': '250.000.00'
+                      });
+                },
+                child: CardItemHome(
+                  title: 'Vendas diárias',
+                  icon: Icon(
+                    Icons.offline_bolt,
+                    color: Theme.of(context).highlightColor,
+                    size: 24,
+                  ),
                 ),
               ),
-              CardItemHome(
-                title: 'Social',
-                icon: Icon(
-                  Bootstrap.instagram,
-                  color: Theme.of(context).highlightColor,
-                  size: 24,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed('income-screen-single',
+                      arguments: {
+                        'nameIncome': 'Social',
+                        'balance': '70.000.000'
+                      });
+                },
+                child: CardItemHome(
+                  title: 'Social',
+                  icon: Icon(
+                    Bootstrap.instagram,
+                    color: Theme.of(context).highlightColor,
+                    size: 24,
+                  ),
                 ),
               ),
             ],
