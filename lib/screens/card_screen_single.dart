@@ -1,6 +1,6 @@
-import 'package:boli_digital_bank/components/list_item_incoices.dart';
-import 'package:boli_digital_bank/screens/sections/card_screen_single_sections/actions_buttons.dart';
-import 'package:boli_digital_bank/screens/sections/card_screen_single_sections/card_section.dart';
+import 'package:boli/components/list_item_incoices.dart';
+import 'package:boli/screens/sections/card_screen_single_sections/actions_buttons.dart';
+import 'package:boli/screens/sections/card_screen_single_sections/card_section.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:flutter/material.dart';
 import '../helpers/exemples.dart';

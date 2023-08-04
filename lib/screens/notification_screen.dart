@@ -1,5 +1,5 @@
-import 'package:boli_digital_bank/components/list_item_notification.dart';
-import 'package:boli_digital_bank/helpers/exemples.dart';
+import 'package:boli/components/list_item_notification.dart';
+import 'package:boli/helpers/exemples.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatelessWidget {

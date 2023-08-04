@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/theme/theme_colors.dart';
+import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData boliTheme = ThemeData(

@@ -1,7 +1,7 @@
-import 'package:boli_digital_bank/components/card_credit_item_widget.dart';
-import 'package:boli_digital_bank/models/cardCreditItemModel.dart';
+import 'package:boli/components/card_credit_item_widget.dart';
+import 'package:boli/models/cardCreditItemModel.dart';
 import 'package:flutter/material.dart';
-import 'package:boli_digital_bank/helpers/exemples.dart';
+import 'package:boli/helpers/exemples.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 // ignore: must_be_immutable

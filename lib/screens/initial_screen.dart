@@ -1,5 +1,5 @@
-import 'package:boli_digital_bank/screens/home_screen.dart';
-import 'package:boli_digital_bank/screens/notification_screen.dart';
+import 'package:boli/screens/home_screen.dart';
+import 'package:boli/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 

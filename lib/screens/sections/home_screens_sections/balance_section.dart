@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/components/credit_card_home.dart';
+import 'package:boli/components/credit_card_home.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

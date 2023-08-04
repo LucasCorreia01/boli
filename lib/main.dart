@@ -1,11 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'package:boli_digital_bank/screens/autentication_screen.dart';
-import 'package:boli_digital_bank/screens/cards_screen.dart';
-import 'package:boli_digital_bank/screens/card_screen_single.dart';
-import 'package:boli_digital_bank/screens/initial_screen.dart';
-import 'package:boli_digital_bank/screens/income_screen_single.dart';
-import 'package:boli_digital_bank/screens/savings_screen_single.dart';
-import 'package:boli_digital_bank/theme/boli_theme.dart';
+import 'package:boli/screens/autentication_screen.dart';
+import 'package:boli/screens/cards_screen.dart';
+import 'package:boli/screens/card_screen_single.dart';
+import 'package:boli/screens/initial_screen.dart';
+import 'package:boli/screens/income_screen_single.dart';
+import 'package:boli/screens/savings_screen_single.dart';
+import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';

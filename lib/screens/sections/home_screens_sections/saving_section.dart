@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/components/list_item.dart';
+import 'package:boli/components/list_item.dart';
 import 'package:flutter/material.dart';
 
 class SavingSection extends StatelessWidget {

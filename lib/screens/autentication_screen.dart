@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:boli_digital_bank/service/local_auth_service.dart';
-import 'package:boli_digital_bank/theme/theme_colors.dart';
+import 'package:boli/service/local_auth_service.dart';
+import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';

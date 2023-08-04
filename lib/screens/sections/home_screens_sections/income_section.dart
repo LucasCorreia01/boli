@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/components/card_item_home.dart';
+import 'package:boli/components/card_item_home.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 

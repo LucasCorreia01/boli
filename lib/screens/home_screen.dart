@@ -1,7 +1,7 @@
-import 'package:boli_digital_bank/screens/sections/home_screens_sections/balance_section.dart';
-import 'package:boli_digital_bank/screens/sections/home_screens_sections/income_section.dart';
-import 'package:boli_digital_bank/screens/sections/home_screens_sections/saving_section.dart';
-import 'package:boli_digital_bank/screens/sections/home_screens_sections/spending_section.dart';
+import 'package:boli/screens/sections/home_screens_sections/balance_section.dart';
+import 'package:boli/screens/sections/home_screens_sections/income_section.dart';
+import 'package:boli/screens/sections/home_screens_sections/saving_section.dart';
+import 'package:boli/screens/sections/home_screens_sections/spending_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

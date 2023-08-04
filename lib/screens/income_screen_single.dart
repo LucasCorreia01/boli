@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/screens/sections/income_single_sections/selectors_income.dart';
+import 'package:boli/screens/sections/income_single_sections/selectors_income.dart';
 import 'package:flutter/material.dart';
 
 class IncomeScreenSingle extends StatelessWidget {

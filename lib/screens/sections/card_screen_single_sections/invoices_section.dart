@@ -1,4 +1,4 @@
-import 'package:boli_digital_bank/helpers/exemples.dart';
+import 'package:boli/helpers/exemples.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import '../../../components/list_item_incoices.dart';

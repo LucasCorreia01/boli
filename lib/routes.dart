@@ -1,11 +1,11 @@
 // import 'package:flutter/material.dart';
-// import 'package:boli_digital_bank/screens/autentication_screen.dart';
-// import 'package:boli_digital_bank/screens/cards_screen.dart';
-// import 'package:boli_digital_bank/screens/card_screen_single.dart';
-// import 'package:boli_digital_bank/screens/home_screen.dart';
-// import 'package:boli_digital_bank/screens/income_screen_single.dart';
-// import 'package:boli_digital_bank/screens/savings_screen_single.dart';
-// import 'package:boli_digital_bank/theme/boli_theme.dart';
+// import 'package:boli/screens/autentication_screen.dart';
+// import 'package:boli/screens/cards_screen.dart';
+// import 'package:boli/screens/card_screen_single.dart';
+// import 'package:boli/screens/home_screen.dart';
+// import 'package:boli/screens/income_screen_single.dart';
+// import 'package:boli/screens/savings_screen_single.dart';
+// import 'package:boli/theme/boli_theme.dart';
 // import 'package:page_transition/page_transition.dart';
 // import 'models/cardCreditItemModel.dart';
 
