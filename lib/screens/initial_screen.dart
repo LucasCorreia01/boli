@@ -3,6 +3,8 @@ import 'package:boli_digital_bank/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../components/camera_page.dart';
+
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
 
@@ -63,6 +65,19 @@ class _InitialScreenState extends State<InitialScreen> {
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
+            if(index == 1){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context){
+                  return const CameraPage();
+                }, fullscreenDialog: true)
+              ).then((value) {
+                print(value);
+                setState(() {
+                  _currentIndex = 0;
+                });
+              });
+            }
             _currentIndex = index;
           });
         },
@@ -112,6 +127,7 @@ class _InitialScreenState extends State<InitialScreen> {
       Container(),
       Container(),
       NotificationsScreen(),
+      Container()
     ];
     return pages[index];
   }

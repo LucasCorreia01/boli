@@ -19,6 +19,7 @@ dev_dependencies:
   page_transition: "^2.0.9"
   fl_chart: ^0.63.0
   money_formatter: ^0.0.4
+  camera: ^0.10.5+2
 
 flutter:
   uses-material-design: true
