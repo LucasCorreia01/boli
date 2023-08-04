@@ -1,19 +1,21 @@
+import 'package:boli_digital_bank/helpers/exemples.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-
 import '../../../components/list_item_incoices.dart';
 
+// ignore: must_be_immutable
 class InvoicesSection extends StatelessWidget {
   const InvoicesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: SizedBox(
-        child: Column(
-          children: [
-            Row(
+    List<Map<String, String>> listItemExemples = getListItensIncoces();
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -24,18 +26,21 @@ class InvoicesSection extends StatelessWidget {
                     onPressed: () {}, icon: const Icon(BoxIcons.bx_search))
               ],
             ),
-            const ListItemInvoces('12 Jan 2023', 'Conta de água', '110'),
-            const ListItemInvoces('13 Fev 2023', 'Netflix', '55'),
-            const ListItemInvoces('15 Fev 2023', 'Conta de telefone', '20'),
-            const ListItemInvoces('12 Jan 2023', 'Conta de água', '110'),
-            const ListItemInvoces('13 Fev 2023', 'Netflix', '55'),
-            const ListItemInvoces('15 Fev 2023', 'Conta de telefone', '20'),
-            const ListItemInvoces('12 Jan 2023', 'Conta de água', '110'),
-            const ListItemInvoces('13 Fev 2023', 'Netflix', '55'),
-            const ListItemInvoces('15 Fev 2023', 'Conta de telefone', '20'),
-          ],
+          ),
         ),
-      ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              ListItemInvoces(
+                listItemExemples[index]['date']!,
+                listItemExemples[index]['title']!,
+                listItemExemples[index]['value']!,
+              );
+            },
+            childCount: listItemExemples.length,
+          ),
+        )
+      ],
     );
   }
 }

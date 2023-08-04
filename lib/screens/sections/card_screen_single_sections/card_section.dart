@@ -8,15 +8,6 @@ class CardSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CardCreditItemWidget(card: card),
-        SizedBox(
-          child: Row(
-            
-          ),
-        )
-      ],
-    );
+    return CardCreditItemWidget(card: card);
   }
 }

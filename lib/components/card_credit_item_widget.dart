@@ -31,7 +31,7 @@ class CardCreditItemWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
-                          'Saldo da conta',
+                          '${card.nameCard}',
                           style: TextStyle(
                               color: card.colorText,
                               fontSize: 15,

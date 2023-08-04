@@ -1,13 +1,16 @@
 import 'package:boli_digital_bank/components/card_credit_item_widget.dart';
 import 'package:boli_digital_bank/models/cardCreditItemModel.dart';
 import 'package:flutter/material.dart';
+import 'package:boli_digital_bank/helpers/exemples.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+// ignore: must_be_immutable
 class CardScreen extends StatelessWidget {
   const CardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<CardCredit> listCardExemples = getCardExemples();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -54,122 +57,37 @@ class CardScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: Center(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Column(
-              children: [
-                Text(
-                  'Dinheiro total',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Text(
-                  '\$100.000.000',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'screen-card-single',
-                arguments: CardCredit(
-                  balanceCard: '20,000,000',
-                  cardNumber: '5376 8371 0923 0921',
-                  cvv: '097',
-                  dueDate: '12/23',
-                  colorCard: const Color.fromRGBO(100, 106, 226, 1),
-                  colorText: Colors.white,
-                  iconCard: BoxIcons.bxl_visa,
-                  imageLogo: 'assets/images/visa-logo.png',
-                  nameCard: 'Visa',
-                ),
-              );
-            },
-            child: CardCreditItemWidget(
-              card: CardCredit(
-                balanceCard: '20,000,000',
-                cardNumber: '5376 8371 0923 0921',
-                cvv: '097',
-                dueDate: '12/23',
-                colorCard: const Color.fromRGBO(100, 106, 226, 1),
-                colorText: Colors.white,
-                iconCard: BoxIcons.bxl_visa,
-                imageLogo: 'assets/images/visa-logo.png',
-                nameCard: 'Visa',
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Column(
+                children: [
+                  Text(
+                    'Dinheiro total',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    '\$100.000.000',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
               ),
             ),
           ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'screen-card-single',
-                arguments: CardCredit(
-                  balanceCard: '8,450,000',
-                  cardNumber: '0495 8381 9303 1234',
-                  cvv: '017',
-                  dueDate: '12/24',
-                  colorCard: const Color.fromRGBO(27, 27, 27, 1),
-                  colorText: Colors.white,
-                  iconCard: BoxIcons.bxl_visa,
-                  imageLogo: 'assets/images/visa-logo.png',
-                  nameCard: 'BBVA',
-                ),
-              );
-            },
-            child: CardCreditItemWidget(
-              card: CardCredit(
-                balanceCard: '8,450,000',
-                cardNumber: '0495 8381 9303 1234',
-                cvv: '017',
-                dueDate: '12/24',
-                colorCard: const Color.fromRGBO(27, 27, 27, 1),
-                colorText: Colors.white,
-                iconCard: BoxIcons.bxl_visa,
-                imageLogo: 'assets/images/visa-logo.png',
-                nameCard: 'BBVA',
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'screen-card-single',
-                arguments: CardCredit(
-                  balanceCard: '32,003,000',
-                  cardNumber: '0298 6652 9142 7348',
-                  cvv: '582',
-                  dueDate: '12/26',
-                  colorCard: Theme.of(context).primaryColor,
-                  colorText: Theme.of(context).primaryColorDark,
-                  iconCard: BoxIcons.bxl_visa,
-                  imageLogo: 'assets/images/mastercard-logo.png',
-                  nameCard: 'MasterCard',
-                ),
-              );
-            },
-            child: CardCreditItemWidget(
-              card: CardCredit(
-                balanceCard: '32,003,000',
-                cardNumber: '0298 6652 9142 7348',
-                cvv: '582',
-                dueDate: '12/26',
-                colorCard: Theme.of(context).primaryColor,
-                colorText: Theme.of(context).primaryColorDark,
-                iconCard: BoxIcons.bxl_visa,
-                imageLogo: 'assets/images/mastercard-logo.png',
-                nameCard: 'MasterCard',
-              ),
-            ),
-          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+            return InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'screen-card-single',
+                    arguments: listCardExemples[index]);
+              },
+              child: CardCreditItemWidget(card: listCardExemples[index]),
+            );
+          }, childCount: listCardExemples.length))
         ],
-      )),
+      ),
     );
   }
 }

@@ -1,7 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:boli_digital_bank/screens/autentication_screen.dart';
 import 'package:boli_digital_bank/screens/cards_screen.dart';
 import 'package:boli_digital_bank/screens/card_screen_single.dart';
-import 'package:boli_digital_bank/screens/home_screen.dart';
+import 'package:boli_digital_bank/screens/initial_screen.dart';
 import 'package:boli_digital_bank/screens/income_screen_single.dart';
 import 'package:boli_digital_bank/screens/savings_screen_single.dart';
 import 'package:boli_digital_bank/theme/boli_theme.dart';
@@ -39,14 +40,14 @@ class MainApp extends StatelessWidget {
           });
         } else if (settings.name == 'home-screen') {
           return MaterialPageRoute(builder: (context) {
-            return const HomeScreen();
+            return const InitialScreen();
           });
         } else if (settings.name == 'screen-card') {
           return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
-              child: const CardScreen(),
-              childCurrent: const HomeScreen(),
+              child: CardScreen(),
+              childCurrent: const InitialScreen(),
               isIos: true);
         } else if (settings.name == 'screen-card-single') {
           var arguments = settings.arguments as CardCredit;
@@ -54,7 +55,7 @@ class MainApp extends StatelessWidget {
             settings: settings,
             type: PageTransitionType.rightToLeftJoined,
             child: CardScreenSingle(arguments),
-            childCurrent: const CardScreen(),
+            childCurrent: CardScreen(),
             isIos: true,
           );
         } else if (settings.name == 'saving-screen-single') {
@@ -69,7 +70,7 @@ class MainApp extends StatelessWidget {
               balance: arguments['balance']!,
             ),
             type: PageTransitionType.bottomToTop,
-            childCurrent: const HomeScreen(),
+            childCurrent: const InitialScreen(),
             isIos: true,
             settings: settings,
           );
