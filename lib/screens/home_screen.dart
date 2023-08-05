@@ -5,8 +5,8 @@ import 'package:boli/screens/sections/home_screens_sections/spending_section.dar
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  bool balanceVisibility;
-  HomeScreen({required this.balanceVisibility, super.key});
+  final bool balanceVisibility;
+  const HomeScreen({required this.balanceVisibility, super.key});
 
   @override
   Widget build(BuildContext context) {

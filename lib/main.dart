@@ -46,7 +46,7 @@ class MainApp extends StatelessWidget {
           return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
-              child: CardScreen(),
+              child: const CardScreen(),
               childCurrent: const InitialScreen(),
               isIos: true);
         } else if (settings.name == 'screen-card-single') {
@@ -55,7 +55,7 @@ class MainApp extends StatelessWidget {
             settings: settings,
             type: PageTransitionType.rightToLeftJoined,
             child: CardScreenSingle(arguments),
-            childCurrent: CardScreen(),
+            childCurrent: const CardScreen(),
             isIos: true,
           );
         } else if (settings.name == 'saving-screen-single') {

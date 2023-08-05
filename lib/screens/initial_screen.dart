@@ -1,5 +1,6 @@
 import 'package:boli/screens/home_screen.dart';
 import 'package:boli/screens/notification_screen.dart';
+import 'package:boli/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -65,35 +66,30 @@ class _InitialScreenState extends State<InitialScreen> {
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            if(index == 1){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context){
-                  return const CameraPage();
-                }, fullscreenDialog: true)
-              ).then((value) {
-                print(value);
-                setState(() {
-                  _currentIndex = 0;
-                });
-              });
-            }
+            // if(index == 1){
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context){
+            //       return const CameraPage();
+            //     }, fullscreenDialog: true)
+            //   ).then((value) {
+            //     setState(() {
+            //       _currentIndex = 0;
+            //     });
+            //   });
+            // }
             _currentIndex = index;
           });
         },
         items: const [
           BottomNavigationBarItem(
             // icon: Icon(Bootstrap.house_door_fill),
-            icon: Icon(BoxIcons.bxs_home),
+            icon: Icon(BoxIcons.bx_home),
             label: '',
           ),
           BottomNavigationBarItem(
             // icon: Icon(FontAwesome.camera),
             icon: Icon(BoxIcons.bx_camera),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(BoxIcons.bx_bar_chart_alt_2),
             label: '',
           ),
           BottomNavigationBarItem(
@@ -125,9 +121,8 @@ class _InitialScreenState extends State<InitialScreen> {
     List<Widget> pages = [
       HomeScreen(balanceVisibility: balanceVisibility),
       Container(),
-      Container(),
       NotificationsScreen(),
-      Container()
+      ProfileScreen()
     ];
     return pages[index];
   }

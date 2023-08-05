@@ -20,6 +20,7 @@ dev_dependencies:
   fl_chart: ^0.63.0
   money_formatter: ^0.0.4
   camera: ^0.10.5+2
+  uuid: ^3.0.7
 
 flutter:
   uses-material-design: true

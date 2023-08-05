@@ -178,36 +178,39 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      width: (MediaQuery.of(context).size.width *
-                                              0.300) -
-                                          48,
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      child: Icon(
-                                        Icons.person_2_outlined,
-                                        color: Theme.of(context).primaryColorDark,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: (MediaQuery.of(context).size.width *
-                                              0.68) -
-                                          48,
-                                      child: Padding( 
-                                        padding: const EdgeInsets.only(left: 8.0),
-                                        child: Text(
-                                          'Seja bem-vindo(a)!',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        child: Icon(
+                                          Icons.person_2_outlined,
+                                          color: Theme.of(context).primaryColorDark,
                                         ),
                                       ),
                                     ),
-                                    Icon(
-                                      FontAwesome.fingerprint,
-                                      color: Theme.of(context).primaryColorDark,
+                                    Expanded(
+                                      flex: 10,
+                                      child: SizedBox(
+                                        child: Padding( 
+                                          padding: const EdgeInsets.only(left: 12.0),
+                                          child: Text(
+                                            'Seja bem-vindo(a)!',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineSmall,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Icon(
+                                        FontAwesome.fingerprint,
+                                        color: Theme.of(context).primaryColorDark,
+                                      ),
                                     ),
                                   ],
                                 ),

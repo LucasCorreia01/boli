@@ -1,5 +1,6 @@
 import 'package:boli/helpers/exemples.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:icons_plus/icons_plus.dart';
 import '../../../components/list_item_incoices.dart';
 
@@ -31,7 +32,7 @@ class InvoicesSection extends StatelessWidget {
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              ListItemInvoces(
+              return ListItemInvoces(
                 listItemExemples[index]['date']!,
                 listItemExemples[index]['title']!,
                 listItemExemples[index]['value']!,
