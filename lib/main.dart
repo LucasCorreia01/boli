@@ -4,11 +4,13 @@ import 'package:boli/screens/autentication_screen.dart';
 import 'package:boli/screens/cards_screen.dart';
 import 'package:boli/screens/card_screen_single.dart';
 import 'package:boli/screens/general_settings_screen.dart';
+import 'package:boli/screens/home_screen.dart';
 import 'package:boli/screens/initial_screen.dart';
 import 'package:boli/screens/income_screen_single.dart';
 import 'package:boli/screens/new_user_screen.dart';
 import 'package:boli/screens/saved_accounts.dart';
 import 'package:boli/screens/savings_screen_single.dart';
+import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -108,6 +110,19 @@ class MainApp extends StatelessWidget {
             settings: settings,
             child: const SavedAccountsScreen(),
             type: PageTransitionType.bottomToTop,
+          );
+        } else if (settings.name == 'loading_creation_screen') {
+          return PageTransition(
+            settings: settings,
+            child: const LoadingCreationScreen(),
+            type: PageTransitionType.rightToLeft,
+          );
+        } else if(settings.name == 'loading_creation_screen-home'){
+          return PageTransition(
+            settings: settings,
+            child: const InitialScreen(),
+            childCurrent: const LoadingCreationScreen(),
+            type: PageTransitionType.leftToRightJoined
           );
         } else {
           return MaterialPageRoute(builder: (context) {

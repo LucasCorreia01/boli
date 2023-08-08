@@ -5,45 +5,52 @@ class EmailSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
-                child: Text(
-                  'Digita aí o seu melhor e-mail, por favor.',
-                  style: TextStyle(
-                      fontSize: 28,
-                      letterSpacing: 0.75,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.visible),
-                ),
-              ),
+    final TextEditingController email = TextEditingController();
+
+    return CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
+            child: Text(
+              'Digita aí o seu melhor e-mail, por favor.',
+              style: TextStyle(
+                  fontSize: 28,
+                  letterSpacing: 0.75,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.visible),
             ),
-            SliverToBoxAdapter(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                autofocus: false,
-                style: const TextStyle(fontWeight: FontWeight.normal),
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).dividerColor)),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).dividerColor)),
-                  disabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).dividerColor)),
-                  hintText: 'Email de contato',
-                ),
-              ),
-            )),
-          ],
+          ),
         ),
-      );
+        SliverToBoxAdapter(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: TextFormField(
+            controller: email,
+            validator: (value){
+              if(value != null && value.contains('@') && value.length > 5 && value.contains('.com')){
+                return null;
+              }
+              return 'Insira um e-mail válido.';
+            },
+            keyboardType: TextInputType.emailAddress,
+            autofocus: false,
+            style: const TextStyle(fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).dividerColor)),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).dividerColor)),
+              disabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: Theme.of(context).dividerColor)),
+              hintText: 'Email de contato',
+            ),
+          ),
+        )),
+      ],
+    );
   }
 }

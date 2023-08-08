@@ -36,6 +36,7 @@ dev_dependencies:
   animations: ^2.0.7
   flutter_emoji: ^2.5.1
   datetime_picker_formfield_new: ^2.1.0
+  animated_text_kit: ^4.2.2
 
 flutter:
   uses-material-design: true

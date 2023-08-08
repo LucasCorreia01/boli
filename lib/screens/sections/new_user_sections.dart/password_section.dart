@@ -8,36 +8,43 @@ class PasswordSection extends StatefulWidget {
 }
 
 class _PasswordSectionState extends State<PasswordSection> {
+  final TextEditingController password = TextEditingController();
 
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
-                child: Text(
-                  'Vamos definir uma senha para sua conta.',
-                  style: TextStyle(
-                      fontSize: 28,
-                      letterSpacing: 0.75,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.visible),
-                ),
-              ),
+    return CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
+            child: Text(
+              'Vamos definir uma senha para sua conta.',
+              style: TextStyle(
+                  fontSize: 28,
+                  letterSpacing: 0.75,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.visible),
             ),
-            SliverToBoxAdapter(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: TextFormField(
-                obscureText: _isObscure,
-                keyboardType: TextInputType.number,
-                autofocus: false,
-                textCapitalization: TextCapitalization.words,
-                style: const TextStyle(fontWeight: FontWeight.normal),
-                decoration: InputDecoration(
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: TextFormField(
+              controller: password,
+              validator: (value) {
+                if (value == null || value.length < 8) {
+                  return 'Insira uma senha válida de pelo menos 8 dígitos.';
+                }
+                return null;
+              },
+              obscureText: _isObscure,
+              keyboardType: TextInputType.number,
+              autofocus: false,
+              textCapitalization: TextCapitalization.words,
+              style: const TextStyle(fontWeight: FontWeight.normal),
+              decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: Theme.of(context).dividerColor)),
@@ -48,19 +55,21 @@ class _PasswordSectionState extends State<PasswordSection> {
                       borderSide:
                           BorderSide(color: Theme.of(context).dividerColor)),
                   hintText: 'Senha numérica',
-                   suffixIcon: IconButton(
-                    icon: Icon(
-                        _isObscure ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isObscure = !_isObscure;
-                      });
-                    })),
-                ),
-              ),
-            )
-          ],
-        ),
-      );
+                  suffixIcon: SizedBox(
+                    child: IconButton(
+                        icon: Icon(_isObscure
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        }),
+                  )),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }

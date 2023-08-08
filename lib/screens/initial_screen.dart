@@ -3,6 +3,7 @@ import 'package:boli/screens/notification_screen.dart';
 import 'package:boli/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:animations/animations.dart';
 
 import '../components/camera_page.dart';
 
@@ -56,7 +57,16 @@ class _InitialScreenState extends State<InitialScreen> {
               icon: const Icon(Icons.exit_to_app))
         ],
       ),
-      body: pages(_currentIndex),
+      body: PageTransitionSwitcher(
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+            SharedAxisTransition(
+          transitionType: SharedAxisTransitionType.horizontal,
+          animation: primaryAnimation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
+        ),
+        child: pages(_currentIndex),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -66,18 +76,20 @@ class _InitialScreenState extends State<InitialScreen> {
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            // if(index == 1){
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context){
-            //       return const CameraPage();
-            //     }, fullscreenDialog: true)
-            //   ).then((value) {
-            //     setState(() {
-            //       _currentIndex = 0;
-            //     });
-            //   });
-            // }
+            if (index == 1) {
+              Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) {
+                            return const CameraPage();
+                          },
+                          fullscreenDialog: true))
+                  .then((value) {
+                setState(() {
+                  _currentIndex = 0;
+                });
+              });
+            }
             _currentIndex = index;
           });
         },
