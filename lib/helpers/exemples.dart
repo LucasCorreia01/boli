@@ -77,3 +77,20 @@ List<Map<String, String>> getListItensNotifications() {
     },
   ];
 }
+
+List<Map<String, String>> getListUsersSaved() {
+  return const [
+    {
+      "name": "Lucas Damasceno",
+      "abbreviation": 'Lu',
+    },
+    {
+      "name": "Leonardo Damasceno",
+      "abbreviation": 'Le',
+    },
+    {
+      "name": "Claudia Damasceno",
+      "abbreviation": 'Cl',
+    }
+  ];
+}

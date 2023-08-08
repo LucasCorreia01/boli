@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:boli/service/local_auth_service.dart';
 import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
@@ -81,30 +80,33 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                             InkWell(
                               onTap: checkLocalAuth,
                               child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white
-                                ),
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
                                 child: Row(
                                   children: [
                                     Container(
-                                      width: (MediaQuery.of(context).size.width *
-                                              0.300) -
-                                          48,
+                                      width:
+                                          (MediaQuery.of(context).size.width *
+                                                  0.300) -
+                                              48,
                                       padding: const EdgeInsets.all(20),
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
                                       ),
                                       child: Icon(
                                         Icons.person_2_outlined,
-                                        color: Theme.of(context).primaryColorDark,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
                                       ),
                                     ),
                                     SizedBox(
-                                      width: (MediaQuery.of(context).size.width *
-                                              0.68) -
-                                          48,
+                                      width:
+                                          (MediaQuery.of(context).size.width *
+                                                  0.68) -
+                                              48,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Text(
                                           'Seja bem-vindo(a)!',
                                           style: Theme.of(context)
@@ -121,17 +123,43 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                 ),
                               ),
                             ),
-                            TextButton.icon(
-                                onPressed: () {},
-                                icon: Icon(
-                                  BoxIcons.bx_refresh,
-                                  color: Theme.of(context).highlightColor,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed('saved-accounts');
+                                  },
+                                  icon: Icon(
+                                    BoxIcons.bx_refresh,
+                                    color: Theme.of(context).highlightColor,
+                                  ),
+                                  label: Text(
+                                    'Trocar de conta',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                  ),
                                 ),
-                                label: Text(
-                                  'Trocar de conta',
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                ))
+                                TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed('new-user-screen');
+                                  },
+                                  icon: Icon(
+                                    BoxIcons.bx_plus,
+                                    color: Theme.of(context).highlightColor,
+                                  ),
+                                  label: Text(
+                                    'Nova conta',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                  ),
+                                )
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -171,61 +199,86 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InkWell(
-                              onTap: checkLocalAuth,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(20),
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        child: Icon(
-                                          Icons.person_2_outlined,
-                                          color: Theme.of(context).primaryColorDark,
-                                        ),
+                            onTap: checkLocalAuth,
+                            child: Container(
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
                                       ),
-                                    ),
-                                    Expanded(
-                                      flex: 10,
-                                      child: SizedBox(
-                                        child: Padding( 
-                                          padding: const EdgeInsets.only(left: 12.0),
-                                          child: Text(
-                                            'Seja bem-vindo(a)!',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
                                       child: Icon(
-                                        FontAwesome.fingerprint,
-                                        color: Theme.of(context).primaryColorDark,
+                                        Icons.person_2_outlined,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    flex: 10,
+                                    child: SizedBox(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: Text(
+                                          'Seja bem-vindo(a)!',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Icon(
+                                      FontAwesome.fingerprint,
+                                      color: Theme.of(context).primaryColorDark,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          TextButton.icon(
-                            onPressed: () {},
-                            icon: Icon(
-                              BoxIcons.bx_refresh,
-                              color: Theme.of(context).highlightColor,
-                            ),
-                            label: Text(
-                              'Trocar de conta',
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('saved-accounts');
+                                },
+                                icon: Icon(
+                                  BoxIcons.bx_refresh,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                                label: Text(
+                                  'Trocar de conta',
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
+                                ),
+                              ),
+                              TextButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed('new-user-screen');
+                                },
+                                icon: Icon(
+                                  BoxIcons.bx_plus,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                                label: Text(
+                                  'Nova conta',
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
+                                ),
+                              )
+                            ],
                           )
                         ],
                       ),

@@ -91,19 +91,22 @@ class ProfileScreen extends StatelessWidget {
                           color: Color.fromRGBO(241, 242, 244, 1),
                         ),
                       )),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                              flex: 9,
-                              child: Text(
-                                'Geral',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                              flex: 2,
-                              child: Icon(Icons.keyboard_arrow_right_outlined)),
-                        ],
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pushNamed('general-settings'),
+                        child: const Row(
+                          children: [
+                            Expanded(
+                                flex: 9,
+                                child: Text(
+                                  'Geral',
+                                  style: TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child: Icon(Icons.keyboard_arrow_right_outlined)),
+                          ],
+                        ),
                       ),
                     ),
                   ),

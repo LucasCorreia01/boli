@@ -9,6 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: any
+  icons_plus: any
+  sqflite: any
+  uuid: any
+  path: any
 
 dev_dependencies:
   flutter_test:
@@ -21,9 +28,18 @@ dev_dependencies:
   money_formatter: ^0.0.4
   camera: ^0.10.5+2
   uuid: ^3.0.7
+  shared_preferences: ^2.2.0
+  sqflite: ^2.3.0
+  app_settings: ^4.1.1
+  permission_handler: ^10.4.3
+  crypto: ^3.0.3
+  animations: ^2.0.7
+  flutter_emoji: ^2.5.1
+  datetime_picker_formfield_new: ^2.1.0
 
 flutter:
   uses-material-design: true
+
 
   assets:
     - assets/images/

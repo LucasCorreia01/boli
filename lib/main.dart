@@ -1,17 +1,23 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:boli/models/user.dart';
 import 'package:boli/screens/autentication_screen.dart';
 import 'package:boli/screens/cards_screen.dart';
 import 'package:boli/screens/card_screen_single.dart';
+import 'package:boli/screens/general_settings_screen.dart';
 import 'package:boli/screens/initial_screen.dart';
 import 'package:boli/screens/income_screen_single.dart';
+import 'package:boli/screens/new_user_screen.dart';
+import 'package:boli/screens/saved_accounts.dart';
 import 'package:boli/screens/savings_screen_single.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'models/cardCreditItemModel.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
@@ -22,6 +28,16 @@ void main() {
       systemNavigationBarColor: Colors.black,
     ),
   );
+
+  // Caso seja a primeira vez que as prefs forem criadas
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (prefs.getBool('notifications') == null ||
+      prefs.getBool('fingerprint') == null) {
+    prefs.setBool('notifications', false);
+    prefs.setBool('fingerprint', false);
+  }
+
+  User.getUsers();
   runApp(const MainApp());
 }
 
@@ -32,7 +48,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: boliTheme,
-      initialRoute: 'login_screen',
+      initialRoute: 'login-screen',
       onGenerateRoute: (settings) {
         if (settings.name == 'login-screen') {
           return MaterialPageRoute(builder: (context) {
@@ -74,6 +90,25 @@ class MainApp extends StatelessWidget {
             isIos: true,
             settings: settings,
           );
+        } else if (settings.name == 'general-settings') {
+          return PageTransition(
+              settings: settings,
+              type: PageTransitionType.rightToLeft,
+              child: const GeneralSettingsScreen(),
+              childCurrent: const InitialScreen(),
+              isIos: true);
+        } else if (settings.name == 'new-user-screen') {
+          return PageTransition(
+              settings: settings,
+              child: const NewUserScreen(),
+              type: PageTransitionType.bottomToTop,
+              fullscreenDialog: true);
+        } else if (settings.name == 'saved-accounts') {
+          return PageTransition(
+            settings: settings,
+            child: const SavedAccountsScreen(),
+            type: PageTransitionType.bottomToTop,
+          );
         } else {
           return MaterialPageRoute(builder: (context) {
             return const AuthenticationScreen();
@@ -81,6 +116,12 @@ class MainApp extends StatelessWidget {
         }
       },
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('pt')],
     );
   }
 }
