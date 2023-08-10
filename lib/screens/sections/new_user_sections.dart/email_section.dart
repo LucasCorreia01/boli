@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/user.dart';
+
 class EmailSection extends StatelessWidget {
   const EmailSection({super.key});
 
@@ -27,15 +29,22 @@ class EmailSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: TextFormField(
             controller: email,
-            validator: (value){
-              if(value != null && value.contains('@') && value.length > 5 && value.contains('.com')){
+            validator: (value) {
+              if (value != null &&
+                  value.contains('@') &&
+                  value.length > 5 &&
+                  value.contains('.com')) {
                 return null;
               }
               return 'Insira um e-mail válido.';
             },
+            onChanged: (value){
+              User.addAttr("email", value);
+            },
             keyboardType: TextInputType.emailAddress,
             autofocus: false,
             style: const TextStyle(fontWeight: FontWeight.normal),
+            cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
                   borderSide:

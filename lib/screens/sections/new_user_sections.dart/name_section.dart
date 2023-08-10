@@ -1,3 +1,4 @@
+import 'package:boli/models/user.dart';
 import 'package:flutter/material.dart';
 
 class NameSection extends StatelessWidget {
@@ -27,19 +28,20 @@ class NameSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: TextFormField(
             controller: name,
-            validator: (value){
-              if(value == null || value == "" || value.length < 10){
+            validator: (value) {
+              if (value == null || value == "" || value.length < 10) {
                 return 'Por favor digite seu nome completo';
               }
               return null;
             },
-            onEditingComplete: () {
-              print('nome inserido');
+            onChanged: (value){
+              User.addAttr("name", value);
             },
             keyboardType: TextInputType.name,
             autofocus: false,
             textCapitalization: TextCapitalization.words,
             style: const TextStyle(fontWeight: FontWeight.normal),
+            cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
                   borderSide:

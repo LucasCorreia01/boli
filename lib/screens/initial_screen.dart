@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:animations/animations.dart';
 
 import '../components/camera_page.dart';
+import '../models/user.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -36,6 +37,7 @@ class _InitialScreenState extends State<InitialScreen> {
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
+        automaticallyImplyLeading: false,
         elevation: 0,
         toolbarHeight: 80,
         backgroundColor: Colors.transparent,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 
+import '../../../models/user.dart';
+
 class DateOfBirth extends StatefulWidget {
   const DateOfBirth({super.key});
 
@@ -38,13 +40,16 @@ class _DateOfBirthState extends State<DateOfBirth> {
               child: DateTimeField(
                 controller: date,
                 validator: (value) {
-                  if(toBeOfAgeTwelve(value)){
+                  if (toBeOfAgeTwelve(value)) {
                     return null;
                   }
                   return 'Verifique a data insirida.\nVocê precisa ter pelo menos 12 para ter uma conta.';
                 },
                 decoration: const InputDecoration(hintText: 'xx/xx/xxx'),
                 format: format,
+                onChanged: (value) {
+                  User.addAttr("dateOfBirth", "$value");
+                },
                 onShowPicker: (context, currentValue) async {
                   final date = showDatePicker(
                     locale: const Locale('pt'),
@@ -66,10 +71,10 @@ class _DateOfBirthState extends State<DateOfBirth> {
   }
 
   bool toBeOfAgeTwelve(DateTime? value) {
-    if(value != null){
+    if (value != null) {
       DateTime twelve = DateTime.now();
       twelve = twelve.subtract(const Duration(days: 4380));
-      if(value.isAfter(twelve)){
+      if (value.isAfter(twelve)) {
         // print('Você precisa ter 12 anos para fazer uma conta');
         return false;
       }

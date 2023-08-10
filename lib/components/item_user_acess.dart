@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
 
 class ItemUserAcess extends StatelessWidget {
-  final String name;
-  final String abbreviation;
-  const ItemUserAcess({required this.name, required this.abbreviation, super.key});
+  final User user;
+  const ItemUserAcess({required this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
+    String abbreviation = user.name.substring(0,2);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
@@ -27,12 +28,12 @@ class ItemUserAcess extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    "${user.name} ${user.lastName}",
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const Text(
-                    'ID: c99e57e0-20ae-11ee-9a53-332097d095ae',
-                    style: TextStyle(
+                  Text(
+                    'ID: ${user.id}',
+                    style: const  TextStyle(
                         fontSize: 15, overflow: TextOverflow.ellipsis),
                   ),
                 ],

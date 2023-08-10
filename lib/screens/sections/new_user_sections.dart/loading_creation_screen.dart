@@ -3,6 +3,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'dart:math' as math;
 
+import '../../../models/user.dart';
+
 class LoadingCreationScreen extends StatefulWidget {
   const LoadingCreationScreen({super.key});
 
@@ -11,9 +13,20 @@ class LoadingCreationScreen extends StatefulWidget {
 }
 
 class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
-  int _currentPhrase = 1;
+  int _currentBuild = 0;
   double valueProgress = 0;
   double opacityValue = 0;
+
+
+  @override
+  void initState() {
+    print(_currentBuild);
+    if(_currentBuild == 0) {save();}
+    _currentBuild++;
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +77,7 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                         setState(() {
                           valueProgress = 1;
                           opacityValue = 1;
+                          _currentBuild++;
                         });
                       },
                     ),
@@ -72,6 +86,7 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
               ),
               LinearProgressIndicator(
                 value: (valueProgress == 0) ? null : 1,
+                color: Theme.of(context).primaryColor,
               ),
               Opacity(
                 opacity: opacityValue,
@@ -83,7 +98,8 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                       onPanUpdate: (details) {
                         int sensibility = 300;
                         if (details.delta.dx < sensibility) {
-                          Navigator.of(context).pushReplacementNamed('loading_creation_screen-home');
+                          Navigator.of(context).pushReplacementNamed(
+                              'home-screen');
                         }
                       },
                       child: Container(
@@ -123,5 +139,13 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
         ),
       ),
     );
+  }
+
+  save(){
+    Map<String, String> userMap = User.getUserMap();
+    // Divisão de nome e sobre nome
+    List<String> name = userMap['name']!.split(" ");
+    User user = User(name: name[0], lastName: name[name.length - 1], email: userMap['email']!, password: userMap['password']!, dateOfBirth: DateTime.parse(userMap['dateOfBirth']!), lastSeen: DateTime.parse(userMap['dateOfBirth']!));
+    user.addUser();
   }
 }

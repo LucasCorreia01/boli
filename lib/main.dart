@@ -39,7 +39,7 @@ void main() async {
     prefs.setBool('fingerprint', false);
   }
 
-  User.getUsers();
+  User.deleteAllUsers();
   runApp(const MainApp());
 }
 
@@ -116,13 +116,6 @@ class MainApp extends StatelessWidget {
             settings: settings,
             child: const LoadingCreationScreen(),
             type: PageTransitionType.rightToLeft,
-          );
-        } else if(settings.name == 'loading_creation_screen-home'){
-          return PageTransition(
-            settings: settings,
-            child: const InitialScreen(),
-            childCurrent: const LoadingCreationScreen(),
-            type: PageTransitionType.leftToRightJoined
           );
         } else {
           return MaterialPageRoute(builder: (context) {

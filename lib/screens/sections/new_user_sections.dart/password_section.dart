@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/user.dart';
+
 class PasswordSection extends StatefulWidget {
   const PasswordSection({super.key});
 
@@ -39,11 +41,15 @@ class _PasswordSectionState extends State<PasswordSection> {
                 }
                 return null;
               },
+              onChanged: (value) {
+                User.addAttr("password", value);
+              },
               obscureText: _isObscure,
               keyboardType: TextInputType.number,
               autofocus: false,
               textCapitalization: TextCapitalization.words,
               style: const TextStyle(fontWeight: FontWeight.normal),
+              cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
@@ -57,9 +63,10 @@ class _PasswordSectionState extends State<PasswordSection> {
                   hintText: 'Senha numérica',
                   suffixIcon: SizedBox(
                     child: IconButton(
-                        icon: Icon(_isObscure
-                            ? Icons.visibility_off
-                            : Icons.visibility),
+                        icon: Icon(
+                          _isObscure ? Icons.visibility_off : Icons.visibility,
+                          color: Theme.of(context).primaryColor,
+                        ),
                         onPressed: () {
                           setState(() {
                             _isObscure = !_isObscure;

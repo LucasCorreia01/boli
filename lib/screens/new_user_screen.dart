@@ -1,7 +1,5 @@
-import 'package:boli/models/user.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/dateOfBirth_section.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/email_section.dart';
-import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/name_section.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/password_section.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +25,6 @@ class _NewUserScreenState extends State<NewUserScreen> {
     Container()
   ];
 
-  Map<String, String> user = {};
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -36,7 +33,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          'Nova conta 😉',
+          'Nova conta',
           style: Theme.of(context).textTheme.displayMedium,
         ),
         actions: [
@@ -91,14 +88,15 @@ class _NewUserScreenState extends State<NewUserScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             setState(() {
               if (_currentIndex <= 4) {
                 _currentIndex++;
                 if (_currentIndex == 4) {
-                  Navigator.of(context).pushNamed
-                      ('loading_creation_screen')
+                  Navigator.of(context)
+                      .pushReplacementNamed('loading_creation_screen')
                       .then(
                         (value) => _currentIndex--,
                       );
