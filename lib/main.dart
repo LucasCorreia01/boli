@@ -1,10 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'package:boli/models/user.dart';
 import 'package:boli/screens/autentication_screen.dart';
 import 'package:boli/screens/cards_screen.dart';
 import 'package:boli/screens/card_screen_single.dart';
 import 'package:boli/screens/general_settings_screen.dart';
-import 'package:boli/screens/home_screen.dart';
 import 'package:boli/screens/initial_screen.dart';
 import 'package:boli/screens/income_screen_single.dart';
 import 'package:boli/screens/new_user_screen.dart';
@@ -16,8 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'models/cardCreditItemModel.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'models/user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,8 +39,8 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-
-  User.deleteAllUsers();
+  
+  
   runApp(const MainApp());
 }
 

@@ -36,6 +36,7 @@ class NameSection extends StatelessWidget {
             },
             onChanged: (value){
               User.addAttr("name", value);
+              User.addAttr('fullName', value);
             },
             keyboardType: TextInputType.name,
             autofocus: false,

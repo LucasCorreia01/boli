@@ -144,8 +144,8 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
   save(){
     Map<String, String> userMap = User.getUserMap();
     // Divisão de nome e sobre nome
-    List<String> name = userMap['name']!.split(" ");
-    User user = User(name: name[0], lastName: name[name.length - 1], email: userMap['email']!, password: userMap['password']!, dateOfBirth: DateTime.parse(userMap['dateOfBirth']!), lastSeen: DateTime.parse(userMap['dateOfBirth']!));
+    List<String> name = userMap['name']!.trim().split(" ");
+    User user = User(name: name[0], lastName: name[name.length - 1], email: userMap['email']!, fullname: userMap["fullName"]!, password: userMap['password']!, dateOfBirth: DateTime.parse(userMap['dateOfBirth']!), lastSeen: DateTime.parse(userMap['dateOfBirth']!));
     user.addUser();
   }
 }

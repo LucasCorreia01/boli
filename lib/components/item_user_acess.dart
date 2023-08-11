@@ -1,3 +1,4 @@
+import 'package:boli/components/showDialogConfirmation.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 
@@ -7,7 +8,7 @@ class ItemUserAcess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String abbreviation = user.name.substring(0,2);
+    String abbreviation = user.name.substring(0, 2);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
@@ -19,7 +20,11 @@ class ItemUserAcess extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Center(child: Text(abbreviation, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
+            child: Center(
+                child: Text(
+              abbreviation,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )),
           ),
           Expanded(
             child: Padding(
@@ -29,17 +34,35 @@ class ItemUserAcess extends StatelessWidget {
                 children: [
                   Text(
                     "${user.name} ${user.lastName}",
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'ID: ${user.id}',
-                    style: const  TextStyle(
+                    style: const TextStyle(
                         fontSize: 15, overflow: TextOverflow.ellipsis),
                   ),
                 ],
               ),
             ),
           ),
+          IconButton(
+              onPressed: () {
+                showConfirmationDialog(context: context, title: 'Apagar').then(
+                  (value) {
+                    if (value) {
+                      User.deleteUser(user.id).then((value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Registro apagado.'),
+                          ),
+                        );
+                      });
+                    }
+                  },
+                );
+              },
+              icon: const Icon(Icons.delete))
         ],
       ),
     );

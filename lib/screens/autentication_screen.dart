@@ -78,17 +78,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               ),
                             ),
                             InkWell(
-                              onTap: checkLocalAuth,
-                              child: Container(
-                                decoration:
-                                    const BoxDecoration(color: Colors.white),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width *
-                                                  0.300) -
-                                              48,
+                            onTap: checkLocalAuth,
+                            child: Container(
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Container(
                                       padding: const EdgeInsets.all(20),
                                       decoration: BoxDecoration(
                                         color: Theme.of(context).primaryColor,
@@ -99,14 +97,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             Theme.of(context).primaryColorDark,
                                       ),
                                     ),
-                                    SizedBox(
-                                      width:
-                                          (MediaQuery.of(context).size.width *
-                                                  0.68) -
-                                              48,
+                                  ),
+                                  Expanded(
+                                    flex: 10,
+                                    child: SizedBox(
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 8.0),
+                                            const EdgeInsets.only(left: 12.0),
                                         child: Text(
                                           'Seja bem-vindo(a)!',
                                           style: Theme.of(context)
@@ -115,14 +112,18 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         ),
                                       ),
                                     ),
-                                    Icon(
+                                  ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Icon(
                                       FontAwesome.fingerprint,
                                       color: Theme.of(context).primaryColorDark,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -142,22 +143,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         .headlineLarge,
                                   ),
                                 ),
-                                TextButton.icon(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed('new-user-screen');
-                                  },
-                                  icon: Icon(
-                                    BoxIcons.bx_plus,
-                                    color: Theme.of(context).highlightColor,
-                                  ),
-                                  label: Text(
-                                    'Nova conta',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge,
-                                  ),
-                                )
                               ],
                             )
                           ],
@@ -263,21 +248,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       Theme.of(context).textTheme.headlineLarge,
                                 ),
                               ),
-                              TextButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('new-user-screen');
-                                },
-                                icon: Icon(
-                                  BoxIcons.bx_plus,
-                                  color: Theme.of(context).highlightColor,
-                                ),
-                                label: Text(
-                                  'Nova conta',
-                                  style:
-                                      Theme.of(context).textTheme.headlineLarge,
-                                ),
-                              )
                             ],
                           )
                         ],
