@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
+import '../../../components/showDialogConfirmation.dart';
 import '../../../models/user.dart';
 
 class LoadingCreationScreen extends StatefulWidget {
@@ -15,17 +19,15 @@ class LoadingCreationScreen extends StatefulWidget {
 class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
   int _currentBuild = 0;
   double valueProgress = 0;
-  double opacityValue = 0;
-
+  double opacityBox = 0;
+  bool success = true;
+  double opacityLinearIndicator = 1;
+  User? user;
 
   @override
   void initState() {
-    print(_currentBuild);
-    if(_currentBuild == 0) {save();}
-    _currentBuild++;
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,15 +46,23 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: SizedBox(
-                  height: 40,
+                  // height: 40,
                   child: Stack(children: [
                     Opacity(
-                      opacity: opacityValue,
-                      child: const Text(
-                        'Tudo pronto, vamos lá?',
-                        style: TextStyle(
-                            fontSize: 28.7, overflow: TextOverflow.visible),
-                      ),
+                      opacity: opacityBox,
+                      child: (success)
+                          ? const Text(
+                              'Tudo pronto, vamos lá?',
+                              style: TextStyle(
+                                  fontSize: 28.7,
+                                  overflow: TextOverflow.visible),
+                            )
+                          : const Text(
+                              'Infelizmente não foi possível criar sua conta.',
+                              style: TextStyle(
+                                  fontSize: 28.7,
+                                  overflow: TextOverflow.visible),
+                            ),
                     ),
                     AnimatedTextKit(
                       totalRepeatCount: 1,
@@ -76,7 +86,27 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                       onFinished: () {
                         setState(() {
                           valueProgress = 1;
-                          opacityValue = 1;
+                          if (_currentBuild == 0) {
+                            opacityBox = 1;
+                            save().then((value) {
+                              print(value);
+                              if (value) {
+                                success = true;
+                                print('Nova conta criada');
+                              } else {
+                                success = false;
+                                opacityLinearIndicator = 0;
+                                showConfirmationDialog(
+                                  context: context,
+                                  title: 'Desculpe-nos',
+                                  content:
+                                      'Não foi possível criar sua conta no momento.\nTente novamente mais tarde, ou entre contato conosco.',
+                                  twoOptions: false,
+                                );
+                              }
+                              setState(() {});
+                            });
+                          }
                           _currentBuild++;
                         });
                       },
@@ -84,55 +114,99 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                   ]),
                 ),
               ),
-              LinearProgressIndicator(
-                value: (valueProgress == 0) ? null : 1,
-                color: Theme.of(context).primaryColor,
+              Opacity(
+                opacity: opacityLinearIndicator,
+                child: LinearProgressIndicator(
+                  value: (valueProgress == 0) ? null : 1,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               Opacity(
-                opacity: opacityValue,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Container(
-                    height: 40,
-                    child: GestureDetector(
-                      onPanUpdate: (details) {
-                        int sensibility = 300;
-                        if (details.delta.dx < sensibility) {
-                          Navigator.of(context).pushReplacementNamed(
-                              'home-screen');
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                'Deslize',
-                                style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.bold),
-                              ),
+                opacity: opacityBox,
+                child: (success)
+                    ? SizedBox(
+                        height: 40,
+                        child: GestureDetector(
+                          onPanUpdate: (details) {
+                            int sensibility = 300;
+                            if (details.delta.dx < sensibility) {
+                              Navigator.of(context).pushReplacementNamed(
+                                  'home-screen',
+                                  arguments: user);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Transform.rotate(
-                                  angle: -math.pi,
-                                  child: const Icon(
-                                    BoxIcons.bx_arrow_back,
-                                    size: 26,
-                                  )),
-                            )
-                          ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    'Deslize',
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Transform.rotate(
+                                      angle: -math.pi,
+                                      child: const Icon(
+                                        BoxIcons.bx_arrow_back,
+                                        size: 26,
+                                      )),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 40,
+                        child: GestureDetector(
+                          onPanUpdate: (details) {
+                            int sensibility = 300;
+                            if (details.delta.dx < sensibility) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('login-screen');
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    'Voltar a tela inicial',
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Transform.rotate(
+                                      angle: -math.pi,
+                                      child: const Icon(
+                                        BoxIcons.bx_arrow_back,
+                                        size: 26,
+                                      )),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
               )
             ],
           ),
@@ -141,11 +215,24 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
     );
   }
 
-  save(){
+  Future<bool> save() async {
     Map<String, String> userMap = User.getUserMap();
     // Divisão de nome e sobre nome
     List<String> name = userMap['name']!.trim().split(" ");
-    User user = User(name: name[0], lastName: name[name.length - 1], email: userMap['email']!, fullname: userMap["fullName"]!, password: userMap['password']!, dateOfBirth: DateTime.parse(userMap['dateOfBirth']!), lastSeen: DateTime.parse(userMap['dateOfBirth']!));
-    user.addUser();
+    bool result = false;
+    user = User(
+        name: name[0],
+        lastName: name[name.length - 1],
+        email: userMap['email']!,
+        fullname: userMap["fullName"]!,
+        password: userMap['password']!,
+        dateOfBirth: DateFormat('dd/MM/yyyy').parse(userMap['dateOfBirth']!),
+        lastSeen: DateTime.now());
+    if (user != null) {
+      await user!.addUser().then((value) {
+        result = value;
+      });
+    }
+    return result;
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
+import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  User user;
+  ProfileScreen({required this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +26,27 @@ class ProfileScreen extends StatelessWidget {
                     size: 30,
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(16.0, 8, 8, 8),
+                    padding: const EdgeInsets.fromLTRB(16.0, 8, 8, 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Lucas',
-                          style: TextStyle(
+                          user.fullname,
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
-                          width: 150,
                           child: Text(
-                            'ID: c99e57e0-20ae-11ee-9a53-332097d095ae',
-                            style: TextStyle(
+                            user.id,
+                            style: const TextStyle(
                                 fontSize: 15, overflow: TextOverflow.ellipsis),
                           ),
                         ),
                         Text(
-                          'Visto em 05/08/23 às 14:44',
-                          style: TextStyle(fontSize: 15),
+                          DateFormat("'Visto em:' dd/MM/yyyy 'às' HH:mm").format(user.lastSeen),
+                          style: const TextStyle(fontSize: 15),
                         )
                       ],
                     ),

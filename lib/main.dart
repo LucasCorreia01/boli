@@ -40,7 +40,6 @@ void main() async {
     prefs.setBool('fingerprint', false);
   }
   
-  
   runApp(const MainApp());
 }
 
@@ -55,18 +54,18 @@ class MainApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         if (settings.name == 'login-screen') {
           return MaterialPageRoute(builder: (context) {
-            return const AuthenticationScreen();
+            return AuthenticationScreen();
           });
         } else if (settings.name == 'home-screen') {
           return MaterialPageRoute(builder: (context) {
-            return const InitialScreen();
+            User user = settings.arguments as User;
+            return InitialScreen(user: user,);
           });
         } else if (settings.name == 'screen-card') {
           return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
               child: const CardScreen(),
-              childCurrent: const InitialScreen(),
               isIos: true);
         } else if (settings.name == 'screen-card-single') {
           var arguments = settings.arguments as CardCredit;
@@ -89,7 +88,6 @@ class MainApp extends StatelessWidget {
               balance: arguments['balance']!,
             ),
             type: PageTransitionType.bottomToTop,
-            childCurrent: const InitialScreen(),
             isIos: true,
             settings: settings,
           );
@@ -98,7 +96,6 @@ class MainApp extends StatelessWidget {
               settings: settings,
               type: PageTransitionType.rightToLeft,
               child: const GeneralSettingsScreen(),
-              childCurrent: const InitialScreen(),
               isIos: true);
         } else if (settings.name == 'new-user-screen') {
           return PageTransition(
@@ -120,7 +117,7 @@ class MainApp extends StatelessWidget {
           );
         } else {
           return MaterialPageRoute(builder: (context) {
-            return const AuthenticationScreen();
+            return AuthenticationScreen();
           });
         }
       },

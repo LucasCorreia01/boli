@@ -5,6 +5,7 @@ showConfirmationDialog({
   String content = 'Tem certeza que deseja confirmar sua escolha?',
   String affirmationChoice = 'Confirmar',
   String negattiveChoice = 'Cancelar',
+  bool twoOptions = true,
   required BuildContext context,
 }) async {
   return showDialog(
@@ -43,7 +44,7 @@ showConfirmationDialog({
               style: TextStyle(color: Theme.of(context).primaryColorDark),
             ),
           ),
-          TextButton(
+          (twoOptions) ? TextButton(
             onPressed: () {
               Navigator.pop(context, false);
             },
@@ -51,7 +52,7 @@ showConfirmationDialog({
               negattiveChoice,
               style: TextStyle(color: Theme.of(context).primaryColorDark),
             ),
-          ),
+          ) : Container(),
         ],
       );
     },

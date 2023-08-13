@@ -36,10 +36,8 @@ class User {
         'dateOfBirth': "$dateOfBirth",
         'lastSeen': "$lastSeen"
       });
-      print(count);
       return true;
     } catch (e) {
-      print(e.toString());
       return false;
     }
   }
@@ -54,19 +52,10 @@ class User {
 
   static Future<bool> deleteUser(String id) async {
     Database db = await getDatabase();
-    // List<String> IDs = id.split('-');
-    // String userId = "";
-    // for (int i = 0; i < IDs.length; i++) {
-    //   if (i != (IDs.length - 1)) {
-    //     userId += "${IDs[i]}\n";
-    //   } else {
-    //     userId += IDs[i];
-    //   }
-    // }
     try {
-      // var count = await db.delete('users', where: 'name = ?', whereArgs: [id]);
+      var count = await db.delete('users', where: 'id = ?', whereArgs: ["$id"]);
       db.execute('DELETE FROM users WHERE id = "$id"');
-      // print(count);
+      print(count);
       return true;
     } catch (e) {
       print(e.toString());
@@ -74,6 +63,13 @@ class User {
 
       return false;
     }
+  }
+
+  //Atualizar visto por último
+  updateLastSeen() async{
+    Database db = await getDatabase();  
+    var count = await db.update('users', {'lastSeen': '${DateTime.now()}'}, where: 'id = ?', whereArgs: [id]);
+    print(count);
   }
 
   static deleteAllUsers() async {
@@ -105,8 +101,8 @@ class User {
           fullname: item["fullName"],
           email: item["email"],
           password: item["password"],
-          dateOfBirth: DateTime.parse(item["dateOfBirth"]),
-          lastSeen: DateTime.parse(item["dateOfBirth"]));
+          dateOfBirth: DateTime.parse(item['dateOfBirth']),
+          lastSeen: DateTime.now());
       accounts.add(account);
     }
     return accounts;

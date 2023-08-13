@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../models/user.dart';
+
 class AuthenticationScreen extends StatefulWidget {
-  const AuthenticationScreen({super.key});
+  User? user;
+  AuthenticationScreen({this.user, super.key});
 
   @override
   State<AuthenticationScreen> createState() => _AuthenticationScreenState();
@@ -27,7 +30,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         isLocalAuthFailed.value = true;
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed('home-screen');
+        Navigator.of(context).pushReplacementNamed('home-screen', arguments: widget.user);
       }
     }
   }
@@ -78,59 +81,79 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               ),
                             ),
                             InkWell(
-                            onTap: checkLocalAuth,
-                            child: Container(
-                              decoration:
-                                  const BoxDecoration(color: Colors.white),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 4,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
+                              onTap: checkLocalAuth,
+                              child: Container(
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        child: Icon(
+                                          Icons.person_2_outlined,
+                                          color: Theme.of(context)
+                                              .primaryColorDark,
+                                        ),
                                       ),
+                                    ),
+                                    Expanded(
+                                      flex: 10,
+                                      child: SizedBox(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 12.0),
+                                          child: (widget.user != null)
+                                              ? Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Seja bem-vindo(a)!',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headlineSmall,
+                                                    ),
+                                                    Text(widget.user!.fullname)
+                                                  ],
+                                                )
+                                              : Text(
+                                                  'Seja bem-vindo(a)!',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall,
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
                                       child: Icon(
-                                        Icons.person_2_outlined,
+                                        FontAwesome.fingerprint,
                                         color:
                                             Theme.of(context).primaryColorDark,
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    flex: 10,
-                                    child: SizedBox(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 12.0),
-                                        child: Text(
-                                          'Seja bem-vindo(a)!',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Icon(
-                                      FontAwesome.fingerprint,
-                                      color: Theme.of(context).primaryColorDark,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton.icon(
                                   onPressed: () {
                                     Navigator.of(context)
-                                        .pushNamed('saved-accounts');
+                                        .pushNamed('saved-accounts')
+                                        .then((value) {
+                                      value = value as User;
+                                      widget.user = value;
+                                      setState(() {});
+                                    });
                                   },
                                   icon: Icon(
                                     BoxIcons.bx_refresh,
@@ -210,12 +233,26 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       child: Padding(
                                         padding:
                                             const EdgeInsets.only(left: 12.0),
-                                        child: Text(
-                                          'Seja bem-vindo(a)!',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
+                                        child: (widget.user != null)
+                                            ? Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Seja bem-vindo(a)!',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineSmall,
+                                                  ),
+                                                  Text(widget.user!.fullname)
+                                                ],
+                                              )
+                                            : Text(
+                                                'Seja bem-vindo(a)!',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall,
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -236,7 +273,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                               TextButton.icon(
                                 onPressed: () {
                                   Navigator.of(context)
-                                      .pushNamed('saved-accounts');
+                                      .pushNamed('saved-accounts')
+                                      .then((value) {
+                                    value = value as User;
+                                    widget.user = value;
+                                    setState(() {});
+                                  });
                                 },
                                 icon: Icon(
                                   BoxIcons.bx_refresh,

@@ -9,7 +9,8 @@ import '../components/camera_page.dart';
 import '../models/user.dart';
 
 class InitialScreen extends StatefulWidget {
-  const InitialScreen({super.key});
+  User user;
+  InitialScreen({required this.user, super.key});
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();
@@ -21,6 +22,7 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   void initState() {
     salutation = funcSalutation();
+    widget.user.updateLastSeen();
     super.initState();
   }
 
@@ -33,7 +35,7 @@ class _InitialScreenState extends State<InitialScreen> {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            '$salutation, Lucas!',
+            '$salutation, ${widget.user.name}!',
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -136,7 +138,7 @@ class _InitialScreenState extends State<InitialScreen> {
       HomeScreen(balanceVisibility: balanceVisibility),
       Container(),
       NotificationsScreen(),
-      ProfileScreen()
+      ProfileScreen(user: widget.user,)
     ];
     return pages[index];
   }

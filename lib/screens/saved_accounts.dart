@@ -104,7 +104,12 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
                           return ListView.builder(
                             itemCount: accounts.length,
                             itemBuilder: (BuildContext context, index) {
-                              return ItemUserAcess(user: accounts[index]);
+                              return InkWell(
+                                  onTap: () {
+                                    print('User clicado');
+                                    Navigator.of(context).pop(accounts[index]);
+                                  },
+                                  child: ItemUserAcess(user: accounts[index]));
                             },
                           );
                         }
@@ -158,7 +163,11 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
                     if (isPossibleCreateAccount) {
                       Navigator.of(context).pushNamed('new-user-screen');
                     } else {
-                      showConfirmationDialog(context: context, title: 'Desculpe-nos...  :(', content: 'Descupe, estamos tendo problemas com nossa base de dados. Por favor tente mais tarde.');
+                      showConfirmationDialog(
+                          context: context,
+                          title: 'Desculpe-nos...  :(',
+                          content:
+                              'Descupe, estamos tendo problemas com nossa base de dados. Por favor tente mais tarde.');
                     }
                   },
                   child: Container(
@@ -183,4 +192,5 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
           ],
         ));
   }
+
 }
