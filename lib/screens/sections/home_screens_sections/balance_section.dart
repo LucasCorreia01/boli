@@ -1,10 +1,13 @@
 import 'package:boli/components/credit_card_home.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/user.dart';
+
 // ignore: must_be_immutable
 class BalanceSection extends StatefulWidget {
   bool balanceVisibility;
-  BalanceSection({super.key, required this.balanceVisibility});
+  User user;
+  BalanceSection({super.key, required this.balanceVisibility, required this.user});
 
   List<String> items = ['BRL', 'USD', 'EUR'];
 
@@ -15,6 +18,11 @@ class BalanceSection extends StatefulWidget {
 }
 
 class _BalanceSectionState extends State<BalanceSection> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +36,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              (widget.balanceVisibility) ? '\$10,000,000.00' : '\$****',
+              (widget.balanceVisibility) ? 'R\$${widget.user.balance}' : '\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             DropdownButtonHideUnderline(
@@ -59,7 +67,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CreditCardHome(balanceVisibility: widget.balanceVisibility),
+              CreditCardHome(balanceVisibility: widget.balanceVisibility, user: widget.user),
               InkWell(
                 onTap: () {
                   Navigator.of(context).pushNamed('screen-card');

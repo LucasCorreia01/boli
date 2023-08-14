@@ -23,6 +23,7 @@ class _InitialScreenState extends State<InitialScreen> {
   void initState() {
     salutation = funcSalutation();
     widget.user.updateLastSeen();
+    print(widget.user.balance);
     super.initState();
   }
 
@@ -44,7 +45,7 @@ class _InitialScreenState extends State<InitialScreen> {
         toolbarHeight: 80,
         backgroundColor: Colors.transparent,
         actions: [
-          IconButton(
+          (_currentIndex == 0) ? IconButton(
             onPressed: () {
               setState(() {
                 balanceVisibility = !balanceVisibility;
@@ -53,7 +54,7 @@ class _InitialScreenState extends State<InitialScreen> {
             icon: (balanceVisibility)
                 ? const Icon(Icons.visibility_off_outlined)
                 : const Icon(Icons.visibility_outlined),
-          ),
+          ): const SizedBox(),
           IconButton(
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('login-screen');
@@ -135,7 +136,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
   Widget pages(int index) {
     List<Widget> pages = [
-      HomeScreen(balanceVisibility: balanceVisibility),
+      HomeScreen(balanceVisibility: balanceVisibility, user: widget.user,),
       Container(),
       NotificationsScreen(),
       ProfileScreen(user: widget.user,)

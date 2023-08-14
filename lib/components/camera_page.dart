@@ -88,12 +88,11 @@ class _CameraPageState extends State<CameraPage> {
 
   _arquivoWidget() {
     return SizedBox(
-      child: imagem == null
-          ? _cameraPreviewWidget()
-          : Image.file(
-              File(imagem!.path),
-              fit: BoxFit.contain,
-            ),
+      child:_cameraPreviewWidget()
+          // : Image.file(
+          //     File(imagem!.path),
+          //     fit: BoxFit.contain,
+          //   ),
     );
   }
 
@@ -125,7 +124,7 @@ class _CameraPageState extends State<CameraPage> {
             color: Colors.white,
             size: 30,
           ),
-          onPressed: tirarFoto,
+          onPressed: (){Navigator.pop(context); cameras.clear();}
         ),
       ),
     );

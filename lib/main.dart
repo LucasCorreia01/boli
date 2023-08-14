@@ -1,4 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:boli/screens/actions/actions_button_home.dart';
+import 'package:boli/screens/actions/receive_money.dart';
+import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
 import 'package:boli/screens/cards_screen.dart';
 import 'package:boli/screens/card_screen_single.dart';
@@ -39,7 +42,6 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-  
   runApp(const MainApp());
 }
 
@@ -59,7 +61,9 @@ class MainApp extends StatelessWidget {
         } else if (settings.name == 'home-screen') {
           return MaterialPageRoute(builder: (context) {
             User user = settings.arguments as User;
-            return InitialScreen(user: user,);
+            return InitialScreen(
+              user: user,
+            );
           });
         } else if (settings.name == 'screen-card') {
           return PageTransition(
@@ -114,6 +118,24 @@ class MainApp extends StatelessWidget {
             settings: settings,
             child: const LoadingCreationScreen(),
             type: PageTransitionType.rightToLeft,
+          );
+        } else if (settings.name == 'receive_money') {
+          var user = settings.arguments as User;
+          return PageTransition(
+            child: ReceiveMoney(
+              user: user,
+            ),
+            type: PageTransitionType.bottomToTop,
+            fullscreenDialog: true,
+          );
+        } else if (settings.name == 'send_money') {
+          var user = settings.arguments as User;
+          return PageTransition(
+            child: SendMoney(
+              user: user,
+            ),
+            type: PageTransitionType.bottomToTop,
+            fullscreenDialog: true,
           );
         } else {
           return MaterialPageRoute(builder: (context) {

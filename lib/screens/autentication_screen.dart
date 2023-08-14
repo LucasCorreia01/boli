@@ -1,12 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'dart:math';
+
 import 'package:boli/service/local_auth_service.dart';
 import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
 
+// ignore: must_be_immutable
 class AuthenticationScreen extends StatefulWidget {
   User? user;
   AuthenticationScreen({this.user, super.key});
@@ -30,13 +34,22 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         isLocalAuthFailed.value = true;
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed('home-screen', arguments: widget.user);
+        Navigator.of(context)
+            .pushReplacementNamed('home-screen', arguments: widget.user);
       }
     }
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    getPreferencesAccountAccess();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getPreferencesAccountAccess();
     return Scaffold(
       body: ValueListenableBuilder<bool>(
         valueListenable: isLocalAuthFailed,
@@ -150,9 +163,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                     Navigator.of(context)
                                         .pushNamed('saved-accounts')
                                         .then((value) {
-                                      value = value as User;
-                                      widget.user = value;
-                                      setState(() {});
+                                      if (value != null) {
+                                        value = value as User;
+                                        widget.user = value;
+                                        setState(() {});
+                                      }
                                     });
                                   },
                                   icon: Icon(
@@ -275,9 +290,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                   Navigator.of(context)
                                       .pushNamed('saved-accounts')
                                       .then((value) {
-                                    value = value as User;
-                                    widget.user = value;
-                                    setState(() {});
+                                    if (value != null) {
+                                      value = value as User;
+                                      widget.user = value;
+                                      setState(() {});
+                                    }
                                   });
                                 },
                                 icon: Icon(
@@ -303,5 +320,19 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         },
       ),
     );
+  }
+
+  getPreferencesAccountAccess() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? name = await prefs.getString('name');
+    User.selectInitUser(name).then((value) {
+      if(value[0] != null){
+      setState(() {
+        widget.user = value[0];
+      });
+      } else {
+        
+      }
+    });
   }
 }

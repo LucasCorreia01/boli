@@ -257,7 +257,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
     AppSettings.openAppSettings();
   }
 
-  void getInitiPrefs() async {
+  Future<void> getInitiPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     isOnFingerprint = prefs.getBool('fingerprint')!;
     isOnNotifications = prefs.getBool('notifications')!;

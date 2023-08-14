@@ -51,7 +51,7 @@ class ItemUserAcess extends StatelessWidget {
                 showConfirmationDialog(context: context, title: 'Apagar').then(
                   (value) {
                     if (value) {
-                      User.deleteUser(user.id).then((value) {
+                      User.deleteUser(user.name).then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Registro apagado.'),

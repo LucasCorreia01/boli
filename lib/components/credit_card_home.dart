@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../models/user.dart';
+
 // ignore: must_be_immutable
 class CreditCardHome extends StatelessWidget {
   bool balanceVisibility;
-  CreditCardHome({super.key, required this.balanceVisibility});
+  User user;
+  CreditCardHome({super.key, required this.balanceVisibility, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class CreditCardHome extends StatelessWidget {
               ),
             ),
             Text(
-              (balanceVisibility) ? '\$32,003,000' : '\$****',
+              (balanceVisibility) ? 'R\$${user.balance}' : '\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Padding(

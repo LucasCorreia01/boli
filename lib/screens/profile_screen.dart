@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           child: Text(
-                            user.id,
+                            'ID: ${user.id}',
                             style: const TextStyle(
                                 fontSize: 15, overflow: TextOverflow.ellipsis),
                           ),
