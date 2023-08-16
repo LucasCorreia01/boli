@@ -1,4 +1,6 @@
+import 'package:boli/models/users.dart';
 import 'package:boli/screens/actions/receive_money.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 import '../database/users_database.dart';
@@ -27,6 +29,18 @@ class User {
     this.movedValue = 0,
   }) : id = const Uuid().v1();
 
+  User.empty()
+      : id = '',
+        name = "",
+        lastName = "",
+        fullname = "",
+        email = "",
+        password = "",
+        dateOfBirth = DateTime.now(),
+        lastSeen = DateTime.now(),
+        balance = 0,
+        movedValue = 0;
+
   // Adicionar novo usuário ao banco de dados
   Future<bool> addUser() async {
     var db = await getDatabase();
@@ -53,7 +67,15 @@ class User {
     Database db = await getDatabase();
     var list = await db.query('users');
     await Future.delayed(const Duration(milliseconds: 500));
-    print(list);
+    Users(users: toList(list));
+    return toList(list);
+  }
+
+  static Future<List<User>> getUsersForTransfer(String fullname) async {
+    Database db = await getDatabase();
+    var list = await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
+    await Future.delayed(const Duration(milliseconds: 500));
+    Users(users: toList(list));
     return toList(list);
   }
 
@@ -62,7 +84,6 @@ class User {
     try {
       print(id);
       var count = await db.delete('users', where: 'name = ?', whereArgs: [id]);
-      print(count);
       return true;
     } catch (e) {
       print(e.toString());
@@ -94,8 +115,10 @@ class User {
     value = value.replaceAll('R\$', '');
     value = value.replaceAll(',', '.');
     double newBalance = double.parse(value);
+    movedValue += newBalance;
     newBalance = newBalance + balance;
-    var count = await db.update('users', {'balance': newBalance},
+    var count = await db.update(
+        'users', {'balance': newBalance, 'movedValue': movedValue},
         where: 'name = ?', whereArgs: [name]);
     print(count);
   }
@@ -124,16 +147,15 @@ class User {
     final List<User> accounts = [];
     for (Map<String, dynamic> item in mapOfAccounts) {
       final User account = User(
-        name: item["name"],
-        lastName: item["lastName"],
-        fullname: item["fullName"],
-        email: item["email"],
-        password: item["password"],
-        dateOfBirth: DateTime.parse(item['dateOfBirth']),
-        lastSeen: DateTime.now(),
-        balance: item["balance"],
-        movedValue: item['movedValue']
-      );
+          name: item["name"],
+          lastName: item["lastName"],
+          fullname: item["fullName"],
+          email: item["email"],
+          password: item["password"],
+          dateOfBirth: DateTime.parse(item['dateOfBirth']),
+          lastSeen: DateTime.now(),
+          balance: item["balance"],
+          movedValue: item['movedValue']);
       accounts.add(account);
     }
     return accounts;

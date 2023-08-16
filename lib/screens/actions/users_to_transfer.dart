@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../components/item_user_transfer.dart';
+import '../../components/showDialogConfirmation.dart';
+import '../../models/user.dart';
 
 class UsersToTransfer extends StatefulWidget {
-  const UsersToTransfer({super.key});
+  final User user;
+  const UsersToTransfer({required this.user, super.key});
 
   @override
   State<UsersToTransfer> createState() => _UsersToTransferState();
@@ -10,6 +14,125 @@ class UsersToTransfer extends StatefulWidget {
 class _UsersToTransferState extends State<UsersToTransfer> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
+          child: Text(
+            'Para quem você deseja transferir?',
+            style: TextStyle(
+                fontSize: 28, letterSpacing: 0.75, fontWeight: FontWeight.bold, overflow: TextOverflow.visible),
+          ),
+        ),
+        Expanded(
+          child: FutureBuilder(
+            future: User.getUsersForTransfer(widget.user.fullname),
+            builder: (context, snapshot) {
+              List<User>? accounts = snapshot.data;
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: CircularProgressIndicator(),
+                        ),
+                        Text(
+                          'Carregando...',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
+                  );
+                case ConnectionState.waiting:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: CircularProgressIndicator(),
+                        ),
+                        Text(
+                          'Carregando...',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
+                  );
+                case ConnectionState.active:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 12),
+                          child: CircularProgressIndicator(),
+                        ),
+                        Text(
+                          'Carregando...',
+                          style: TextStyle(fontSize: 18),
+                        )
+                      ],
+                    ),
+                  );
+                case ConnectionState.done:
+                  if (snapshot.hasData && accounts != null) {
+                    if (accounts.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: accounts.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return InkWell(
+                              onTap: () {
+                              },
+                              child: ItemUserTransfer(user: accounts[index]));
+                        },
+                      );
+                    }
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        'Nenhuma conta salva em seu dispositivo.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          overflow: TextOverflow.visible,
+                        ),
+                      ),
+                    );
+                  }
+                  print(snapshot.hasData);
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: const Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.warning,
+                            color: Color.fromRGBO(255, 0, 0, 1),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Error ao carregar as contas salvas. Tente novamente mais tarde.',
+                            style: TextStyle(
+                              fontSize: 18,
+                              overflow: TextOverflow.visible,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

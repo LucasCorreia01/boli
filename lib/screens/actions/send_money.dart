@@ -1,7 +1,9 @@
+import 'package:boli/screens/actions/send_money_form.dart';
+import 'package:boli/screens/actions/users_to_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../models/user.dart';
+import 'package:animations/animations.dart';
 import 'dart:math' as math;
 
 class SendMoney extends StatefulWidget {
@@ -13,69 +15,43 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
-  final TextEditingController value = TextEditingController();
-
-  var maskFormatter = MaskTextInputFormatter(
-    mask: 'R\$###,##',
-    filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy,
-  );
+  final _formKey = GlobalKey<FormState>();
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    List<Widget> pages = [
+      SendMoneyForm(user: widget.user),
+      UsersToTransfer(user: widget.user,)
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
-              child: Text(
-                'Qual o valor da transferência?',
-                style: TextStyle(
-                    fontSize: 28,
-                    letterSpacing: 0.75,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.visible),
-              ),
-            ),
+      body: Form(
+        key: _formKey,
+        child: PageTransitionSwitcher(
+          transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+              SharedAxisTransition(
+            transitionType: SharedAxisTransitionType.horizontal,
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: 'R\$0,00'),
-                  controller: value,
-                  onChanged: (value) {
-                    User.addAttr("dateOfBirth", value);
-                  },
-                  inputFormatters: [maskFormatter],
-                )),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-              child: Text.rich(
-                TextSpan(text: 'Saldo disponível: ', style: const TextStyle(fontSize: 18), children: <TextSpan>[
-                  TextSpan(
-                    text: 'R\$${widget.user.balance}',
-                    style: const TextStyle(fontWeight: FontWeight.bold)
-                  ),
-                ]),
-              ),
-            ),
-          )
-        ],
+          child: pages.elementAt(_currentIndex),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pop();
+          if (_formKey.currentState!.validate()) {
+            setState(() {
+              _currentIndex++;
+            });
+          }
         },
         child: Transform.rotate(
-            angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)),
+          angle: -math.pi,
+          child: const Icon(BoxIcons.bx_arrow_back),
+        ),
       ),
     );
   }

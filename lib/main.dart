@@ -18,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:provider/provider.dart';
 import 'models/cardCreditItemModel.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -42,6 +43,13 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
+
+  // MultiProvider(
+  //   providers: [
+  //     ChangeNotifierProvider<User>(create: (context) => User.empty())
+  //   ],
+  //   child: const MainApp(),
+  // );
   runApp(const MainApp());
 }
 

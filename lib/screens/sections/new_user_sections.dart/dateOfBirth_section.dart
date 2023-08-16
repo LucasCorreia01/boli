@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -79,6 +80,12 @@ class _DateOfBirthState extends State<DateOfBirth> {
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: 'xx/xx/xxxx'),
                 controller: date,
+                validator: (value) {
+                  if(value !=  null && value.length == 10){
+                    return null;
+                  }
+                  return 'Digite uma data válida!';
+                },
                 onChanged: (value) {
                   User.addAttr("dateOfBirth", value);
                 },

@@ -23,8 +23,13 @@ class _BalanceSectionState extends State<BalanceSection> {
   void initState() {
     super.initState();
   }
+
+  String totalBalance = '';
+
   @override
   Widget build(BuildContext context) {
+    totalBalance = "${widget.user.movedValue}";
+    totalBalance = totalBalance.replaceAll('.', ',');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,7 +41,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              (widget.balanceVisibility) ? 'R\$${widget.user.balance}' : '\$****',
+              (widget.balanceVisibility) ? 'R\$$totalBalance' : '\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             DropdownButtonHideUnderline(

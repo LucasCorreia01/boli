@@ -17,8 +17,9 @@ class ActionsButtonsHome extends StatelessWidget {
           children: [
             Expanded(
               child: InkWell(
-                onTap: (){
-                  Navigator.of(context).pushNamed('receive_money', arguments: user);
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed('receive_money', arguments: user);
                 },
                 child: Column(
                   children: [
@@ -46,8 +47,18 @@ class ActionsButtonsHome extends StatelessWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: (){
-                  Navigator.of(context).pushNamed('send_money', arguments: user);
+                onTap: () {
+                  if (user.balance > 0.0) {
+                    Navigator.of(context)
+                        .pushNamed('send_money', arguments: user);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Você não tem saldo para fazer uma tranferência.'),
+                      ),
+                    );
+                  }
                 },
                 child: Column(
                   children: [
