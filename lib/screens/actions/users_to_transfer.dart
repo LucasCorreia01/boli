@@ -1,11 +1,12 @@
+import 'package:boli/screens/actions/sending_money.dart';
 import 'package:flutter/material.dart';
 import '../../components/item_user_transfer.dart';
-import '../../components/showDialogConfirmation.dart';
 import '../../models/user.dart';
 
 class UsersToTransfer extends StatefulWidget {
   final User user;
-  const UsersToTransfer({required this.user, super.key});
+  final String valueToTransfer;
+  const UsersToTransfer({required this.user, required this.valueToTransfer, super.key});
 
   @override
   State<UsersToTransfer> createState() => _UsersToTransferState();
@@ -87,6 +88,9 @@ class _UsersToTransferState extends State<UsersToTransfer> {
                         itemBuilder: (BuildContext context, index) {
                           return InkWell(
                               onTap: () {
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                  return SendingMoneyScreen(userSend: widget.user, valueToTransfer: widget.valueToTransfer, userReceiver: accounts[index],);
+                                }));
                               },
                               child: ItemUserTransfer(user: accounts[index]));
                         },
@@ -95,7 +99,7 @@ class _UsersToTransferState extends State<UsersToTransfer> {
                     return const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 24),
                       child: Text(
-                        'Nenhuma conta salva em seu dispositivo.',
+                        'Nenhuma outra conta encontrada.',
                         style: TextStyle(
                           fontSize: 20,
                           overflow: TextOverflow.visible,

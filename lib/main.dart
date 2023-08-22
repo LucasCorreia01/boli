@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'package:boli/screens/actions/actions_button_home.dart';
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
@@ -17,8 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
-import 'package:provider/provider.dart';
 import 'models/cardCreditItemModel.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -43,13 +40,7 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-
-  // MultiProvider(
-  //   providers: [
-  //     ChangeNotifierProvider<User>(create: (context) => User.empty())
-  //   ],
-  //   child: const MainApp(),
-  // );
+  // User.getUsers();
   runApp(const MainApp());
 }
 
@@ -74,10 +65,11 @@ class MainApp extends StatelessWidget {
             );
           });
         } else if (settings.name == 'screen-card') {
+          var user = settings.arguments as User;
           return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
-              child: const CardScreen(),
+              child: CardScreen(user: user,),
               isIos: true);
         } else if (settings.name == 'screen-card-single') {
           var arguments = settings.arguments as CardCredit;

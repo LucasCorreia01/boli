@@ -326,13 +326,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? name = await prefs.getString('name');
     User.selectInitUser(name).then((value) {
-      if(value[0] != null){
-      setState(() {
-        widget.user = value[0];
-      });
-      } else {
-        
-      }
+      try {
+        if (value[0] != null) {
+          setState(() {
+            widget.user = value[0];
+          });
+        }
+      } catch (e) {}
     });
   }
 }

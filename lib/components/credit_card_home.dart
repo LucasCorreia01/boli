@@ -6,10 +6,14 @@ import '../models/user.dart';
 class CreditCardHome extends StatelessWidget {
   bool balanceVisibility;
   User user;
-  CreditCardHome({super.key, required this.balanceVisibility, required this.user});
-
+  CreditCardHome(
+      {super.key, required this.balanceVisibility, required this.user});
+  String balance = '';
   @override
   Widget build(BuildContext context) {
+    balance = "${user.movedValue}";
+    balance = balance.replaceAll('.', ',');
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.69,
       decoration: BoxDecoration(
@@ -46,7 +50,7 @@ class CreditCardHome extends StatelessWidget {
               ),
             ),
             Text(
-              (balanceVisibility) ? 'R\$${user.balance}' : '\$****',
+              (balanceVisibility) ? 'R\$$balance' : 'R\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Padding(

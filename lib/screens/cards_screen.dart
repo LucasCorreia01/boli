@@ -3,13 +3,21 @@ import 'package:boli/models/cardCreditItemModel.dart';
 import 'package:flutter/material.dart';
 import 'package:boli/helpers/exemples.dart';
 
+import '../models/user.dart';
+
 // ignore: must_be_immutable
 class CardScreen extends StatelessWidget {
-  const CardScreen({super.key});
+  final User? user;
+  const CardScreen({this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
+    String balance = "";
     List<CardCredit> listCardExemples = getCardExemples();
+    if (user != null) {
+      balance = "${user!.movedValue}";
+      balance = balance.replaceAll('.', ',');
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -68,7 +76,8 @@ class CardScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
-                    '\$100.000.000',
+                    "R\$$balance",
+                    // (user != null) ? balance :'\$100.000.000',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ],

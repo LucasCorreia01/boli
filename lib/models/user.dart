@@ -1,6 +1,3 @@
-import 'package:boli/models/users.dart';
-import 'package:boli/screens/actions/receive_money.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 import '../database/users_database.dart';
@@ -45,7 +42,7 @@ class User {
   Future<bool> addUser() async {
     var db = await getDatabase();
     try {
-      var count = await db.insert('users', {
+      await db.insert('users', {
         'id': id,
         'name': name,
         'lastName': lastName,
@@ -67,26 +64,45 @@ class User {
     Database db = await getDatabase();
     var list = await db.query('users');
     await Future.delayed(const Duration(milliseconds: 500));
-    Users(users: toList(list));
+    // print(list);
     return toList(list);
   }
 
   static Future<List<User>> getUsersForTransfer(String fullname) async {
     Database db = await getDatabase();
-    var list = await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
+    var list =
+        await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
     await Future.delayed(const Duration(milliseconds: 500));
-    Users(users: toList(list));
     return toList(list);
   }
 
-  static Future<bool> deleteUser(String id) async {
+  Future<bool> makeTransfer({required String fullnameSend, required String fullnameReceiver, required String value}) async{
+    Database db = await getDatabase();
+    value = value.replaceAll('R\$', '');
+    value = value.replaceAll(',', '.');
+    double valueToTransfer = double.parse(value);
+    balance = balance - valueToTransfer;
+    //Atualiza o saldo do usuário que está enviando.
+    db.update('users', {'balance': balance}, where: 'fullname = ?', whereArgs: [fullnameSend]);
+
+    //Atualiza o saldo do usuário que está recebendo.
+    dynamic list = await  db.query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+    list = toList(list);
+    User user = list[0] as User;
+    print('O valor atual da conta do recebidor é ${user.balance}');
+
+
+
+    Future.delayed(const Duration(seconds: 5));
+    return true;
+  }
+
+  static Future<bool> deleteUser(String fullName) async {
     Database db = await getDatabase();
     try {
-      print(id);
-      var count = await db.delete('users', where: 'name = ?', whereArgs: [id]);
+      await db.delete('users', where: 'fullName = ?', whereArgs: [fullName]);
       return true;
     } catch (e) {
-      print(e.toString());
       return false;
     }
   }
@@ -98,16 +114,15 @@ class User {
           await db.query('users', where: 'fullName = ?', whereArgs: [name]);
       return toList(user);
     } catch (e) {
-      print(e);
+      //TODO:: Exception
     }
   }
 
   //Atualizar visto por último
   updateLastSeen() async {
     Database db = await getDatabase();
-    var count = await db.update('users', {'lastSeen': '${DateTime.now()}'},
-        where: 'id = ?', whereArgs: ['$id']);
-    print(count);
+    await db.update('users', {'lastSeen': '${DateTime.now()}'},
+        where: 'id = ?', whereArgs: [id]);
   }
 
   receiveMoney(String value) async {
@@ -117,10 +132,9 @@ class User {
     double newBalance = double.parse(value);
     movedValue += newBalance;
     newBalance = newBalance + balance;
-    var count = await db.update(
+    await db.update(
         'users', {'balance': newBalance, 'movedValue': movedValue},
         where: 'name = ?', whereArgs: [name]);
-    print(count);
   }
 
   static deleteAllUsers() async {

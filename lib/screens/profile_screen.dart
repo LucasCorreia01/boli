@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/showDialogConfirmation.dart';
 import '../models/user.dart';
 import 'package:intl/intl.dart';
 
@@ -45,7 +46,8 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateFormat("'Visto em:' dd/MM/yyyy 'às' HH:mm").format(user.lastSeen),
+                          DateFormat("'Visto em:' dd/MM/yyyy 'às' HH:mm")
+                              .format(user.lastSeen),
                           style: const TextStyle(fontSize: 15),
                         )
                       ],
@@ -94,7 +96,8 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       )),
                       child: InkWell(
-                        onTap: () => Navigator.of(context).pushNamed('general-settings'),
+                        onTap: () =>
+                            Navigator.of(context).pushNamed('general-settings'),
                         child: const Row(
                           children: [
                             Expanded(
@@ -102,11 +105,13 @@ class ProfileScreen extends StatelessWidget {
                                 child: Text(
                                   'Geral',
                                   style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 )),
                             Expanded(
                                 flex: 2,
-                                child: Icon(Icons.keyboard_arrow_right_outlined)),
+                                child:
+                                    Icon(Icons.keyboard_arrow_right_outlined)),
                           ],
                         ),
                       ),
@@ -158,7 +163,83 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            decoration:
+                const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
+              child: Text(
+                'AVANÇADO',
+                style: TextStyle(
+                    fontSize: 14,
+                    letterSpacing: 0.75,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.only(left: 24),
+            child: Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  child: Icon(Icons.delete),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Container(
+                      height: 58,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                        bottom: BorderSide(
+                          width: 1,
+                          color: Color.fromRGBO(241, 242, 244, 1),
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          showConfirmationDialog(
+                                  context: context,
+                                  title: 'Apagar conta',
+                                  content:
+                                      'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.')
+                              .then((value) {
+                            if (value) {
+                              User.deleteUser(user.fullname).then((value) {
+                                Navigator.pushReplacementNamed(context, 'login-screen');
+                              });
+                            }
+                          });
+                        },
+                        child: const Row(
+                          children: [
+                            Expanded(
+                                flex: 9,
+                                child: Text(
+                                  'Apagar conta',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child:
+                                    Icon(Icons.keyboard_arrow_right_outlined)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

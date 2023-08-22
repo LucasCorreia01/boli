@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
 import '../../../components/showDialogConfirmation.dart';
@@ -230,9 +231,15 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
         lastSeen: DateTime.now());
     if (user != null) {
       await user!.addUser().then((value) {
+        setPreferencesAccountAccess(user!.name);
         result = value;
       });
     }
     return result;
+  }
+
+  setPreferencesAccountAccess(String name) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', name);
   }
 }

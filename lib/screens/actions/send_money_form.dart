@@ -10,6 +10,7 @@ class SendMoneyForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController value = TextEditingController();
+    String valueToTransfer = "";
 
     var maskFormatter = MaskTextInputFormatter(
       mask: 'R\$###,##',
@@ -41,14 +42,20 @@ class SendMoneyForm extends StatelessWidget {
                 validator: (value) {
                   print(value);
                   if (value != null && value.isNotEmpty) {
+                    value = value.replaceAll("R\$", '');
+                    value = value.replaceAll(',', '.');
+                    if(double.parse(value) > user.balance){
+                      return 'Você não tem saldo suficiente para essa operação.';
+                    }
+                    valueToTransfer = value;
                     return null;
                   }
                   return 'Por favor insira um valor válido!';
                 },
-                onChanged: (value) {
-                  User.addAttr("dateOfBirth", value);
-                },
                 inputFormatters: [maskFormatter],
+                onChanged: (value){
+                  User.addAttr('valueToTransfer', value);
+                },
               )),
         ),
         SliverToBoxAdapter(

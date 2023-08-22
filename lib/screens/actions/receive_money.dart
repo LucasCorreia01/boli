@@ -5,8 +5,8 @@ import '../../models/user.dart';
 import 'dart:math' as math;
 
 class ReceiveMoney extends StatefulWidget {
-  User user;
-  ReceiveMoney({required this.user, super.key});
+  final User user;
+  const ReceiveMoney({required this.user, super.key});
 
   @override
   State<ReceiveMoney> createState() => _ReceiveMoneyState();
@@ -14,7 +14,7 @@ class ReceiveMoney extends StatefulWidget {
 
 class _ReceiveMoneyState extends State<ReceiveMoney> {
   final TextEditingController value = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(
     mask: 'R\$###,##',
     filter: {"#": RegExp(r'[0-9]')},
@@ -26,40 +26,52 @@ class _ReceiveMoneyState extends State<ReceiveMoney> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
-              child: Text(
-                'Quanto você deseja receber?',
-                style: TextStyle(
-                    fontSize: 28,
-                    letterSpacing: 0.75,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.visible),
+      body: Form(
+        key: _formKey,
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
+                child: Text(
+                  'Quanto você deseja receber?',
+                  style: TextStyle(
+                      fontSize: 28,
+                      letterSpacing: 0.75,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.visible),
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(hintText: 'R\$0,00'),
-                  controller: value,
-                  onChanged: (value) {
-                    User.addAttr("dateOfBirth", value);
-                  },
-                  inputFormatters: [maskFormatter],
-                )),
-          ),
-        ],
+            SliverToBoxAdapter(
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: 'R\$0,00'),
+                    controller: value,
+                    validator: (value) {
+                      if (value != null && value.isNotEmpty) {
+                        return null;
+                      }
+
+                      return 'Nenhum valor inserido.';
+                    },
+                    onChanged: (value) {
+                      User.addAttr("dateOfBirth", value);
+                    },
+                    inputFormatters: [maskFormatter],
+                  )),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          widget.user.receiveMoney(value.text);
-          Navigator.of(context).pop();
+          if (_formKey.currentState!.validate()) {
+            widget.user.receiveMoney(value.text);
+            Navigator.of(context).pop();
+          }
         },
         child: Transform.rotate(
             angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)),

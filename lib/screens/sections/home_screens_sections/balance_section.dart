@@ -41,7 +41,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              (widget.balanceVisibility) ? 'R\$$totalBalance' : '\$****',
+              (widget.balanceVisibility) ? 'R\$$totalBalance' : 'R\$****',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             DropdownButtonHideUnderline(
@@ -75,7 +75,7 @@ class _BalanceSectionState extends State<BalanceSection> {
               CreditCardHome(balanceVisibility: widget.balanceVisibility, user: widget.user),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed('screen-card');
+                  Navigator.of(context).pushNamed('screen-card', arguments: widget.user);
                 },
                 borderRadius: BorderRadius.circular(100),
                 child: Container(
