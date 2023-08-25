@@ -26,5 +26,18 @@ O Banco digital Boli, trata-se de uma aplicação financeira fictícia, que poss
 - `datetime_picker_formfield_new:` DateTime Formater
 - `mask_text_input_formatter:` Máscaras par inputs
 
+## 📱 Telas do aplicativo
+
+**Visão geral**
 ![Boli -  Seu banco digital](/assets/gifs/app-home.gif.gif)
+
+
+**Tela de criação de conta**
+![Tela de criação de conta](/assets/gifs/create-account.gif.gif)
+
+
+**Tela de transferência**
+![Tela de transferência](/assets/gifs/make-transfer.gif.gif)
+
+
 
