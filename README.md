@@ -28,15 +28,15 @@ O Banco digital Boli, trata-se de uma aplicação financeira fictícia, que poss
 
 ## 📱 Telas do aplicativo
 
-**Visão geral**
+**Visão geral**<br><br>
 ![Boli -  Seu banco digital](/assets/gifs/app-home.gif.gif)<br>
+<br><br>
 
-
-**Tela de criação de conta**
+**Tela de criação de conta**<br><br>
 ![Tela de criação de conta](/assets/gifs/create-account.gif.gif)<br>
+<br><br>
 
-
-**Tela de transferência**
+**Tela de transferência**<br><br>
 ![Tela de transferência](/assets/gifs/make-transfer.gif.gif)
 
 
