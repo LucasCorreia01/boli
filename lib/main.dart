@@ -11,15 +11,15 @@ import 'package:boli/screens/new_user_screen.dart';
 import 'package:boli/screens/saved_accounts.dart';
 import 'package:boli/screens/savings_screen_single.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
+import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/cardCreditItemModel.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'models/user.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,8 +40,14 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-  // User.getUsers();
-  runApp(const MainApp());
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => User.empty()),
+    ],
+    child: const MainApp(),
+  ));
+  // runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -69,7 +75,9 @@ class MainApp extends StatelessWidget {
           return PageTransition(
               settings: settings,
               type: PageTransitionType.bottomToTop,
-              child: CardScreen(user: user,),
+              child: CardScreen(
+                user: user,
+              ),
               isIos: true);
         } else if (settings.name == 'screen-card-single') {
           var arguments = settings.arguments as CardCredit;
@@ -137,6 +145,17 @@ class MainApp extends StatelessWidget {
             type: PageTransitionType.bottomToTop,
             fullscreenDialog: true,
           );
+        } else if (settings.name == 'transfer-voucher') {
+          var arguments = settings.arguments as Map<String, dynamic>;
+          return PageTransition(
+            child: TransferVoucherScreen(
+              userSend: arguments["userSend"],
+              userReceiver: arguments["userReceiver"],
+              valueToTransfer: arguments["valueToTransfer"],
+            ),
+            type: PageTransitionType.bottomToTop,
+            fullscreenDialog: true,
+          );
         } else {
           return MaterialPageRoute(builder: (context) {
             return AuthenticationScreen();
@@ -144,12 +163,6 @@ class MainApp extends StatelessWidget {
         }
       },
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('en'), Locale('pt')],
     );
   }
 }

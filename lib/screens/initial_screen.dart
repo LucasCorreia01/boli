@@ -17,13 +17,12 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-  bool balanceVisibility = false;
+  bool balanceVisibility = true;
   String salutation = 'Bom dia';
   @override
   void initState() {
     salutation = funcSalutation();
     widget.user.updateLastSeen();
-    print(widget.user.balance);
     super.initState();
   }
 

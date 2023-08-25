@@ -1,13 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'dart:math';
-
 import 'package:boli/service/local_auth_service.dart';
 import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/user.dart';
 
 // ignore: must_be_immutable
@@ -42,7 +39,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getPreferencesAccountAccess();
     super.initState();
   }
@@ -332,7 +328,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             widget.user = value[0];
           });
         }
-      } catch (e) {}
+      } catch(e){
+        print(e.toString());
+      }
     });
   }
 }

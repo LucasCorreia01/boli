@@ -101,7 +101,6 @@ class _DateOfBirthState extends State<DateOfBirth> {
       DateTime twelve = DateTime.now();
       twelve = twelve.subtract(const Duration(days: 4380));
       if (value.isAfter(twelve)) {
-        // print('Você precisa ter 12 anos para fazer uma conta');
         return false;
       }
       return true;

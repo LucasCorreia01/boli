@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 import '../database/users_database.dart';
 
-class User {
+class User extends ChangeNotifier{
   String id;
   String name;
   String lastName;
@@ -60,24 +61,39 @@ class User {
     }
   }
 
+
+
+
+  //Recupera todos os usuários da base de dados
   static Future<List<User>> getUsers() async {
     Database db = await getDatabase();
     var list = await db.query('users');
     await Future.delayed(const Duration(milliseconds: 500));
-    // print(list);
     return toList(list);
   }
 
+
+
+
+
+  //Pega todos os usuários disponíveis para transferência
   static Future<List<User>> getUsersForTransfer(String fullname) async {
     Database db = await getDatabase();
-    var list =
-        await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
+    var list = await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
     await Future.delayed(const Duration(milliseconds: 500));
     return toList(list);
   }
 
-  Future<bool> makeTransfer({required String fullnameSend, required String fullnameReceiver, required String value}) async{
+
+
+
+  // Faz a transferência entre as contas
+  Future<bool> makeTransfer(
+      {required String fullnameSend,
+      required String fullnameReceiver,
+      required String value}) async {
     Database db = await getDatabase();
+    //Double parse
     value = value.replaceAll('R\$', '');
     value = value.replaceAll(',', '.');
     double valueToTransfer = double.parse(value);
@@ -86,17 +102,24 @@ class User {
     db.update('users', {'balance': balance}, where: 'fullname = ?', whereArgs: [fullnameSend]);
 
     //Atualiza o saldo do usuário que está recebendo.
-    dynamic list = await  db.query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+        // Recupera o saldo atual
+    dynamic list = await db.query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
     list = toList(list);
     User user = list[0] as User;
-    print('O valor atual da conta do recebidor é ${user.balance}');
-
-
-
+        //Soma com o valor da transferência
+    user.balance += valueToTransfer;
+    await Future.delayed(const Duration(seconds: 3));
+        // Atualiza o valor do usuário no db
+    await db.update('users', {'balance': user.balance, }, where: 'fullname = ?', whereArgs: [fullnameReceiver]);
     Future.delayed(const Duration(seconds: 5));
+    notifyListeners();
     return true;
   }
 
+
+
+
+  //Apaga usuário de acordo com o nome informados 
   static Future<bool> deleteUser(String fullName) async {
     Database db = await getDatabase();
     try {
@@ -107,6 +130,10 @@ class User {
     }
   }
 
+
+
+
+  //Seleciona o usuário com base no nome
   static Future<dynamic> selectInitUser(String? name) async {
     Database db = await getDatabase();
     try {
@@ -118,6 +145,10 @@ class User {
     }
   }
 
+
+
+
+
   //Atualizar visto por último
   updateLastSeen() async {
     Database db = await getDatabase();
@@ -125,6 +156,11 @@ class User {
         where: 'id = ?', whereArgs: [id]);
   }
 
+
+
+
+
+  //Adiciona dinheiro a conta
   receiveMoney(String value) async {
     Database db = await getDatabase();
     value = value.replaceAll('R\$', '');
@@ -132,19 +168,31 @@ class User {
     double newBalance = double.parse(value);
     movedValue += newBalance;
     newBalance = newBalance + balance;
-    await db.update(
-        'users', {'balance': newBalance, 'movedValue': movedValue},
+    balance = newBalance;
+    await db.update('users', {'balance': newBalance, 'movedValue': movedValue},
         where: 'name = ?', whereArgs: [name]);
+        notifyListeners();
   }
 
+
+
+
+  //Apaga todos os usuário da base de dados
   static deleteAllUsers() async {
     Database db = await getDatabase();
     await db.delete('users');
   }
 
+
+
+
+  //Apaga o banco de dados por completo
   static removeDB() async {
     removeDatabase();
   }
+
+
+
 
   // Adicionar novo usuário - Salvando as informações entre os formulários sections
   static Map<String, String> user = {};
@@ -155,6 +203,9 @@ class User {
   static Map<String, String> getUserMap() {
     return user;
   }
+
+
+
 
   //Transforma nosso mapa vindo do banco em um lista de users para a nossa aplicação.
   static List<User> toList(List<Map<String, dynamic>> mapOfAccounts) {

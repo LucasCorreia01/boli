@@ -11,7 +11,7 @@ class CreditCardHome extends StatelessWidget {
   String balance = '';
   @override
   Widget build(BuildContext context) {
-    balance = "${user.movedValue}";
+    balance = "${user.balance}";
     balance = balance.replaceAll('.', ',');
 
     return Container(

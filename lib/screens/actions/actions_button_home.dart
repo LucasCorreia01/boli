@@ -19,7 +19,9 @@ class ActionsButtonsHome extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('receive_money', arguments: user);
+                      .pushNamed('receive_money', arguments: user).then((value){
+                        Navigator.pushReplacementNamed(context, 'home-screen', arguments: user);
+                      });
                 },
                 child: Column(
                   children: [

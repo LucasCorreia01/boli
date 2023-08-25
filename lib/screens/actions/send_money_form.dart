@@ -40,7 +40,6 @@ class SendMoneyForm extends StatelessWidget {
                 decoration: const InputDecoration(hintText: 'R\$0,00'),
                 controller: value,
                 validator: (value) {
-                  print(value);
                   if (value != null && value.isNotEmpty) {
                     value = value.replaceAll("R\$", '');
                     value = value.replaceAll(',', '.');
