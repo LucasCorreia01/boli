@@ -1,7 +1,12 @@
 # Boli - Seu banco digital.
 
-Aplicativo feito com intuito de utilizar e particar os conceitos adquiridos na formação Flutter da Alura.
+Aplicativo feito com intuito de utilizar e particar os conceitos adquiridos na formação Flutter da Alura.<br>
 O Banco digital Boli, trata-se de uma aplicação financeira fictícia, que possui as principais característiscas de um banco comum, como por exemplo, transferência e recebimento de valores, controle e manipulação de contas e geração de extrato, bem como autenticação por biometria.
+
+Design das telas:<br>
+- <a href="https://www.behance.net/gallery/173086027/Boli-Manejo-de-Finanzas/modules/977090091" target="_blank">Boli</a><br>
+- App Banco do Brasil<br>
+- NuBank<br>
 
 ## 🛠️ Como rodar o projeto em seu ambiente local
 
