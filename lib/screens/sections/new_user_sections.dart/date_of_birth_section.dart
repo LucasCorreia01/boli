@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../models/user.dart';
@@ -40,39 +38,6 @@ class _DateOfBirthState extends State<DateOfBirth> {
             ),
           ),
         ),
-        // SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 24),
-        //     child: SingleChildScrollView(
-        //       child: DateTimeField(
-        //         controller: date,
-        //         validator: (value) {
-        //           if (toBeOfAgeTwelve(value)) {
-        //             return null;
-        //           }
-        //           return 'Verifique a data insirida.\nVocê precisa ter pelo menos 12 para ter uma conta.';
-        //         },
-        //         decoration: const InputDecoration(hintText: 'xx/xx/xxx'),
-        //         format: format,
-        //         onChanged: (value) {
-        //           User.addAttr("dateOfBirth", "$value");
-        //         },
-        //         onShowPicker: (context, currentValue) async {
-        //           final date = showDatePicker(
-        //             locale: const Locale('pt'),
-        //             useRootNavigator: false,
-        //             context: context,
-        //             initialDate: currentValue ?? DateTime.now(),
-        //             firstDate: DateTime(1900),
-        //             lastDate: DateTime(2100),
-        //           );
-
-        //           return date;
-        //         },
-        //       ),
-        //     ),
-        //   ),
-        // ),
         SliverToBoxAdapter(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -82,6 +47,12 @@ class _DateOfBirthState extends State<DateOfBirth> {
                 controller: date,
                 validator: (value) {
                   if(value !=  null && value.length == 10){
+                    try{
+                      DateFormat('dd/MM/yyyy').parse(value);
+                    } catch(e){
+                      return 'Digite uma data válida!';
+                    }
+                    
                     return null;
                   }
                   return 'Digite uma data válida!';

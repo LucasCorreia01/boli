@@ -10,6 +10,11 @@ import 'package:boli/screens/income_screen_single.dart';
 import 'package:boli/screens/new_user_screen.dart';
 import 'package:boli/screens/saved_accounts.dart';
 import 'package:boli/screens/savings_screen_single.dart';
+import 'package:boli/screens/sections/edit_infomations_section/edit_date_form_screen.dart';
+import 'package:boli/screens/sections/edit_infomations_section/edit_email_form_screen.dart';
+import 'package:boli/screens/sections/edit_infomations_section/edit_name_form_screen.dart';
+import 'package:boli/screens/sections/edit_infomations_section/edit_information.dart';
+import 'package:boli/screens/sections/edit_infomations_section/edit_password_form_screen.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
@@ -19,7 +24,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/cardCreditItemModel.dart';
 import 'models/user.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,13 +45,7 @@ void main() async {
     prefs.setBool('fingerprint', false);
   }
 
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => User.empty()),
-    ],
-    child: const MainApp(),
-  ));
-  // runApp(const MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -156,6 +154,47 @@ class MainApp extends StatelessWidget {
             type: PageTransitionType.bottomToTop,
             fullscreenDialog: true,
           );
+        } else if (settings.name == 'choose-edit-informations') {
+          return PageTransition(
+            child: ChooseEditInformationsScreen(
+              user: settings.arguments as User,
+            ),
+            type: PageTransitionType.bottomToTop,
+          );
+        } else if (settings.name == 'edit-form-screen') {
+          var arguments = settings.arguments as Map<String, dynamic>;
+          switch (arguments["information"]) {
+            case 1:
+              return PageTransition(
+                  child: EditNameFormScreen(
+                    user: arguments["user"],
+                  ),
+                  type: PageTransitionType.rightToLeft);
+
+            case 2:
+              return PageTransition(
+                child: EditEmailFormScreen(
+                  user: arguments['user'],
+                ),
+                type: PageTransitionType.rightToLeft,
+              );
+
+            case 3:
+              return PageTransition(
+                child: EditPasswordFormScreen(
+                  user: arguments['user'],
+                ),
+                type: PageTransitionType.rightToLeft,
+              );
+
+            case 4:
+              return PageTransition(
+                child: EditDateFormScreen(
+                  user: arguments['user'],
+                ),
+                type: PageTransitionType.rightToLeft,
+              );
+          }
         } else {
           return MaterialPageRoute(builder: (context) {
             return AuthenticationScreen();

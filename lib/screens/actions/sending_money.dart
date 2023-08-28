@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../components/item_user_transfer.dart';
 import '../../models/user.dart';
 import 'package:intl/intl.dart';
 import 'package:icons_plus/icons_plus.dart';

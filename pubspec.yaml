@@ -19,6 +19,7 @@ dependencies:
   camera: any
   mask_text_input_formatter: any
   animations: any
+  intl: any
 
 dev_dependencies:
   flutter_test:

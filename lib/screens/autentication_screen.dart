@@ -320,8 +320,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   getPreferencesAccountAccess() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? name = await prefs.getString('name');
-    User.selectInitUser(name).then((value) {
+    String? fullName = await prefs.getString('fullName');
+    User.selectInitUser(fullName).then((value) {
       try {
         if (value[0] != null) {
           setState(() {

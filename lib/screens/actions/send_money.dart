@@ -1,5 +1,4 @@
 import 'package:boli/screens/actions/send_money_form.dart';
-import 'package:boli/screens/actions/sending_money.dart';
 import 'package:boli/screens/actions/users_to_transfer.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';

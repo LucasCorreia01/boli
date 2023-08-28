@@ -3,10 +3,15 @@ import '../components/showDialogConfirmation.dart';
 import '../models/user.dart';
 import 'package:intl/intl.dart';
 
-class ProfileScreen extends StatelessWidget {
-  User user;
-  ProfileScreen({required this.user, super.key});
+class ProfileScreen extends StatefulWidget {
+  final User user;
+  const ProfileScreen({required this.user, super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -34,20 +39,20 @@ class ProfileScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          user.fullname,
+                          widget.user.fullname,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           child: Text(
-                            'ID: ${user.id}',
+                            'ID: ${widget.user.id}',
                             style: const TextStyle(
                                 fontSize: 15, overflow: TextOverflow.ellipsis),
                           ),
                         ),
                         Text(
                           DateFormat("'Visto em:' dd/MM/yyyy 'às' HH:mm")
-                              .format(user.lastSeen),
+                              .format(widget.user.lastSeen),
                           style: const TextStyle(fontSize: 15),
                         )
                       ],
@@ -143,19 +148,28 @@ class ProfileScreen extends StatelessWidget {
                           color: Color.fromRGBO(241, 242, 244, 1),
                         ),
                       )),
-                      child: const Row(
-                        children: [
-                          Expanded(
-                              flex: 9,
-                              child: Text(
-                                'Cadastro',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                              flex: 2,
-                              child: Icon(Icons.keyboard_arrow_right_outlined)),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed('choose-edit-informations',
+                                  arguments: widget.user);
+                        },
+                        child: const Row(
+                          children: [
+                            Expanded(
+                                flex: 9,
+                                child: Text(
+                                  'Cadastro',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child:
+                                    Icon(Icons.keyboard_arrow_right_outlined)),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -210,8 +224,10 @@ class ProfileScreen extends StatelessWidget {
                                       'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.')
                               .then((value) {
                             if (value) {
-                              User.deleteUser(user.fullname).then((value) {
-                                Navigator.pushReplacementNamed(context, 'login-screen');
+                              User.deleteUser(widget.user.fullname)
+                                  .then((value) {
+                                Navigator.pushReplacementNamed(
+                                    context, 'login-screen');
                               });
                             }
                           });

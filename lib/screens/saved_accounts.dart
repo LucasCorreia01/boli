@@ -1,8 +1,6 @@
 import 'package:boli/components/item_user_acess.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import '../components/showDialogConfirmation.dart';
-import '../helpers/exemples.dart';
 import '../models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -194,8 +192,8 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
     );
   }
 
-  setPreferencesAccountAccess(String name) async{
+  setPreferencesAccountAccess(String fullName) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', name);
+    prefs.setString('fullName', fullName);
   }
 }

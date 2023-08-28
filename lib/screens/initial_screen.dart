@@ -9,8 +9,8 @@ import '../components/camera_page.dart';
 import '../models/user.dart';
 
 class InitialScreen extends StatefulWidget {
-  User user;
-  InitialScreen({required this.user, super.key});
+  final User user;
+  const InitialScreen({required this.user, super.key});
 
   @override
   State<InitialScreen> createState() => _InitialScreenState();

@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 import '../database/users_database.dart';
 
-class User extends ChangeNotifier{
+class User extends ChangeNotifier {
   String id;
   String name;
   String lastName;
@@ -61,9 +61,6 @@ class User extends ChangeNotifier{
     }
   }
 
-
-
-
   //Recupera todos os usuários da base de dados
   static Future<List<User>> getUsers() async {
     Database db = await getDatabase();
@@ -72,20 +69,43 @@ class User extends ChangeNotifier{
     return toList(list);
   }
 
-
-
-
+  //Editar informações
+  Future<bool> editInformation(String attr, String value) async {
+    Database db = await getDatabase();
+    if (attr == 'fullname') {
+      try {
+        List<String> name = value.trim().split(" ");
+        db.update('users', {"name": name[0]},
+            where: 'fullname = ?', whereArgs: [fullname]);
+        db.update('users', {"lastName": name[name.length - 1]},
+            where: 'fullname = ?', whereArgs: [fullname]);
+        db.update('users', {"fullname": value},
+            where: 'fullname = ?', whereArgs: [fullname]);
+        return true;
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+    } else {
+      try {
+        db.update('users', {attr: value},
+            where: 'fullname = ?', whereArgs: [fullname]);
+        return true;
+      } catch (e) {
+        print(e.toString());
+        return false;
+      }
+    }
+  }
 
   //Pega todos os usuários disponíveis para transferência
   static Future<List<User>> getUsersForTransfer(String fullname) async {
     Database db = await getDatabase();
-    var list = await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
+    var list =
+        await db.query('users', where: 'fullname != ?', whereArgs: [fullname]);
     await Future.delayed(const Duration(milliseconds: 500));
     return toList(list);
   }
-
-
-
 
   // Faz a transferência entre as contas
   Future<bool> makeTransfer(
@@ -99,27 +119,32 @@ class User extends ChangeNotifier{
     double valueToTransfer = double.parse(value);
     balance = balance - valueToTransfer;
     //Atualiza o saldo do usuário que está enviando.
-    db.update('users', {'balance': balance}, where: 'fullname = ?', whereArgs: [fullnameSend]);
+    db.update('users', {'balance': balance},
+        where: 'fullname = ?', whereArgs: [fullnameSend]);
 
     //Atualiza o saldo do usuário que está recebendo.
-        // Recupera o saldo atual
-    dynamic list = await db.query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+    // Recupera o saldo atual
+    dynamic list = await db
+        .query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
     list = toList(list);
     User user = list[0] as User;
-        //Soma com o valor da transferência
+    //Soma com o valor da transferência
     user.balance += valueToTransfer;
     await Future.delayed(const Duration(seconds: 3));
-        // Atualiza o valor do usuário no db
-    await db.update('users', {'balance': user.balance, }, where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+    // Atualiza o valor do usuário no db
+    await db.update(
+        'users',
+        {
+          'balance': user.balance,
+        },
+        where: 'fullname = ?',
+        whereArgs: [fullnameReceiver]);
     Future.delayed(const Duration(seconds: 5));
     notifyListeners();
     return true;
   }
 
-
-
-
-  //Apaga usuário de acordo com o nome informados 
+  //Apaga usuário de acordo com o nome informados
   static Future<bool> deleteUser(String fullName) async {
     Database db = await getDatabase();
     try {
@@ -130,24 +155,17 @@ class User extends ChangeNotifier{
     }
   }
 
-
-
-
   //Seleciona o usuário com base no nome
-  static Future<dynamic> selectInitUser(String? name) async {
+  static Future<dynamic> selectInitUser(String? fullName) async {
     Database db = await getDatabase();
     try {
       var user =
-          await db.query('users', where: 'fullName = ?', whereArgs: [name]);
+          await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
       return toList(user);
     } catch (e) {
       //TODO:: Exception
     }
   }
-
-
-
-
 
   //Atualizar visto por último
   updateLastSeen() async {
@@ -155,10 +173,6 @@ class User extends ChangeNotifier{
     await db.update('users', {'lastSeen': '${DateTime.now()}'},
         where: 'id = ?', whereArgs: [id]);
   }
-
-
-
-
 
   //Adiciona dinheiro a conta
   receiveMoney(String value) async {
@@ -171,11 +185,8 @@ class User extends ChangeNotifier{
     balance = newBalance;
     await db.update('users', {'balance': newBalance, 'movedValue': movedValue},
         where: 'name = ?', whereArgs: [name]);
-        notifyListeners();
+    notifyListeners();
   }
-
-
-
 
   //Apaga todos os usuário da base de dados
   static deleteAllUsers() async {
@@ -183,16 +194,10 @@ class User extends ChangeNotifier{
     await db.delete('users');
   }
 
-
-
-
   //Apaga o banco de dados por completo
   static removeDB() async {
     removeDatabase();
   }
-
-
-
 
   // Adicionar novo usuário - Salvando as informações entre os formulários sections
   static Map<String, String> user = {};
@@ -203,9 +208,6 @@ class User extends ChangeNotifier{
   static Map<String, String> getUserMap() {
     return user;
   }
-
-
-
 
   //Transforma nosso mapa vindo do banco em um lista de users para a nossa aplicação.
   static List<User> toList(List<Map<String, dynamic>> mapOfAccounts) {

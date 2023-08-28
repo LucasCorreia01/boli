@@ -1,4 +1,4 @@
-import 'package:boli/screens/sections/new_user_sections.dart/dateOfBirth_section.dart';
+import 'package:boli/screens/sections/new_user_sections.dart/date_of_birth_section.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/email_section.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/name_section.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/password_section.dart';

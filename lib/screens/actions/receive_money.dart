@@ -16,8 +16,8 @@ class _ReceiveMoneyState extends State<ReceiveMoney> {
   final TextEditingController value = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var maskFormatter = MaskTextInputFormatter(
-    mask: 'R\$####,##',
-    filter: {"#": RegExp(r'[0-9]')},
+    mask: 'R\$#########',
+    filter: {"#": RegExp('[0-9,]')},
     type: MaskAutoCompletionType.lazy,
   );
   @override

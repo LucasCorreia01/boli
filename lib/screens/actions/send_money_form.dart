@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../../models/user.dart';
 
 class SendMoneyForm extends StatelessWidget {
@@ -13,8 +12,8 @@ class SendMoneyForm extends StatelessWidget {
     String valueToTransfer = "";
 
     var maskFormatter = MaskTextInputFormatter(
-      mask: 'R\$###,##',
-      filter: {"#": RegExp(r'[0-9]')},
+      mask: 'R\$#########',
+      filter: {"#": RegExp('[0-9,]')},
       type: MaskAutoCompletionType.lazy,
     );
     return CustomScrollView(
