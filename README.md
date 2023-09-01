@@ -18,18 +18,18 @@ Design das telas:<br>
 
 
 ## 📦 Principais pacotes utilizados:
-- `icons_plus:` Icones para a aplicação em geral.
+- `icons_plus:` Ícones para a aplicação em geral.
 - `local_auth:` Autenticação por biometria e faceId.
 - `provider:` Gerenciador de estados
 - `page_transition:` Pacote para transição entre as páginas do aplicativo
 - `camera:` Package para acesso a câmera do dispositivo
 - `uuid:` Gerador código ID
-- `shared_preferences:` Savar pequenas informações locais
+- `shared_preferences:` Salvar pequenas informações locais
 - `sqflite:` Gerenciador de banco de dados
 - `animations:` Animações em geral
 - `flutter_emoji:` Utilização de emoji no app
 - `datetime_picker_formfield_new:` DateTime Formater
-- `mask_text_input_formatter:` Máscaras par inputs
+- `mask_text_input_formatter:` Máscaras para inputs
 
 ## 📱 Telas do aplicativo
 
