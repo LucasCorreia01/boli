@@ -1,4 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
@@ -15,6 +14,7 @@ import 'package:boli/screens/sections/edit_infomations_section/edit_email_form_s
 import 'package:boli/screens/sections/edit_infomations_section/edit_name_form_screen.dart';
 import 'package:boli/screens/sections/edit_infomations_section/edit_information.dart';
 import 'package:boli/screens/sections/edit_infomations_section/edit_password_form_screen.dart';
+import 'package:boli/screens/sections/extract_account/extract_screen.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'models/cardCreditItemModel.dart';
+import 'models/card_credit_item_model.dart';
 import 'models/user.dart';
 
 void main() async {
@@ -45,6 +45,7 @@ void main() async {
     prefs.setBool('fingerprint', false);
   }
 
+  // ExtractAccount.getExtractAccount();
   runApp(const MainApp());
 }
 
@@ -150,6 +151,7 @@ class MainApp extends StatelessWidget {
               userSend: arguments["userSend"],
               userReceiver: arguments["userReceiver"],
               valueToTransfer: arguments["valueToTransfer"],
+              date: arguments['date'],
             ),
             type: PageTransitionType.bottomToTop,
             fullscreenDialog: true,
@@ -195,6 +197,11 @@ class MainApp extends StatelessWidget {
                 type: PageTransitionType.rightToLeft,
               );
           }
+        } else if (settings.name == "extract-screen") {
+          return PageTransition(
+            child: ExtractAccountScreen(user: settings.arguments as User,),
+            type: PageTransitionType.bottomToTop,
+          );
         } else {
           return MaterialPageRoute(builder: (context) {
             return AuthenticationScreen();

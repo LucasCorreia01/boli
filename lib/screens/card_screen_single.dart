@@ -4,7 +4,7 @@ import 'package:boli/screens/sections/card_screen_single_sections/card_section.d
 import 'package:icons_plus/icons_plus.dart';
 import 'package:flutter/material.dart';
 import '../helpers/exemples.dart';
-import '../models/cardCreditItemModel.dart';
+import '../models/card_credit_item_model.dart';
 
 // ignore: must_be_immutable
 class CardScreenSingle extends StatelessWidget {

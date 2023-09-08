@@ -1,3 +1,4 @@
+import 'package:boli/components/camera_page.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -88,52 +89,64 @@ class ActionsButtonsHome extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1.5),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(BoxIcons.bx_list_ul, size: 20),
+              child: InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, 'extract-screen', arguments: user);
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1.5),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: Icon(BoxIcons.bx_list_ul, size: 20),
+                      ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Text(
-                      'Extrato',
-                      style: TextStyle(
-                          fontSize: 14, overflow: TextOverflow.ellipsis),
-                    ),
-                  )
-                ],
+                    const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        'Extrato',
+                        style: TextStyle(
+                            fontSize: 14, overflow: TextOverflow.ellipsis),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(6.0),
-                      child: Icon(BoxIcons.bx_qr_scan, size: 20),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Text(
-                      'Escanear',
-                      style: TextStyle(
-                        fontSize: 14,
-                        overflow: TextOverflow.ellipsis,
+              child: InkWell(
+                onTap: (){
+                 Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  return const CameraPage();
+                 }, fullscreenDialog: true));
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1.5),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: Icon(BoxIcons.bx_qr_scan, size: 20),
                       ),
                     ),
-                  )
-                ],
+                    const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        'Escanear',
+                        style: TextStyle(
+                          fontSize: 14,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

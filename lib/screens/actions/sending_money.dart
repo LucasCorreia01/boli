@@ -24,7 +24,7 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> arguments = {"userSend" : widget.userSend, "userReceiver" : widget.userReceiver, "valueToTransfer": widget.valueToTransfer};
+    Map<String, dynamic> arguments = {"userSend" : widget.userSend.fullname, "userReceiver" : widget.userReceiver.fullname, "valueToTransfer": widget.valueToTransfer, "date": DateTime.now()};
 
     return Scaffold(
       appBar: AppBar(

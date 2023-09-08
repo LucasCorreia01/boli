@@ -4,7 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../models/user.dart';
 
 class ReceiverSection extends StatelessWidget {
-  final User userReceiver;
+  final String userReceiver;
   const ReceiverSection(this.userReceiver, {super.key});
 
   @override
@@ -49,7 +49,7 @@ class ReceiverSection extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  userReceiver.fullname,
+                  userReceiver,
                   style: const TextStyle(
                     fontSize: 18,
                   ),

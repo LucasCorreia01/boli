@@ -16,11 +16,10 @@ class _EditPasswordFormScreen extends State<EditPasswordFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    password.text = widget.user.password;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '',
+          'Editar senha',
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),

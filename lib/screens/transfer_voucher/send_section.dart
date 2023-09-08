@@ -4,7 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../models/user.dart';
 
 class SendSectionVoucher extends StatelessWidget {
-  final User userSend;
+  final String userSend;
   const SendSectionVoucher(this.userSend, {super.key});
 
   @override
@@ -47,7 +47,7 @@ class SendSectionVoucher extends StatelessWidget {
                 ),
               ),
               Text(
-                userSend.fullname,
+                userSend,
                 style: const TextStyle(
                   fontSize: 18,
                 ),

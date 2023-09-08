@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 
 class VoucherHeaderSection extends StatelessWidget {
   final String valueToTransfer;
-  const VoucherHeaderSection(this.valueToTransfer, {super.key});
+  final DateTime date;
+  const VoucherHeaderSection(this.valueToTransfer, this.date, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class VoucherHeaderSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 24),
             child: Text(
-              DateFormat("dd/MM/yyyy 'às' HH:mm").format(DateTime.now()),
+              DateFormat("dd/MM/yyyy 'às' HH:mm").format(date),
               style: const TextStyle(fontSize: 22),
             ),
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/cardCreditItemModel.dart';
+import '../models/card_credit_item_model.dart';
 
 class CardCreditItemWidget extends StatelessWidget {
   final CardCredit card;

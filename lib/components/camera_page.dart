@@ -13,6 +13,7 @@ class _CameraPageState extends State<CameraPage> {
   CameraController? controller;
   XFile? imagem;
   Size? size;
+  bool _cameraOn = true;
 
   @override
   void initState() {
@@ -64,7 +65,7 @@ class _CameraPageState extends State<CameraPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          'Camera',
+          'Câmera',
           style: Theme.of(context).textTheme.displayMedium,
         ),
         centerTitle: true,
@@ -77,7 +78,9 @@ class _CameraPageState extends State<CameraPage> {
       ),
       floatingActionButton: (imagem != null)
           ? FloatingActionButton.extended(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.pop(context);
+              },
               label: const Text('Finalizar'),
             )
           : null,
@@ -86,13 +89,12 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   _arquivoWidget() {
-    return SizedBox(
-      child:_cameraPreviewWidget()
-          // : Image.file(
-          //     File(imagem!.path),
-          //     fit: BoxFit.contain,
-          //   ),
-    );
+    return SizedBox(child: _cameraPreviewWidget()
+        // : Image.file(
+        //     File(imagem!.path),
+        //     fit: BoxFit.contain,
+        //   ),
+        );
   }
 
   _cameraPreviewWidget() {
@@ -118,13 +120,15 @@ class _CameraPageState extends State<CameraPage> {
         radius: 32,
         backgroundColor: Colors.black.withOpacity(0.5),
         child: IconButton(
-          icon: const Icon(
-            Icons.camera_alt,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: (){Navigator.pop(context); cameras.clear();}
-        ),
+            icon: const Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+              cameras.clear();
+            }),
       ),
     );
   }
