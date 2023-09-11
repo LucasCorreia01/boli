@@ -13,7 +13,6 @@ class _CameraPageState extends State<CameraPage> {
   CameraController? controller;
   XFile? imagem;
   Size? size;
-  bool _cameraOn = true;
 
   @override
   void initState() {

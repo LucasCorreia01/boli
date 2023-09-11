@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../models/user.dart';
-
 class SendSectionVoucher extends StatelessWidget {
   final String userSend;
   const SendSectionVoucher(this.userSend, {super.key});

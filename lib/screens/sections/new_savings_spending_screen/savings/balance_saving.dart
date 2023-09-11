@@ -1,15 +1,17 @@
+import 'package:boli/models/savings.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import '../../models/user.dart';
 
-class SendMoneyForm extends StatelessWidget {
+import '../../../../models/user.dart';
+
+class BalanceSaving extends StatelessWidget {
   final User user;
-  const SendMoneyForm({required this.user, super.key});
+  const BalanceSaving(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController value = TextEditingController();
-    String valueToTransfer = "";
+    String valueToSave = "";
 
     var maskFormatter = MaskTextInputFormatter(
       mask: 'R\$#########',
@@ -22,7 +24,7 @@ class SendMoneyForm extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.fromLTRB(24, 20, 24, 4),
             child: Text(
-              'Qual o valor da transferência?',
+              'Quanto deseja adicionar a sua poupança?',
               style: TextStyle(
                   fontSize: 28,
                   letterSpacing: 0.75,
@@ -43,9 +45,9 @@ class SendMoneyForm extends StatelessWidget {
                     value = value.replaceAll("R\$", '');
                     value = value.replaceAll(',', '.');
                     if (double.parse(value) > user.balance) {
-                      return 'Você não tem saldo suficiente para essa operação.';
+                      return 'Você não tem saldo suficiente.';
                     }
-                    valueToTransfer = value;
+                    valueToSave = value;
                     return null;
                   }
                   return 'Por favor insira um valor válido!';
@@ -54,7 +56,7 @@ class SendMoneyForm extends StatelessWidget {
                 onChanged: (value) {
                   value = value.replaceAll("R\$", '');
                   value = value.replaceAll(',', '.');
-                  User.addAttr('valueToTransfer', value);
+                  Savings.addAttr('valueToSave', value);
                 },
               )),
         ),

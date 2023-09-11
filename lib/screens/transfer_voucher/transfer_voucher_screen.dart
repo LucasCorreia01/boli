@@ -3,7 +3,6 @@ import 'package:boli/screens/transfer_voucher/send_section.dart';
 import 'package:boli/screens/transfer_voucher/voucher_header_section.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import '../../models/user.dart';
 
 class TransferVoucherScreen extends StatelessWidget {
   final String userSend;

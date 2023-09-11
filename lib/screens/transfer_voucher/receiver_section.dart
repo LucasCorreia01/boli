@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../models/user.dart';
-
 class ReceiverSection extends StatelessWidget {
   final String userReceiver;
   const ReceiverSection(this.userReceiver, {super.key});

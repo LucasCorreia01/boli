@@ -1,6 +1,7 @@
 import 'package:boli/screens/home_screen.dart';
-import 'package:boli/screens/notification_screen.dart';
+import 'package:boli/screens/extract_account_screen_home.dart';
 import 'package:boli/screens/profile_screen.dart';
+import 'package:boli/screens/sections/new_savings_spending_screen/main_screen_new.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:animations/animations.dart';
@@ -109,7 +110,12 @@ class _InitialScreenState extends State<InitialScreen> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
+            // icon: Icon(FontAwesome.camera),
+            icon: Icon(Icons.add),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(BoxIcons.bx_list_ul),
             label: '',
           ),
           BottomNavigationBarItem(
@@ -137,7 +143,8 @@ class _InitialScreenState extends State<InitialScreen> {
     List<Widget> pages = [
       HomeScreen(balanceVisibility: balanceVisibility, user: widget.user,),
       Container(),
-      NotificationsScreen(),
+      MainScreenNew(user: widget.user,),
+      ExtractAccountScreenHome(user: widget.user,),
       ProfileScreen(user: widget.user,)
     ];
     return pages[index];

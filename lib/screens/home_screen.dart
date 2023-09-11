@@ -3,6 +3,7 @@ import 'package:boli/screens/sections/home_screens_sections/saving_section.dart'
 import 'package:boli/screens/sections/home_screens_sections/spending_section.dart';
 import 'package:flutter/material.dart';
 
+import '../models/savings.dart';
 import '../models/user.dart';
 import 'actions/actions_button_home.dart';
 
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Savings.getAllSavings();
     return ListView(
       children: [
         Padding(
@@ -27,9 +29,9 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: ActionsButtonsHome(user: user),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: SavingSection(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: SavingSection(user),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),

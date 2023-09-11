@@ -17,34 +17,37 @@ class ExtractAccount {
     required this.value,
   }) : id = const Uuid().v1();
 
+  //Cria um novo registro/extrato no banco quando o usuário realiza uma transferência
   newExtract() async {
     Database db = await getDatabase();
-      var count = await db.insert('extract', {
-        "id": id,
-        "fullNameReceiver": fullNameReceiver,
-        "fullNameSend": fullNameSend,
-        "date": "$date",
-        "value": value
-      });
+    await db.insert('extract', {
+      "id": id,
+      "fullNameReceiver": fullNameReceiver,
+      "fullNameSend": fullNameSend,
+      "date": "$date",
+      "value": value
+    });
   }
 
+  //Pega todos os extratos do banco de dados com base no nome do usuário
   static Future<List<ExtractAccount>> getExtractAccount(User user) async {
     Database db = await getDatabase();
-    dynamic list1 = await db.query('extract', where: 'fullNameSend = ?', whereArgs: [user.fullname]);
-    dynamic list2 = await db.query('extract', where: 'fullNameReceiver = ?', whereArgs: [user.fullname]);
+    dynamic list1 = await db.query('extract',
+        where: 'fullNameSend = ?', whereArgs: [user.fullname]);
+    dynamic list2 = await db.query('extract',
+        where: 'fullNameReceiver = ?', whereArgs: [user.fullname]);
     List<ExtractAccount> listSend = toList(list1);
     List<ExtractAccount> listReceiver = toList(list2);
     List<ExtractAccount> listFinal = listSend + listReceiver;
     await Future.delayed(const Duration(seconds: 1));
-    listFinal.sort((a, b) => a.date.compareTo(b.date),);
+    listFinal.sort(
+      (a, b) => a.date.compareTo(b.date),
+    );
+    listFinal = listFinal.reversed.toList();
     return listFinal;
   }
 
-
-  static removeDB() async {
-    removeDatabase();
-  }
-
+  // Transforma o Map que vem do banco de dados em uma lista de extrato para nossa aplicação.
   static List<ExtractAccount> toList(List<Map<String, dynamic>> mapOfAccounts) {
     final List<ExtractAccount> accounts = [];
     for (Map<String, dynamic> item in mapOfAccounts) {
@@ -56,5 +59,10 @@ class ExtractAccount {
       accounts.add(account);
     }
     return accounts;
+  }
+
+  //Remove o banco de dados
+  static removeDB() async {
+    removeDatabase();
   }
 }
