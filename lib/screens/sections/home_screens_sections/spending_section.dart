@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../components/list_item.dart';
 
 class SpendingSection extends StatelessWidget {
@@ -39,29 +38,17 @@ class SpendingSection extends StatelessWidget {
           ListItem(
             title: 'Serviços Públicos',
             subtitle: 'Energia, Água, Internet, Cable.',
-            icon: Icon(
-              Icons.offline_bolt,
-              color: Theme.of(context).primaryColorDark,
-              size: 20,
-            ),
+            icon: 2
           ),
           ListItem(
             title: 'Netflix',
             subtitle: 'Streaming.',
-            icon: Icon(
-              Icons.movie,
-              color: Theme.of(context).primaryColorDark,
-              size: 20,
-            ),
+            icon: 4
           ),
           ListItem(
             title: 'Conta telefónica',
             subtitle: 'Pagar a conta de telefone.',
-            icon: Icon(
-              Icons.phone,
-              color: Theme.of(context).primaryColorDark,
-              size: 20,
-            ),
+            icon: 3
           )
         ],
       ),

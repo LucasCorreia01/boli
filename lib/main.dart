@@ -1,3 +1,4 @@
+import 'package:boli/models/savings.dart';
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
@@ -15,7 +16,9 @@ import 'package:boli/screens/sections/edit_infomations_section/edit_name_form_sc
 import 'package:boli/screens/sections/edit_infomations_section/edit_information.dart';
 import 'package:boli/screens/sections/edit_infomations_section/edit_password_form_screen.dart';
 import 'package:boli/screens/sections/extract_account/extract_screen.dart';
+import 'package:boli/screens/sections/new_savings_spending_screen/savings/creating_saving.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/new_savings_screen.dart';
+import 'package:boli/screens/sections/new_savings_spending_screen/savings/single_savings_screen.dart';
 import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
@@ -45,7 +48,7 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-
+  Savings.deleteAllSavings();
   // ExtractAccount.getExtractAccount();
   runApp(const MainApp());
 }
@@ -200,12 +203,31 @@ class MainApp extends StatelessWidget {
           }
         } else if (settings.name == "extract-screen") {
           return PageTransition(
-            child: ExtractAccountScreen(user: settings.arguments as User,),
+            child: ExtractAccountScreen(
+              user: settings.arguments as User,
+            ),
             type: PageTransitionType.bottomToTop,
           );
-        } else if(settings.name == "new-savings"){
+        } else if (settings.name == "new-savings") {
           User user = settings.arguments as User;
-          return PageTransition(child: NewSavingsScreen(user: user,), type: PageTransitionType.rightToLeft);
+          return PageTransition(
+              child: NewSavingsScreen(
+                user: user,
+              ),
+              type: PageTransitionType.rightToLeft);
+        } else if (settings.name == 'loading_creation_screen_saving') {
+          User user = settings.arguments as User;
+          return PageTransition(
+            settings: settings,
+            child: CreatingSaving(user),
+            type: PageTransitionType.rightToLeft,
+          );
+        } else if (settings.name == 'single_savings_screen') {
+          Map<String, dynamic> infoSavings = settings.arguments as Map<String,dynamic>;
+          return PageTransition(
+            child: SingleSavingsScreen(infoSavings),
+            type: PageTransitionType.rightToLeft,
+          );
         } else {
           return MaterialPageRoute(builder: (context) {
             return AuthenticationScreen();

@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 
 String table = "CREATE TABLE savings (id VARCHAR(11) NOT NULL, title VARCHAR(80) NOT NULL, description VARCHAR(80) NOT NULL, icon INT NOT NULL, fullName VARCHAR(80) NOT NULL, date DateTime NOT NULL DEFAULT CURRENT_TIMESTAMP, balance FLOAT NOT NULL)";
 
-Future<Database> getDatabase() async {
+Future<Database> getDatabaseSavings() async {
   var databasesPath = await getDatabasesPath();
   String path = join(databasesPath, 'savings.db');
 
@@ -17,7 +17,7 @@ Future<Database> getDatabase() async {
 }
 
 
-void removeDatabase() async{
+void removeDatabaseSavings() async{
   var databasesPath = await getDatabasesPath();
   String path = join(databasesPath, 'saving.db');
   deleteDatabase(path);

@@ -38,7 +38,6 @@ class DescriptionSaving extends StatelessWidget {
               },
               keyboardType: TextInputType.name,
               autofocus: false,
-              textCapitalization: TextCapitalization.words,
               style: const TextStyle(fontWeight: FontWeight.normal),
               cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(

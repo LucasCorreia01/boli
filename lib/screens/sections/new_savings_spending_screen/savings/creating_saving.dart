@@ -116,7 +116,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
                               height: 40,
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pop(context);
+                                  Navigator.pushReplacementNamed(context, "home-screen", arguments: widget.user);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -199,6 +199,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
   Future<bool> save() async {
     Map<String, String> savingMap = Savings.getSavingsMap();
     bool result = false;
+    widget.user.balance -= double.parse(savingMap['valueToSave']!);
     savings = Savings(
       title: savingMap['name']!,
       description: savingMap['description']!,
@@ -208,7 +209,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
       balance: double.parse(savingMap['valueToSave']!),
     );
     if (savings != null) {
-      await savings!.addSaving().then((value) {
+      await savings!.addSaving(widget.user).then((value) {
         result = value;
       });
     }

@@ -1,4 +1,6 @@
 import 'package:boli/database/savings_dabase.dart';
+import 'package:boli/database/users_database.dart';
+import 'package:boli/models/user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,8 +22,8 @@ class Savings {
     required this.balance,
   }) : id = const Uuid().v1();
 
-  Future<bool> addSaving() async {
-    Database db = await getDatabase();
+  Future<bool> addSaving(User user) async {
+    Database db = await getDatabaseSavings();
     try {
       await db.insert('savings', {
         'id': id,
@@ -32,6 +34,12 @@ class Savings {
         'date': "$date",
         'balance': balance,
       });
+      Database userDb = await getDatabase();
+      var mapUser = await userDb.query('users', where: 'fullName = ?', whereArgs: [user.fullname]);
+      List<User> listUsers = toListUser(mapUser);
+      double balanceUser = listUsers.first.balance;
+      balanceUser = balanceUser - balance;
+      userDb.update('users', where: 'fullName = ?', whereArgs: [user.fullname], {'balance': balanceUser});
       return true;
     } catch (e) {
       print(e);
@@ -40,16 +48,16 @@ class Savings {
   }
 
   static getAllSavings() async {
-    Database db = await getDatabase();
+    Database db = await getDatabaseSavings();
     var savings = await db.query('savings');
     print(toList(savings));
     return toList(savings);
   }
 
   static Future<List<Savings>> getSavingsHome(String fullName) async {
-    Database db = await getDatabase();
+    Database db = await getDatabaseSavings();
     var savings = await db.query('savings',
-        where: "fullName = ?", whereArgs: [fullName], limit: 3);
+        where: "fullName = ?", whereArgs: [fullName], limit: 3, orderBy: 'date DESC');
     return toList(savings);
   }
 
@@ -79,14 +87,33 @@ class Savings {
     return savings;
   }
 
+  //Transforma nosso mapa vindo do banco em um lista de users para a nossa aplicação.
+  static List<User> toListUser(List<Map<String, dynamic>> mapOfAccounts) {
+    final List<User> accounts = [];
+    for (Map<String, dynamic> item in mapOfAccounts) {
+      final User account = User(
+          name: item["name"],
+          lastName: item["lastName"],
+          fullname: item["fullName"],
+          email: item["email"],
+          password: item["password"],
+          dateOfBirth: DateTime.parse(item['dateOfBirth']),
+          lastSeen: DateTime.now(),
+          balance: item["balance"],
+          movedValue: item['movedValue']);
+      accounts.add(account);
+    }
+    return accounts;
+  }
+
   //Remove o banco de dados
   static removedb() async {
-    removeDatabase();
+    removeDatabaseSavings();
   }
 
   //Apaga todas os registros da tabela
   static deleteAllSavings() async {
-    Database db = await getDatabase();
+    Database db = await getDatabaseSavings();
     db.delete('savings');
   }
 }

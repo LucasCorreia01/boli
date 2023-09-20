@@ -33,9 +33,9 @@ class ExtractAccount {
   static Future<List<ExtractAccount>> getExtractAccount(User user) async {
     Database db = await getDatabase();
     dynamic list1 = await db.query('extract',
-        where: 'fullNameSend = ?', whereArgs: [user.fullname]);
+        where: 'fullNameSend = ?', whereArgs: [user.fullname], orderBy: 'date DESC');
     dynamic list2 = await db.query('extract',
-        where: 'fullNameReceiver = ?', whereArgs: [user.fullname]);
+        where: 'fullNameReceiver = ?', whereArgs: [user.fullname], orderBy: 'date DESC');
     List<ExtractAccount> listSend = toList(list1);
     List<ExtractAccount> listReceiver = toList(list2);
     List<ExtractAccount> listFinal = listSend + listReceiver;

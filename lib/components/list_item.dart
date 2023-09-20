@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:icons_plus/icons_plus.dart';
 class ListItem extends StatelessWidget {
   final String title;
   final String subtitle;
-  final Icon icon;
-  const ListItem({
+  final int icon;
+  ListItem({
     super.key,
     required this.title,
     required this.subtitle,
@@ -35,12 +35,11 @@ class ListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: icon,
+                    child: Icon(allIcons[icon]),
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.505,
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -70,4 +69,33 @@ class ListItem extends StatelessWidget {
       ),
     );
   }
+
+  final List<IconData> allIcons = [
+    Icons.card_giftcard,
+    Icons.card_membership,
+    Icons.credit_card,
+    Icons.credit_score,
+    Icons.diamond,
+    Icons.umbrella_sharp,
+    Icons.favorite,
+    Icons.headphones,
+    Icons.home,
+    Icons.car_repair,
+    Icons.settings,
+    Icons.flight,
+    Icons.ac_unit,
+    Icons.run_circle,
+    Icons.book,
+    Icons.sports_rugby_rounded,
+    Icons.alarm,
+    Icons.call,
+    Icons.snowing,
+    Icons.hearing,
+    Icons.music_note,
+    Icons.note,
+    Icons.edit,
+    Icons.sunny,
+    Icons.radar,
+    BoxIcons.bx_car
+  ];
 }

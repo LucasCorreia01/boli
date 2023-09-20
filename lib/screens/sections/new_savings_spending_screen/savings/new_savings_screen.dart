@@ -53,7 +53,8 @@ class _NewSavingsScreenState extends State<NewSavingsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: (_currentIndex <= 3) ? Theme.of(context).primaryColor : Colors.transparent,
+        elevation: (_currentIndex <= 3) ? 1 : 0,
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             setState(() {
@@ -63,8 +64,8 @@ class _NewSavingsScreenState extends State<NewSavingsScreen> {
             });
           }
         },
-        child: Transform.rotate(
-            angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)),
+        child:(_currentIndex <= 3)? Transform.rotate(
+            angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)): Container(),
       ),
     );
   }
