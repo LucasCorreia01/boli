@@ -4,6 +4,8 @@ import 'package:boli/models/user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
+import 'extract_account.dart';
+
 class Savings {
   String id;
   String title;
@@ -35,11 +37,23 @@ class Savings {
         'balance': balance,
       });
       Database userDb = await getDatabase();
-      var mapUser = await userDb.query('users', where: 'fullName = ?', whereArgs: [user.fullname]);
+      var mapUser = await userDb
+          .query('users', where: 'fullName = ?', whereArgs: [user.fullname]);
       List<User> listUsers = toListUser(mapUser);
       double balanceUser = listUsers.first.balance;
       balanceUser = balanceUser - balance;
-      userDb.update('users', where: 'fullName = ?', whereArgs: [user.fullname], {'balance': balanceUser});
+      userDb.update(
+          'users',
+          where: 'fullName = ?',
+          whereArgs: [user.fullname],
+          {'balance': balanceUser});
+      ExtractAccount extract = ExtractAccount(
+        fullNameReceiver: "Poupança: $title",
+        fullNameSend: fullName,
+        date: DateTime.now(),
+        value: balance,
+      );
+      extract.newExtract();
       return true;
     } catch (e) {
       print(e);
@@ -57,8 +71,66 @@ class Savings {
   static Future<List<Savings>> getSavingsHome(String fullName) async {
     Database db = await getDatabaseSavings();
     var savings = await db.query('savings',
-        where: "fullName = ?", whereArgs: [fullName], limit: 3, orderBy: 'date DESC');
+        where: "fullName = ?",
+        whereArgs: [fullName],
+        limit: 3,
+        orderBy: 'date DESC');
     return toList(savings);
+  }
+
+  Future<bool> addBalanceSaving(double value) async {
+    try {
+      Database db = await getDatabaseSavings();
+      Database userDb = await getDatabase();
+      var mapUser = await userDb
+          .query('users', where: 'fullName = ?', whereArgs: [fullName]);
+      List<User> listUsers = toListUser(mapUser);
+      double balanceUser = listUsers.first.balance;
+      balanceUser = balanceUser - value;
+      balance = balance + value;
+      db.update('savings', {'balance': balance},
+          where: 'title = ?', whereArgs: [title]);
+      userDb.update(
+          'users',
+          where: 'fullName = ?',
+          whereArgs: [fullName],
+          {'balance': balanceUser});
+      ExtractAccount extract = ExtractAccount(
+        fullNameReceiver: "Poupança: $title",
+        fullNameSend: fullName,
+        date: DateTime.now(),
+        value: value,
+      );
+      extract.newExtract();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> deleteSaving() async {
+    try {
+      Database db = await getDatabaseSavings();
+      Database userDb = await getDatabase();
+      db.delete('savings', where: 'title = ?', whereArgs: [title]);
+      var mapUser = await userDb
+          .query('users', where: 'fullName = ?', whereArgs: [fullName]);
+      List<User> listUsers = toListUser(mapUser);
+      double balanceUser = listUsers.first.balance;
+      print(balanceUser);
+      balanceUser = balanceUser + balance;
+      print(balanceUser);
+      userDb.update(
+          'users',
+          where: 'fullName = ?',
+          whereArgs: [fullName],
+          {'balance': balanceUser});
+
+      return true;
+    } catch (e) {
+      print('Um erro aconteceu ao tentar realizar a ação');
+      return false;
+    }
   }
 
   // Adicionar novo usuário - Salvando as informações entre os formulários sections
@@ -71,8 +143,9 @@ class Savings {
     return savings;
   }
 
+  //Transforma nosso mapa vindo do banco em um lista de poupanças para a nossa aplicação.
   static List<Savings> toList(List<Map<String, dynamic>> mapOfSavings) {
-    final List<Savings> savings= [];
+    final List<Savings> savings = [];
     for (Map<String, dynamic> item in mapOfSavings) {
       final Savings account = Savings(
         title: item["title"],

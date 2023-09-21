@@ -78,14 +78,10 @@ class SavingSection extends StatelessWidget {
                           itemBuilder: (BuildContext context, index) {
                             return InkWell(
                               onTap: (){
-                                Map<String, dynamic> infoSavings = {};
-                                infoSavings["title"] = savings[index].title;
-                                infoSavings["description"] = savings[index].description;
-                                infoSavings["icon"] = savings[index].icon;
-                                infoSavings["fullName"] = savings[index].fullName;
-                                infoSavings["date"] = savings[index].date;
-                                infoSavings["balance"] = savings[index].balance;
-                                Navigator.of(context).pushNamed('single_savings_screen', arguments: infoSavings);
+                                Map<String, dynamic> infoSaving = {};
+                                infoSaving["saving"] = savings[index];
+                                infoSaving["user"] = user;
+                                Navigator.of(context).pushNamed('single_savings_screen', arguments: infoSaving);
                               },
                               child: ListItem(
                                   title: savings[index].title,

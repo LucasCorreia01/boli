@@ -1,4 +1,3 @@
-import 'package:boli/models/savings.dart';
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
@@ -48,8 +47,6 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-  Savings.deleteAllSavings();
-  // ExtractAccount.getExtractAccount();
   runApp(const MainApp());
 }
 
@@ -223,9 +220,10 @@ class MainApp extends StatelessWidget {
             type: PageTransitionType.rightToLeft,
           );
         } else if (settings.name == 'single_savings_screen') {
-          Map<String, dynamic> infoSavings = settings.arguments as Map<String,dynamic>;
+          Map<String, dynamic> savings = settings.arguments as Map<String, dynamic>;
           return PageTransition(
-            child: SingleSavingsScreen(infoSavings),
+            settings: settings,
+            child: SingleSavingsScreen(savings),
             type: PageTransitionType.rightToLeft,
           );
         } else {

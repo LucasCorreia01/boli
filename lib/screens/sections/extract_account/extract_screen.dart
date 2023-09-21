@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../models/extract_account.dart';
 import '../../../models/user.dart';
 import 'extract_account_item_transfer_receiver.dart';
+import 'extract_account_item_transfer_savings.dart';
 
 class ExtractAccountScreen extends StatelessWidget {
   final User user;
@@ -73,10 +74,22 @@ class ExtractAccountScreen extends StatelessWidget {
             case ConnectionState.done:
               if (snapshot.hasData && extractAccounts != null) {
                 if (extractAccounts.isNotEmpty) {
-                  return ListView.builder(
+                  return Scrollbar(
+                    thumbVisibility: true,
+                    child: ListView.builder(
                     itemCount: extractAccounts.length,
                     itemBuilder: (BuildContext context, index) {
-                      if (user.fullname ==
+                      if (extractAccounts[index]
+                          .fullNameReceiver
+                          .contains('Poupança')) {
+                        return ExtractAccountItemTransferSavings(
+                          actualUser: user,
+                          userReceiver: extractAccounts[index].fullNameReceiver,
+                          userSend: extractAccounts[index].fullNameSend,
+                          valueTranfered: extractAccounts[index].value,
+                          date: extractAccounts[index].date,
+                        );
+                      } else if (user.fullname ==
                           extractAccounts[index].fullNameSend) {
                         return ExtractAccountItemTransferSend(
                           actualUser: user,
@@ -95,6 +108,7 @@ class ExtractAccountScreen extends StatelessWidget {
                         );
                       }
                     },
+                  ),
                   );
                 }
                 return const Padding(

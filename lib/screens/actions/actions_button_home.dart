@@ -61,7 +61,6 @@ class ActionsButtonsHome extends StatelessWidget {
                             'Você não tem saldo para fazer uma tranferência.'),
                       ),
                     );
-
                   }
                 },
                 child: Column(

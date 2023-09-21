@@ -149,4 +149,9 @@ class _InitialScreenState extends State<InitialScreen> {
     ];
     return pages[index];
   }
+
+  update(){
+    setState(() {
+    });
+  }
 }
