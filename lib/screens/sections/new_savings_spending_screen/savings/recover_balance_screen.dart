@@ -1,4 +1,5 @@
 import 'package:boli/models/savings.dart';
+import 'package:boli/screens/savings_screen_single.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../../models/user.dart';
@@ -68,7 +69,9 @@ class RecoverBalanceScreen extends StatelessWidget {
                       if (double.parse(value) > user.balance) {
                         return 'Você não tem saldo suficiente para essa operação.';
                       }
+                      savings.redeemMoneySaving(double.parse(value));
                       return null;
+                      
                     }
                     return 'Por favor insira um valor válido!';
                   },

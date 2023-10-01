@@ -30,6 +30,7 @@ class AddBalanceSavingsScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             const SliverToBoxAdapter(
               child: Padding(
@@ -87,7 +88,8 @@ class AddBalanceSavingsScreen extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(
                             text: 'R\$${user.balance}',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                       ]),
                 ),
               ),
@@ -103,18 +105,18 @@ class AddBalanceSavingsScreen extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(
                             text: 'R\$${savings.balance}',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                       ]),
                 ),
               ),
             ),
             SliverFillRemaining(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 InkWell(
-                  onTap: (){
-                    if(_formKey.currentState!.validate()){
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
                       value.text = value.text.replaceAll(',', '.');
                       value.text = value.text.replaceAll("R\$", '');
                       savings.addBalanceSaving(double.parse(value.text));
@@ -122,22 +124,23 @@ class AddBalanceSavingsScreen extends StatelessWidget {
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 24),
                     child: Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(26)),
-                        child: const Text(
-                          'Adicionar   📊',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      padding: const EdgeInsets.all(10),
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(26)),
+                      child: const Text(
+                        'Adicionar   📊',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ),
                   ),
                 ),
               ]),

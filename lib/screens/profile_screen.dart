@@ -15,6 +15,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
@@ -150,9 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context)
-                              .pushNamed('choose-edit-informations',
-                                  arguments: widget.user);
+                          Navigator.of(context).pushNamed(
+                              'choose-edit-informations',
+                              arguments: widget.user);
                         },
                         child: const Row(
                           children: [

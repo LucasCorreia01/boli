@@ -1,12 +1,13 @@
 import 'package:boli/database/savings_dabase.dart';
 import 'package:boli/database/users_database.dart';
 import 'package:boli/models/user.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import 'extract_account.dart';
 
-class Savings {
+class Savings extends ChangeNotifier {
   String id;
   String title;
   String description;
@@ -90,11 +91,16 @@ class Savings {
       balance = balance + value;
       db.update('savings', {'balance': balance},
           where: 'title = ?', whereArgs: [title]);
-      userDb.update(
+      try {
+        userDb.update(
           'users',
           where: 'fullName = ?',
           whereArgs: [fullName],
-          {'balance': balanceUser});
+          {'balance': balanceUser},
+        );
+      } on Exception{
+        print('Estamos aqui! dentro do Catch');
+      }
       ExtractAccount extract = ExtractAccount(
         fullNameReceiver: "Poupança: $title",
         fullNameSend: fullName,
@@ -104,6 +110,20 @@ class Savings {
       extract.newExtract();
       return true;
     } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> redeemMoneySaving(double value) async{
+    try{
+      Database db = await getDatabaseSavings();
+      Database userDb = await getDatabase();
+
+      var mapUser = await userDb.query('users', where: 'fullName = ?', whereArgs: [fullName]);
+      List<User> listUsers = toListUser(mapUser);
+      print(listUsers.first.balance);
+      return true;
+    } catch(e){
       return false;
     }
   }

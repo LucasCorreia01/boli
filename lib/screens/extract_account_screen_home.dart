@@ -8,16 +8,22 @@ import 'package:flutter/material.dart';
 import '../models/extract_account.dart';
 import '../models/user.dart';
 
-class ExtractAccountScreenHome extends StatelessWidget {
+class ExtractAccountScreenHome extends StatefulWidget {
   User user;
   ExtractAccountScreenHome({required this.user, super.key});
 
+  @override
+  State<ExtractAccountScreenHome> createState() =>
+      _ExtractAccountScreenHomeState();
+}
+
+class _ExtractAccountScreenHomeState extends State<ExtractAccountScreenHome> {
   final List<Map<String, String>> notifications = getListItensNotifications();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: ExtractAccount.getExtractAccount(user),
+      future: ExtractAccount.getExtractAccount(widget.user),
       builder: (context, snapshot) {
         List<ExtractAccount>? extractAccounts = snapshot.data;
         switch (snapshot.connectionState) {
@@ -72,24 +78,28 @@ class ExtractAccountScreenHome extends StatelessWidget {
           case ConnectionState.done:
             if (snapshot.hasData && extractAccounts != null) {
               if (extractAccounts.isNotEmpty) {
-                return Scrollbar(
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    setState(() {});
+                  },
                   child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: extractAccounts.length,
                     itemBuilder: (BuildContext context, index) {
                       if (extractAccounts[index]
                           .fullNameReceiver
                           .contains('Poupança')) {
                         return ExtractAccountItemTransferSavings(
-                          actualUser: user,
+                          actualUser: widget.user,
                           userReceiver: extractAccounts[index].fullNameReceiver,
                           userSend: extractAccounts[index].fullNameSend,
                           valueTranfered: extractAccounts[index].value,
                           date: extractAccounts[index].date,
                         );
-                      } else if (user.fullname ==
+                      } else if (widget.user.fullname ==
                           extractAccounts[index].fullNameSend) {
                         return ExtractAccountItemTransferSend(
-                          actualUser: user,
+                          actualUser: widget.user,
                           userReceiver: extractAccounts[index].fullNameReceiver,
                           userSend: extractAccounts[index].fullNameSend,
                           valueTranfered: extractAccounts[index].value,
@@ -97,7 +107,7 @@ class ExtractAccountScreenHome extends StatelessWidget {
                         );
                       } else {
                         return ExtractAccountItemTransferReceiver(
-                          actualUser: user,
+                          actualUser: widget.user,
                           userReceiver: extractAccounts[index].fullNameReceiver,
                           userSend: extractAccounts[index].fullNameSend,
                           valueTranfered: extractAccounts[index].value,

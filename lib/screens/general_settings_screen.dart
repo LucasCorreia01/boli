@@ -34,6 +34,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
         centerTitle: true,
       ),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Container(
@@ -263,5 +264,4 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
     isOnNotifications = prefs.getBool('notifications')!;
     setState(() {});
   }
-
 }

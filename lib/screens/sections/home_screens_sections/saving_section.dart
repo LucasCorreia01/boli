@@ -81,7 +81,9 @@ class SavingSection extends StatelessWidget {
                                 Map<String, dynamic> infoSaving = {};
                                 infoSaving["saving"] = savings[index];
                                 infoSaving["user"] = user;
-                                Navigator.of(context).pushNamed('single_savings_screen', arguments: infoSaving);
+                                Navigator.of(context).pushNamed('single_savings_screen', arguments: infoSaving).then((value){
+                                  Navigator.pushReplacementNamed(context, 'login-screen');
+                                });
                               },
                               child: ListItem(
                                   title: savings[index].title,

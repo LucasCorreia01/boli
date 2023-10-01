@@ -77,38 +77,42 @@ class ExtractAccountScreen extends StatelessWidget {
                   return Scrollbar(
                     thumbVisibility: true,
                     child: ListView.builder(
-                    itemCount: extractAccounts.length,
-                    itemBuilder: (BuildContext context, index) {
-                      if (extractAccounts[index]
-                          .fullNameReceiver
-                          .contains('Poupança')) {
-                        return ExtractAccountItemTransferSavings(
-                          actualUser: user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      } else if (user.fullname ==
-                          extractAccounts[index].fullNameSend) {
-                        return ExtractAccountItemTransferSend(
-                          actualUser: user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      } else {
-                        return ExtractAccountItemTransferReceiver(
-                          actualUser: user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      }
-                    },
-                  ),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: extractAccounts.length,
+                      itemBuilder: (BuildContext context, index) {
+                        if (extractAccounts[index]
+                            .fullNameReceiver
+                            .contains('Poupança')) {
+                          return ExtractAccountItemTransferSavings(
+                            actualUser: user,
+                            userReceiver:
+                                extractAccounts[index].fullNameReceiver,
+                            userSend: extractAccounts[index].fullNameSend,
+                            valueTranfered: extractAccounts[index].value,
+                            date: extractAccounts[index].date,
+                          );
+                        } else if (user.fullname ==
+                            extractAccounts[index].fullNameSend) {
+                          return ExtractAccountItemTransferSend(
+                            actualUser: user,
+                            userReceiver:
+                                extractAccounts[index].fullNameReceiver,
+                            userSend: extractAccounts[index].fullNameSend,
+                            valueTranfered: extractAccounts[index].value,
+                            date: extractAccounts[index].date,
+                          );
+                        } else {
+                          return ExtractAccountItemTransferReceiver(
+                            actualUser: user,
+                            userReceiver:
+                                extractAccounts[index].fullNameReceiver,
+                            userSend: extractAccounts[index].fullNameSend,
+                            valueTranfered: extractAccounts[index].value,
+                            date: extractAccounts[index].date,
+                          );
+                        }
+                      },
+                    ),
                   );
                 }
                 return const Padding(
