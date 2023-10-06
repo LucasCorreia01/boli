@@ -37,6 +37,17 @@ List<CardCredit> getCardExemples() {
       nameCard: 'BBVA',
       imageLogo: 'assets/images/visa-logo.png',
     ),
+    CardCredit(
+      balanceCard: '32,003,000',
+      cardNumber: '0298 6652 9142 7348',
+      cvv: '582',
+      dueDate: '12/26',
+      colorCard: const Color.fromRGBO(255, 213, 65, 1),
+      colorText: const Color.fromRGBO(43, 43, 63, 1),
+      iconCard: BoxIcons.bxl_visa,
+      nameCard: 'MasterCard',
+      imageLogo: 'assets/images/mastercard-logo.png',
+    ),
   ];
 }
 

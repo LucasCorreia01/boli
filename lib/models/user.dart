@@ -56,6 +56,7 @@ class User extends ChangeNotifier {
         'balance': balance,
         'movedValue': movedValue
       });
+      notifyListeners();
       return true;
     } catch (e) {
       return false;
@@ -82,6 +83,7 @@ class User extends ChangeNotifier {
             where: 'fullname = ?', whereArgs: [fullname]);
         db.update('users', {"fullname": value},
             where: 'fullname = ?', whereArgs: [fullname]);
+        notifyListeners();
         return true;
       } catch (e) {
         print(e.toString());
@@ -91,6 +93,7 @@ class User extends ChangeNotifier {
       try {
         db.update('users', {attr: value},
             where: 'fullname = ?', whereArgs: [fullname]);
+        notifyListeners();
         return true;
       } catch (e) {
         print(e.toString());
@@ -125,17 +128,24 @@ class User extends ChangeNotifier {
 
     //Atualiza o saldo do usuário que está recebendo.
     // Recupera o saldo atual
-    dynamic list = await db.query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+    dynamic list = await db
+        .query('users', where: 'fullname = ?', whereArgs: [fullnameReceiver]);
     list = toList(list);
     User user = list[0] as User;
     //Soma com o valor da transferência
     user.balance += valueToTransfer;
     await Future.delayed(const Duration(seconds: 3));
     // Atualiza o valor do usuário no db
-    await db.update('users', {'balance': user.balance}, where: 'fullname = ?', whereArgs: [fullnameReceiver]);
-    ExtractAccount extract =  ExtractAccount(fullNameReceiver: fullnameReceiver, fullNameSend: fullnameSend, date: DateTime.now(), value: valueToTransfer);
+    await db.update('users', {'balance': user.balance},
+        where: 'fullname = ?', whereArgs: [fullnameReceiver]);
+    ExtractAccount extract = ExtractAccount(
+        fullNameReceiver: fullnameReceiver,
+        fullNameSend: fullnameSend,
+        date: DateTime.now(),
+        value: valueToTransfer);
     extract.newExtract();
     Future.delayed(const Duration(seconds: 5));
+    notifyListeners();
     return true;
   }
 
@@ -154,7 +164,8 @@ class User extends ChangeNotifier {
   static Future<dynamic> selectInitUser(String? fullName) async {
     Database db = await getDatabase();
     try {
-      var user = await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
+      var user =
+          await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
       return toList(user);
     } catch (e) {
       //TODO:: Exception
@@ -166,6 +177,7 @@ class User extends ChangeNotifier {
     Database db = await getDatabase();
     await db.update('users', {'lastSeen': '${DateTime.now()}'},
         where: 'id = ?', whereArgs: [id]);
+    notifyListeners();
   }
 
   //Adiciona dinheiro a conta
@@ -173,12 +185,20 @@ class User extends ChangeNotifier {
     Database db = await getDatabase();
     value = value.replaceAll('R\$', '');
     value = value.replaceAll(',', '.');
+    double valueReceived = double.parse(value);
     double newBalance = double.parse(value);
     movedValue += newBalance;
     newBalance = newBalance + balance;
     balance = newBalance;
+
     await db.update('users', {'balance': newBalance, 'movedValue': movedValue},
         where: 'name = ?', whereArgs: [name]);
+    ExtractAccount extract = ExtractAccount(
+        fullNameReceiver: fullname,
+        fullNameSend: 'Depósito Boli',
+        date: DateTime.now(),
+        value: valueReceived);
+    extract.newExtract();
     notifyListeners();
   }
 

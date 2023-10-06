@@ -10,6 +10,7 @@ class MainScreenNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
@@ -21,7 +22,14 @@ class MainScreenNew extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, 'new-savings', arguments: user);
+                  if (user.balance > 0) {
+                    Navigator.pushNamed(context, 'new-savings',
+                        arguments: user);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'Você não tem saldo suficiente para criar uma poupança!')));
+                  }
                 },
                 child: const Row(
                   children: [

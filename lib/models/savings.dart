@@ -25,6 +25,15 @@ class Savings extends ChangeNotifier {
     required this.balance,
   }) : id = const Uuid().v1();
 
+  Savings.empty()
+      : id = "",
+        title = "",
+        description = "",
+        icon = 0,
+        fullName = "",
+        date = DateTime.now(),
+        balance = 0;
+
   Future<bool> addSaving(User user) async {
     Database db = await getDatabaseSavings();
     try {
@@ -98,7 +107,7 @@ class Savings extends ChangeNotifier {
           whereArgs: [fullName],
           {'balance': balanceUser},
         );
-      } on Exception{
+      } on Exception {
         print('Estamos aqui! dentro do Catch');
       }
       ExtractAccount extract = ExtractAccount(
@@ -114,16 +123,29 @@ class Savings extends ChangeNotifier {
     }
   }
 
-  Future<bool> redeemMoneySaving(double value) async{
-    try{
+  Future<bool> redeemMoneySaving(double value) async {
+    try {
       Database db = await getDatabaseSavings();
       Database userDb = await getDatabase();
-
-      var mapUser = await userDb.query('users', where: 'fullName = ?', whereArgs: [fullName]);
+      var mapUser = await userDb
+          .query('users', where: 'fullName = ?', whereArgs: [fullName]);
       List<User> listUsers = toListUser(mapUser);
-      print(listUsers.first.balance);
+      double actualBalance = listUsers.first.balance;
+      actualBalance = actualBalance + value;
+      balance = balance - value;
+      userDb.update('users', {'balance' : actualBalance}, where: 'fullName = ?', whereArgs: [fullName]);
+      db.update('savings', {'balance' : balance}, where: 'fullName = ? and title = ?', whereArgs: [fullName, title]);
+      print(actualBalance);
+      print(balance);
+      ExtractAccount extract = ExtractAccount(
+        fullNameReceiver: "Resgate poupança: $title",
+        fullNameSend: fullName,
+        date: DateTime.now(),
+        value: value,
+      );
+      extract.newExtract();
       return true;
-    } catch(e){
+    } catch (e) {
       return false;
     }
   }

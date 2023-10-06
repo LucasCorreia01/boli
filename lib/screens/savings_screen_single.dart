@@ -16,6 +16,7 @@ class _SavingScreenSingleState extends State<SavingScreenSingle> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(top: 48),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

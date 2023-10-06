@@ -31,13 +31,13 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
         actions: [_offsetPopup(context)],
       ),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColorDark,
                     borderRadius: BorderRadius.circular(16)),
@@ -65,7 +65,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: SelectorsIncome(),
+            child: SelectorsIncome(user),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -114,7 +114,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
                   ));
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorDark,
@@ -145,7 +145,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
                       arguments: user);
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.red,

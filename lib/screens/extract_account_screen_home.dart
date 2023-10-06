@@ -2,12 +2,14 @@
 import 'package:boli/helpers/exemples.dart';
 import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_receiver.dart';
 import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_savings.dart';
+import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_savings_redeem.dart';
 import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_send.dart';
 import 'package:flutter/material.dart';
 
 import '../models/extract_account.dart';
 import '../models/user.dart';
 
+// ignore: must_be_immutable
 class ExtractAccountScreenHome extends StatefulWidget {
   User user;
   ExtractAccountScreenHome({required this.user, super.key});
@@ -78,44 +80,56 @@ class _ExtractAccountScreenHomeState extends State<ExtractAccountScreenHome> {
           case ConnectionState.done:
             if (snapshot.hasData && extractAccounts != null) {
               if (extractAccounts.isNotEmpty) {
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    setState(() {});
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: extractAccounts.length,
+                  itemBuilder: (BuildContext context, index) {
+                    if (extractAccounts[index]
+                              .fullNameReceiver
+                              .contains('Poupança') ||
+                          extractAccounts[index]
+                              .fullNameReceiver
+                              .contains('Resgate')) {
+                        if (extractAccounts[index]
+                            .fullNameReceiver
+                            .contains('Resgate')) {
+                          return ExtractAccountItemTransferSavingsRedeem(
+                            actualUser: widget.user,
+                            userReceiver:
+                                extractAccounts[index].fullNameReceiver,
+                            userSend: extractAccounts[index].fullNameSend,
+                            valueTranfered: extractAccounts[index].value,
+                            date: extractAccounts[index].date,
+                          );
+                        } else {
+                          return ExtractAccountItemTransferSavings(
+                            actualUser: widget.user,
+                            userReceiver:
+                                extractAccounts[index].fullNameReceiver,
+                            userSend: extractAccounts[index].fullNameSend,
+                            valueTranfered: extractAccounts[index].value,
+                            date: extractAccounts[index].date,
+                          );
+                        }
+                    } else if (widget.user.fullname ==
+                        extractAccounts[index].fullNameSend) {
+                      return ExtractAccountItemTransferSend(
+                        actualUser: widget.user,
+                        userReceiver: extractAccounts[index].fullNameReceiver,
+                        userSend: extractAccounts[index].fullNameSend,
+                        valueTranfered: extractAccounts[index].value,
+                        date: extractAccounts[index].date,
+                      );
+                    } else {
+                      return ExtractAccountItemTransferReceiver(
+                        actualUser: widget.user,
+                        userReceiver: extractAccounts[index].fullNameReceiver,
+                        userSend: extractAccounts[index].fullNameSend,
+                        valueTranfered: extractAccounts[index].value,
+                        date: extractAccounts[index].date,
+                      );
+                    }
                   },
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: extractAccounts.length,
-                    itemBuilder: (BuildContext context, index) {
-                      if (extractAccounts[index]
-                          .fullNameReceiver
-                          .contains('Poupança')) {
-                        return ExtractAccountItemTransferSavings(
-                          actualUser: widget.user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      } else if (widget.user.fullname ==
-                          extractAccounts[index].fullNameSend) {
-                        return ExtractAccountItemTransferSend(
-                          actualUser: widget.user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      } else {
-                        return ExtractAccountItemTransferReceiver(
-                          actualUser: widget.user,
-                          userReceiver: extractAccounts[index].fullNameReceiver,
-                          userSend: extractAccounts[index].fullNameSend,
-                          valueTranfered: extractAccounts[index].value,
-                          date: extractAccounts[index].date,
-                        );
-                      }
-                    },
-                  ),
                 );
               }
               return const Padding(
@@ -156,23 +170,5 @@ class _ExtractAccountScreenHomeState extends State<ExtractAccountScreenHome> {
         }
       },
     );
-    // return CustomScrollView(
-    //   slivers: [
-    //     SliverToBoxAdapter(
-    //       child: Text(
-    //         'Notificações:',
-    //         textAlign: TextAlign.center,
-    //         style: Theme.of(context).textTheme.displayMedium,
-    //       ),
-    //     ),
-    //     SliverList(
-    //         delegate: SliverChildBuilderDelegate((context, index) {
-    //       return ListItemNotification(
-    //         title: notifications[index]['title']!,
-    //         content: notifications[index]['content']!,
-    //       );
-    //     }, childCount: notifications.length))
-    //   ],
-    // );
   }
 }

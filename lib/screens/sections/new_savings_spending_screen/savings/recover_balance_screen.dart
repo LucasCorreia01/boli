@@ -69,9 +69,7 @@ class RecoverBalanceScreen extends StatelessWidget {
                       if (double.parse(value) > user.balance) {
                         return 'Você não tem saldo suficiente para essa operação.';
                       }
-                      savings.redeemMoneySaving(double.parse(value));
                       return null;
-                      
                     }
                     return 'Por favor insira um valor válido!';
                   },
@@ -89,7 +87,8 @@ class RecoverBalanceScreen extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(
                             text: 'R\$${user.balance}',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                       ]),
                 ),
               ),
@@ -105,38 +104,42 @@ class RecoverBalanceScreen extends StatelessWidget {
                       children: <TextSpan>[
                         TextSpan(
                             text: 'R\$${savings.balance}',
-                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                       ]),
                 ),
               ),
             ),
             SliverFillRemaining(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 InkWell(
-                  onTap: (){
-                    if(_formKey.currentState!.validate()){
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      value.text = value.text.replaceAll("R\$", '');
+                      value.text = value.text.replaceAll(',', '.');
+                      savings.redeemMoneySaving(double.parse(value.text));
                       Navigator.pop(context);
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 24),
                     child: Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(26)),
-                        child: const Text(
-                          'Resgatar',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      padding: const EdgeInsets.all(10),
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(26)),
+                      child: const Text(
+                        'Resgatar',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ),
                   ),
                 ),
               ]),

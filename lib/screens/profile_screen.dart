@@ -257,6 +257,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
+        const SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text('VERSÃO', style: TextStyle(fontSize: 14,)),
+                Text('1.0.0', style: TextStyle(fontSize: 14),)
+              ],
+            ),
+          ),
+        )
       ],
     );
   }

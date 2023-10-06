@@ -1,3 +1,4 @@
+import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_savings_redeem.dart';
 import 'package:boli/screens/sections/extract_account/extract_account_item_transfer_send.dart';
 import 'package:flutter/material.dart';
 import '../../../models/extract_account.dart';
@@ -81,16 +82,32 @@ class ExtractAccountScreen extends StatelessWidget {
                       itemCount: extractAccounts.length,
                       itemBuilder: (BuildContext context, index) {
                         if (extractAccounts[index]
-                            .fullNameReceiver
-                            .contains('Poupança')) {
-                          return ExtractAccountItemTransferSavings(
-                            actualUser: user,
-                            userReceiver:
-                                extractAccounts[index].fullNameReceiver,
-                            userSend: extractAccounts[index].fullNameSend,
-                            valueTranfered: extractAccounts[index].value,
-                            date: extractAccounts[index].date,
-                          );
+                                .fullNameReceiver
+                                .contains('Poupança') ||
+                            extractAccounts[index]
+                                .fullNameReceiver
+                                .contains('Resgate')) {
+                          if (extractAccounts[index]
+                              .fullNameReceiver
+                              .contains('Resgate')) {
+                            return ExtractAccountItemTransferSavingsRedeem(
+                              actualUser: user,
+                              userReceiver:
+                                  extractAccounts[index].fullNameReceiver,
+                              userSend: extractAccounts[index].fullNameSend,
+                              valueTranfered: extractAccounts[index].value,
+                              date: extractAccounts[index].date,
+                            );
+                          } else {
+                            return ExtractAccountItemTransferSavings(
+                              actualUser: user,
+                              userReceiver:
+                                  extractAccounts[index].fullNameReceiver,
+                              userSend: extractAccounts[index].fullNameSend,
+                              valueTranfered: extractAccounts[index].value,
+                              date: extractAccounts[index].date,
+                            );
+                          }
                         } else if (user.fullname ==
                             extractAccounts[index].fullNameSend) {
                           return ExtractAccountItemTransferSend(

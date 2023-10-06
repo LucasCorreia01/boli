@@ -1,3 +1,4 @@
+import 'package:boli/models/savings.dart';
 import 'package:boli/routes.dart';
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
@@ -28,18 +29,19 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
 import 'models/user.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   );
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      systemNavigationBarColor: Colors.black,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     statusBarColor: Colors.black,
+  //     systemNavigationBarColor: Colors.black,
+  //   ),
+  // );
 
   // Caso seja a primeira vez que as prefs forem criadas
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -48,7 +50,10 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-  runApp(const MainApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<User>(create: (context) => User.empty()),
+    ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
+  ], child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -221,7 +226,8 @@ class MainApp extends StatelessWidget {
             type: PageTransitionType.rightToLeft,
           );
         } else if (settings.name == 'single_savings_screen') {
-          Map<String, dynamic> savings = settings.arguments as Map<String, dynamic>;
+          Map<String, dynamic> savings =
+              settings.arguments as Map<String, dynamic>;
           return PageTransition(
             settings: settings,
             child: SingleSavingsScreen(savings),

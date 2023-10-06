@@ -65,6 +65,7 @@ class CardScreen extends StatelessWidget {
         ],
       ),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
