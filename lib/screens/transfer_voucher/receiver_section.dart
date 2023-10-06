@@ -41,15 +41,23 @@ class ReceiverSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Expanded(
+                  flex: 3,
                   child: Text(
                     'Nome',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(
-                  userReceiver,
-                  style: const TextStyle(
-                    fontSize: 18,
+                Expanded(
+                  flex: 9,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        userReceiver,
+                        style: const TextStyle(
+                            fontSize: 18, overflow: TextOverflow.visible),
+                      ),
+                    ],
                   ),
                 )
               ],

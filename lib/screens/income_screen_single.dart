@@ -86,7 +86,7 @@ class IncomeScreenSingle extends StatelessWidget {
               ),
             ),
           ),
-          SelectorsIncome(),
+          // SelectorsIncome(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,

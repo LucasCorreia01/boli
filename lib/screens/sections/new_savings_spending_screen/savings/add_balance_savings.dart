@@ -112,6 +112,7 @@ class AddBalanceSavingsScreen extends StatelessWidget {
               ),
             ),
             SliverFillRemaining(
+              hasScrollBody: false,
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 InkWell(

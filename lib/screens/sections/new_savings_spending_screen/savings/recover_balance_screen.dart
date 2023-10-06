@@ -30,6 +30,7 @@ class RecoverBalanceScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             const SliverToBoxAdapter(
               child: Padding(
@@ -111,6 +112,7 @@ class RecoverBalanceScreen extends StatelessWidget {
               ),
             ),
             SliverFillRemaining(
+              hasScrollBody: false,
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 InkWell(

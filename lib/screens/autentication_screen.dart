@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../components/camera_page.dart';
 import '../models/user.dart';
 
 // ignore: must_be_immutable
@@ -177,6 +178,20 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         .headlineLarge,
                                   ),
                                 ),
+                                TextButton.icon(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) {
+                                                return const CameraPage();
+                                              },
+                                              fullscreenDialog: true));
+                                    },
+                                    icon: Icon(
+                                      BoxIcons.bx_qr_scan,
+                                      color: Theme.of(context).highlightColor,
+                                    ),
+                                    label: const SizedBox()),
                               ],
                             )
                           ],
@@ -303,6 +318,20 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       Theme.of(context).textTheme.headlineLarge,
                                 ),
                               ),
+                              TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) {
+                                              return const CameraPage();
+                                            },
+                                            fullscreenDialog: true));
+                                  },
+                                  icon: Icon(
+                                    BoxIcons.bx_qr_scan,
+                                    color: Theme.of(context).highlightColor,
+                                  ),
+                                  label: const SizedBox()),
                             ],
                           )
                         ],
@@ -328,7 +357,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             widget.user = value[0];
           });
         }
-      } catch(e){
+      } catch (e) {
         print(e.toString());
       }
     });
