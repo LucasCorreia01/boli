@@ -30,6 +30,7 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
+
       body: Column(
         children: [
           FutureBuilder(

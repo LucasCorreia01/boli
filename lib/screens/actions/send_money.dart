@@ -29,11 +29,26 @@ class _SendMoneyState extends State<SendMoney> {
 
     List<Widget> pages = [
       SendMoneyForm(user: widget.user),
-      UsersToTransfer(user: widget.user, valueToTransfer: valueToTransfer,),
+      UsersToTransfer(
+        user: widget.user,
+        valueToTransfer: valueToTransfer,
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'global_transfer');
+            },
+            icon: const Icon(BoxIcons.bx_world, size: 28),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(BoxIcons.bx_qr_scan, size: 28),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
