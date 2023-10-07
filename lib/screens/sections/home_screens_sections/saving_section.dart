@@ -77,12 +77,16 @@ class SavingSection extends StatelessWidget {
                           itemCount: savings.length,
                           itemBuilder: (BuildContext context, index) {
                             return InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Map<String, dynamic> infoSaving = {};
                                 infoSaving["saving"] = savings[index];
                                 infoSaving["user"] = user;
-                                Navigator.of(context).pushNamed('single_savings_screen', arguments: infoSaving).then((value){
-                                  Navigator.pushReplacementNamed(context, 'login-screen');
+                                Navigator.of(context)
+                                    .pushNamed('single_savings_screen',
+                                        arguments: infoSaving)
+                                    .then((value) {
+                                  Navigator.pushReplacementNamed(
+                                      context, 'login-screen');
                                 });
                               },
                               child: ListItem(
@@ -97,45 +101,57 @@ class SavingSection extends StatelessWidget {
                   );
                 }
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                return InkWell(
+                  onTap: (){
+                    if (user.balance > 0) {
+                    Navigator.pushNamed(context, 'new-savings',
+                        arguments: user);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'Você não tem saldo suficiente para criar uma poupança!')));
+                  }
+                  },
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Theme.of(context).primaryColorDark,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.warning),
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColorDark,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.warning),
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Nenhuma poupança cadastrada',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium,
-                              ),
-                              Text(
-                                'Desja criar uma nova?',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Nenhuma poupança cadastrada',
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColorDark,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.visible)),
+                                Text(
+                                  'Desja criar uma nova?',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );

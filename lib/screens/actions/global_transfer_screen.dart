@@ -13,7 +13,7 @@ class GlobalTransferScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            flex: 15,
+            flex: 14,
             child: CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
@@ -276,7 +276,7 @@ class GlobalTransferScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                            bottom: 10.0, left: 24.0, right: 24.0),
+                            bottom: 14.0, left: 24.0, right: 24.0),
                         child: InkWell(
                           onTap: () {
                             Navigator.pop(context);

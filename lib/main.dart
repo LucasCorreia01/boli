@@ -1,6 +1,7 @@
 import 'package:boli/models/savings.dart';
 import 'package:boli/routes.dart';
 import 'package:boli/screens/actions/global_transfer_screen.dart';
+import 'package:boli/screens/actions/payment_qr_screen.dart';
 import 'package:boli/screens/actions/receive_money.dart';
 import 'package:boli/screens/actions/send_money.dart';
 import 'package:boli/screens/autentication_screen.dart';
@@ -239,6 +240,13 @@ class MainApp extends StatelessWidget {
             settings: settings,
             child: const GlobalTransferScreen(),
             type: PageTransitionType.bottomToTop,
+            fullscreenDialog: true
+          );
+        } else if (settings.name == 'payment_qr') {
+          return PageTransition(
+            settings: settings,
+            child: const PaymentQrScreen(),
+            type: PageTransitionType.rightToLeft,
             fullscreenDialog: true
           );
         } else {

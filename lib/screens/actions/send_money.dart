@@ -42,10 +42,12 @@ class _SendMoneyState extends State<SendMoney> {
             onPressed: () {
               Navigator.pushNamed(context, 'global_transfer');
             },
-            icon: const Icon(BoxIcons.bx_world, size: 28),
+            icon: const Icon(BoxIcons.bx_world, size: 28,),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'payment_qr');
+            },
             icon: const Icon(BoxIcons.bx_qr_scan, size: 28),
           )
         ],
