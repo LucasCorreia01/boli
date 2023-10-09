@@ -1,5 +1,4 @@
 import 'package:boli/models/savings.dart';
-import 'package:boli/routes.dart';
 import 'package:boli/screens/actions/global_transfer_screen.dart';
 import 'package:boli/screens/actions/payment_qr_screen.dart';
 import 'package:boli/screens/actions/receive_money.dart';

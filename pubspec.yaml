@@ -21,6 +21,8 @@ dependencies:
   animations: any
   intl: any
   page_transition: any
+  http_interceptor: ^2.0.0-beta.7
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

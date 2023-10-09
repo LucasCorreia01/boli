@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
-class GlobalTransferScreen extends StatelessWidget {
+class GlobalTransferScreen extends StatefulWidget {
   const GlobalTransferScreen({super.key});
+
+  @override
+  State<GlobalTransferScreen> createState() => _GlobalTransferScreenState();
+}
+
+class _GlobalTransferScreenState extends State<GlobalTransferScreen> {
+  late TextEditingController controllerDolar;
+  late TextEditingController controllerReal;
+  String valueDolar = "";
+  String valueReal = "";
+
+  @override
+  void initState() {
+    controllerDolar = TextEditingController();
+    controllerReal = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controllerDolar.dispose();
+    controllerReal.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,25 +95,34 @@ class GlobalTransferScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'R\$ 15000,00',
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Icon(
-                                      BoxIcons.bx_edit_alt,
-                                      weight: 2,
-                                      size: 28,
-                                      color: Theme.of(context).primaryColor,
+                              InkWell(
+                                onTap: () async{
+                                  String? value = await openDialogReal();
+                                  if(value == null || value.isEmpty) return;
+                                  value = "USD $value,00";
+                                  setState(() => valueReal = value!);
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      (valueReal == "") ? 'R\$ 15000,00' : valueDolar,
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Theme.of(context).primaryColor),
                                     ),
-                                  )
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Icon(
+                                        BoxIcons.bx_edit_alt,
+                                        weight: 2,
+                                        size: 28,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -123,25 +158,34 @@ class GlobalTransferScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'USD 2872,06',
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Icon(
-                                      BoxIcons.bx_edit_alt,
-                                      weight: 2,
-                                      size: 28,
-                                      color: Theme.of(context).primaryColor,
+                              InkWell(
+                                onTap: () async{
+                                  String? value = await openDialogDolar();
+                                  if(value == null || value.isEmpty) return;
+                                  value = "USD $value,00";
+                                  setState(() => valueDolar = value!);
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      (valueReal == "") ? 'USD 2872,06' : valueDolar,
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Theme.of(context).primaryColor),
                                     ),
-                                  )
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Icon(
+                                        BoxIcons.bx_edit_alt,
+                                        weight: 2,
+                                        size: 28,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -162,7 +206,7 @@ class GlobalTransferScreen extends StatelessWidget {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'A simulação é feita em tempo real e inclui taxas mas o câmbio final só fechado ao completar a transferência.',
+                          'A simulação é feita em tempo real e inclui taxas mas o câmbio final só é fechado ao completar a transferência.',
                           style: TextStyle(
                               overflow: TextOverflow.visible, fontSize: 15),
                         ),
@@ -175,17 +219,56 @@ class GlobalTransferScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     decoration: const BoxDecoration(
                         border: Border(top: BorderSide(width: 0.2))),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Câmbio comercial',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('R\$ 5,1525', style: TextStyle(fontSize: 18))
+                          FutureBuilder(
+                            future: getDollarQuote(),
+                            builder: ((context, snapshot) {
+                              String? dollarQuote = snapshot.data;
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.waiting:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.active:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.done:
+                                  if (snapshot.data != null &&
+                                      snapshot.data != "") {
+                                    dollarQuote =
+                                        dollarQuote!.replaceAll('.', ',');
+                                    return Text(
+                                      'R\$ $dollarQuote',
+                                      style: const TextStyle(fontSize: 18),
+                                    );
+                                  }
+                              }
+                              return const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator());
+                            }),
+                          ),
                         ],
                       ),
                     ),
@@ -238,17 +321,56 @@ class GlobalTransferScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     decoration: const BoxDecoration(
                         border: Border(top: BorderSide(width: 0.2))),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Cotação final (VET)',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text('R\$ 0,00', style: TextStyle(fontSize: 18))
+                          FutureBuilder(
+                            future: getDollarQuote(),
+                            builder: ((context, snapshot) {
+                              String? dollarQuote = snapshot.data;
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.waiting:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.active:
+                                  return const SizedBox(
+                                      width: 18,
+                                      height: 18,
+                                      child: CircularProgressIndicator());
+
+                                case ConnectionState.done:
+                                  if (snapshot.data != null &&
+                                      snapshot.data != "") {
+                                    dollarQuote =
+                                        dollarQuote!.replaceAll('.', ',');
+                                    return Text(
+                                      'R\$ $dollarQuote',
+                                      style: const TextStyle(fontSize: 18),
+                                    );
+                                  }
+                              }
+                              return const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator());
+                            }),
+                          ),
                         ],
                       ),
                     ),
@@ -303,7 +425,10 @@ class GlobalTransferScreen extends StatelessWidget {
                         child: Text(
                           'Ao continuar, você declara ter lido e concordado com os Termos e Condições',
                           textAlign: TextAlign.center,
-                          style: TextStyle(overflow: TextOverflow.visible, fontSize: 14, ),
+                          style: TextStyle(
+                            overflow: TextOverflow.visible,
+                            fontSize: 14,
+                          ),
                         ),
                       )
                     ],
@@ -316,4 +441,77 @@ class GlobalTransferScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future<String> getDollarQuote() async {
+    var url = "https://economia.awesomeapi.com.br/json/last/USD-BRL";
+    var dolarQuote = '';
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+      dolarQuote = jsonResponse['USDBRL']['low'];
+    }
+
+    return dolarQuote;
+  }
+
+  Future<String?> openDialogDolar() => showDialog<String>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Editar valor'),
+          content: TextField(
+            decoration: const InputDecoration(hintText: 'R\$'),
+            controller: controllerDolar,
+            keyboardType: TextInputType.number,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.of(context).pop(controllerDolar.text);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                  // If the button is pressed, return green, otherwise blue
+                  return Theme.of(context).primaryColorDark;
+                }),
+                textStyle: MaterialStateProperty.resolveWith((states) {
+
+                  return const TextStyle(color: Colors.white);
+                }),
+              ),
+              child: const Text('Confirmar', style: TextStyle(color: Colors.white),),
+            ),
+          ],
+        ),
+      );
+
+      Future<String?> openDialogReal() => showDialog<String>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Editar valor'),
+          content: TextField(
+            decoration: const InputDecoration(hintText: 'R\$'),
+            controller: controllerReal,
+            keyboardType: TextInputType.number,
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.of(context).pop(controllerReal.text);
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                  // If the button is pressed, return green, otherwise blue
+                  return Theme.of(context).primaryColorDark;
+                }),
+                textStyle: MaterialStateProperty.resolveWith((states) {
+
+                  return const TextStyle(color: Colors.white);
+                }),
+              ),
+              child: const Text('Confirmar', style: TextStyle(color: Colors.white),),
+            ),
+          ],
+        ),
+      );
 }
