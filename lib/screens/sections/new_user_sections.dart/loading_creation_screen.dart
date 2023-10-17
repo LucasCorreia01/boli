@@ -251,15 +251,16 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
         lastSeen: DateTime.now());
     if (user != null) {
       await user!.addUser().then((value) {
-        setPreferencesAccountAccess(user!.name);
+        setPreferencesAccountAccess(user!.name, userMap["fullName"]!);
         result = value;
       });
     }
     return result;
   }
 
-  setPreferencesAccountAccess(String name) async {
+  setPreferencesAccountAccess(String name, String fullName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
+    prefs.setString('fullName', fullName);
   }
 }

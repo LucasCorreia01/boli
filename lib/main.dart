@@ -9,6 +9,7 @@ import 'package:boli/screens/card_screen_single.dart';
 import 'package:boli/screens/general_settings_screen.dart';
 import 'package:boli/screens/initial_screen.dart';
 import 'package:boli/screens/income_screen_single.dart';
+import 'package:boli/screens/login_form_screen.dart';
 import 'package:boli/screens/new_user_screen.dart';
 import 'package:boli/screens/saved_accounts.dart';
 import 'package:boli/screens/savings_screen_single.dart';
@@ -37,13 +38,6 @@ void main() async {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp],
   );
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.black,
-  //     systemNavigationBarColor: Colors.black,
-  //   ),
-  // );
-
   // Caso seja a primeira vez que as prefs forem criadas
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool('notifications') == null ||
@@ -80,12 +74,12 @@ class MainApp extends StatelessWidget {
         } else if (settings.name == 'screen-card') {
           var user = settings.arguments as User;
           return PageTransition(
-              settings: settings,
-              type: PageTransitionType.bottomToTop,
-              child: CardScreen(
-                user: user,
-              ),
-              isIos: true);
+            settings: settings,
+            type: PageTransitionType.bottomToTop,
+            child: CardScreen(
+              user: user,
+            ),
+          );
         } else if (settings.name == 'screen-card-single') {
           var arguments = settings.arguments as CardCredit;
           return PageTransition(
@@ -236,17 +230,20 @@ class MainApp extends StatelessWidget {
           );
         } else if (settings.name == 'global_transfer') {
           return PageTransition(
-            settings: settings,
-            child: const GlobalTransferScreen(),
-            type: PageTransitionType.bottomToTop,
-            fullscreenDialog: true
-          );
+              settings: settings,
+              child: const GlobalTransferScreen(),
+              type: PageTransitionType.bottomToTop,
+              fullscreenDialog: true);
         } else if (settings.name == 'payment_qr') {
           return PageTransition(
-            settings: settings,
-            child: const PaymentQrScreen(),
-            type: PageTransitionType.rightToLeft,
-            fullscreenDialog: true
+              settings: settings,
+              child: const PaymentQrScreen(),
+              type: PageTransitionType.rightToLeft,
+              fullscreenDialog: true);
+        } else if (settings.name == 'first-login') {
+          return PageTransition(
+            child: LoginFormScreen(),
+            type: PageTransitionType.bottomToTop,
           );
         } else {
           return MaterialPageRoute(builder: (context) {

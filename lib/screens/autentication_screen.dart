@@ -358,7 +358,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
           });
         }
       } catch (e) {
-        print(e.toString());
+        Navigator.pushReplacementNamed(context, 'first-login');       
       }
     });
   }
