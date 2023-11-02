@@ -57,7 +57,7 @@ class _InitialScreenState extends State<InitialScreen> {
           ): const SizedBox(),
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed('login-screen');
+                Navigator.of(context).pushNamedAndRemoveUntil('login-screen', (Route<dynamic> route) => false);
               },
               icon: const Icon(Icons.exit_to_app))
         ],

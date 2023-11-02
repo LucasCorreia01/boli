@@ -79,7 +79,7 @@ class _EditNameFormScreenState extends State<EditNameFormScreen> {
         onPressed: () {
           if(_formKey.currentState!.validate()){
             widget.user.editInformation('fullname', name.text);
-            Navigator.pushReplacementNamed(context, 'login-screen');
+            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
           }
         },
         child: const Icon(Icons.check),

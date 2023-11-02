@@ -116,7 +116,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
                               height: 40,
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacementNamed(context, "home-screen", arguments: widget.user);
+                                  Navigator.pushNamedAndRemoveUntil(context, "home-screen", arguments: widget.user, (Route<dynamic> route) => false);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

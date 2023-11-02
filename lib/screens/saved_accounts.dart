@@ -123,7 +123,6 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
                         ),
                       );
                     }
-                    print(snapshot.hasData);
                     isPossibleCreateAccount = false;
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -158,6 +157,7 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: InkWell(
                 onTap: () {
+                  print(isPossibleCreateAccount);
                   if (isPossibleCreateAccount) {
                     Navigator.of(context).pushNamed('new-user-screen');
                   } else {

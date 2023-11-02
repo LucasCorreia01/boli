@@ -1,4 +1,5 @@
 import 'package:boli/models/extract_account.dart';
+import 'package:boli/models/savings.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
@@ -67,7 +68,6 @@ class User extends ChangeNotifier {
   static Future<List<User>> getUsers() async {
     Database db = await getDatabase();
     var list = await db.query('users');
-    await Future.delayed(const Duration(milliseconds: 500));
     return toList(list);
   }
 
@@ -154,6 +154,8 @@ class User extends ChangeNotifier {
     Database db = await getDatabase();
     try {
       await db.delete('users', where: 'fullName = ?', whereArgs: [fullName]);
+      ExtractAccount.deleteExtractsOfUser(fullName);
+      Savings.deleteSavingsForFullname(fullName);
       return true;
     } catch (e) {
       return false;
@@ -168,9 +170,10 @@ class User extends ChangeNotifier {
           await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
       return toList(user);
     } catch (e) {
-      //TODO:: Exception
+      print('Um erro aconteceu na aplicação');
     }
   }
+
 
   //Atualizar visto por último
   updateLastSeen() async {
@@ -206,6 +209,17 @@ class User extends ChangeNotifier {
   static deleteAllUsers() async {
     Database db = await getDatabase();
     await db.delete('users');
+  }
+
+  static Future<bool> autenticar(String email, String password) async {
+    Database db = await getDatabase();
+    try{
+      db.query('users', where: 'email = ? and passaword = ?', whereArgs: [email, password]);
+      return true;
+    } catch(e){
+      print(e.toString());
+      return false;
+    }
   }
 
   //Apaga o banco de dados por completo

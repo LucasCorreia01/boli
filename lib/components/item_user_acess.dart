@@ -1,5 +1,6 @@
 import 'package:boli/components/showDialogConfirmation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
 class ItemUserAcess extends StatelessWidget {
@@ -57,6 +58,8 @@ class ItemUserAcess extends StatelessWidget {
                             content: Text('Registro apagado.'),
                           ),
                         );
+                        deleteInfoSharedPrefs();
+                        Navigator.pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
                       });
                     }
                   },
@@ -66,5 +69,10 @@ class ItemUserAcess extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  deleteInfoSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 }

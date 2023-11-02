@@ -61,6 +61,17 @@ class ExtractAccount {
     return accounts;
   }
 
+  static Future<bool> deleteExtractsOfUser(String fullname) async{
+    Database db = await getDatabase();
+    try{
+      db.delete('extract', where: 'fullNameReceiver = ?', whereArgs: [fullname]);
+      db.delete('extract', where: 'fullNameSend = ?', whereArgs: [fullname]);
+      return true;
+    } catch(e){
+      return false;
+    }
+  }
+
   //Remove o banco de dados
   static removeDB() async {
     removeDatabase();

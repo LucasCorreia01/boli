@@ -227,8 +227,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             if (value) {
                               User.deleteUser(widget.user.fullname)
                                   .then((value) {
-                                Navigator.pushReplacementNamed(
-                                    context, 'login-screen');
+                                Navigator. pushNamedAndRemoveUntil(
+                                    context, 'login-screen', (Route<dynamic> route) => false);
                               });
                             }
                           });

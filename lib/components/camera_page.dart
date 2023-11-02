@@ -20,6 +20,13 @@ class _CameraPageState extends State<CameraPage> {
     _loadCameras();
   }
 
+  @override
+  void dispose(){
+    // controller!.stopImageStream();
+    controller!.dispose();
+    super.dispose();
+  }
+
   _loadCameras() async {
     try {
       cameras = await availableCameras();

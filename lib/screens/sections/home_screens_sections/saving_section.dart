@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:boli/components/list_item.dart';
 import 'package:boli/models/savings.dart';
 import 'package:flutter/material.dart';
@@ -85,8 +87,8 @@ class SavingSection extends StatelessWidget {
                                     .pushNamed('single_savings_screen',
                                         arguments: infoSaving)
                                     .then((value) {
-                                  Navigator.pushReplacementNamed(
-                                      context, 'login-screen');
+                                  Navigator. pushNamedAndRemoveUntil(
+                                      context, 'login-screen', (Route<dynamic> route) => false);
                                 });
                               },
                               child: ListItem(

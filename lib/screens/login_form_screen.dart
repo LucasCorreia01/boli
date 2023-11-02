@@ -36,118 +36,124 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                     ),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24.0, vertical: 105),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        child: Container(
-                          decoration: const BoxDecoration(color: Colors.white),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 4,
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  child: Icon(
-                                    Icons.person_2_outlined,
-                                    color: Theme.of(context).primaryColorDark,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 10,
-                                child: SizedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 12.0),
-                                    child: TextFormField()
-                                  ),
-                                ),
-                              ),  
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          decoration: const BoxDecoration(color: Colors.white),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 4,
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                  child: Icon(
-                                    BoxIcons.bxs_keyboard,
-                                    color: Theme.of(context).primaryColorDark,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 10,
-                                child: SizedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 12.0),
-                                    child: TextFormField()
-                                  ),
-                                ),
-                              ),  
-                            ],
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0, vertical: 110),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton.icon(
-                            onPressed: () {
-                              Navigator.of(context)
-                                        .pushNamed('saved-accounts')
-                                        .then((value) {
-                                      if (value != null) {
-                                        Navigator.pushReplacementNamed(context, 'login-screen');
-                                      }
-                                    });
+                          InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, 'form-login-screen');
                             },
-                            icon: Icon(
-                              BoxIcons.bx_refresh,
-                              color: Theme.of(context).highlightColor,
-                            ),
-                            label: Text(
-                              'Trocar de conta',
-                              style: Theme.of(context).textTheme.headlineLarge,
+                            child: Container(
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                      child: Icon(
+                                        Icons.person_2_outlined,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 10,
+                                    child: SizedBox(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 12.0),
+                                        child: (widget.user != null)
+                                            ? Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Fazer login em uma conta.',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineSmall,
+                                                  ),
+                                                  Text(widget.user!.fullname)
+                                                ],
+                                              )
+                                            : Text(
+                                                'Fazer login.',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineSmall,
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Icon(
+                                      FontAwesome.keyboard,
+                                      color: Theme.of(context).primaryColorDark,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          TextButton.icon(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) {
-                                      return const CameraPage();
-                                    },
-                                    fullscreenDialog: true));
-                              },
-                              icon: Icon(
-                                BoxIcons.bx_qr_scan,
-                                color: Theme.of(context).highlightColor,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton.icon(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('new-user-screen');
+                                  // Navigator.of(context)
+                                  //     .pushNamed('saved-accounts')
+                                  //     .then((value) {
+                                  //   if (value != null) {
+                                  //     value = value as User;
+                                  //     widget.user = value;
+                                  //     setState(() {});
+                                  //   }
+                                  // });
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Theme.of(context).highlightColor,
+                                ),
+                                label: Text(
+                                  'Criar conta',
+                                  style:
+                                      Theme.of(context).textTheme.headlineLarge,
+                                ),
                               ),
-                              label: const SizedBox()),
+                              TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) {
+                                              return const CameraPage();
+                                            },
+                                            fullscreenDialog: true));
+                                  },
+                                  icon: Icon(
+                                    BoxIcons.bx_qr_scan,
+                                    color: Theme.of(context).highlightColor,
+                                  ),
+                                  label: const SizedBox()),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
           ),
         ),
       ),

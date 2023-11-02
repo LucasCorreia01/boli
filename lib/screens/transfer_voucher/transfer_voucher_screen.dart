@@ -44,7 +44,6 @@ class _TransferVoucherScreenState extends State<TransferVoucherScreen> {
 
               await saveImage(image);
               saveAndShare(image);
-              print('Passamos por aqui');
             }, icon: const Icon(BoxIcons.bx_share_alt))
           ],
         ),
@@ -76,7 +75,6 @@ class _TransferVoucherScreenState extends State<TransferVoucherScreen> {
 
   Future<String> saveImage(Uint8List bytes) async {
      await [Permission.storage].request();
-    print('Estamos aqui');
     final time = DateTime.now().toIso8601String().replaceAll('.', '-').replaceAll(':', '-');
     final name = 'screenShot_$time';
     final result = await ImageGallerySaver.saveImage(bytes, name: name);

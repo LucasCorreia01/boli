@@ -19,10 +19,11 @@ import 'package:boli/screens/sections/edit_infomations_section/edit_name_form_sc
 import 'package:boli/screens/sections/edit_infomations_section/edit_information.dart';
 import 'package:boli/screens/sections/edit_infomations_section/edit_password_form_screen.dart';
 import 'package:boli/screens/sections/extract_account/extract_screen.dart';
+import 'package:boli/screens/sections/login_section/login_screen_main.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/creating_saving.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/new_savings_screen.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/single_savings_screen.dart';
-import 'package:boli/screens/sections/new_user_sections.dart/loading_creation_screen.dart';
+import 'package:boli/screens/sections/new_user_sections/loading_creation_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
@@ -243,6 +244,11 @@ class MainApp extends StatelessWidget {
         } else if (settings.name == 'first-login') {
           return PageTransition(
             child: LoginFormScreen(),
+            type: PageTransitionType.bottomToTop,
+          );
+        } else if (settings.name == 'form-login-screen') {
+          return PageTransition(
+            child: const LoginScreenMain(),
             type: PageTransitionType.bottomToTop,
           );
         } else {

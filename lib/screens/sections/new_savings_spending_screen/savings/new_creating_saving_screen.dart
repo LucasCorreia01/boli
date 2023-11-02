@@ -149,7 +149,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
                               height: 40,
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushReplacementNamed(context, 'home-screen', arguments: widget.user);
+                                  Navigator. pushNamedAndRemoveUntil(context, 'home-screen', (Route<dynamic> route) => false, arguments: widget.user);
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -216,7 +216,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
     );
     if (savings != null) {
       await savings!.addSaving(widget.user).then((value) {
-        Navigator.of(context).pushReplacementNamed('home-screen');
+        Navigator.of(context). pushNamedAndRemoveUntil('home-screen', (Route<dynamic> route) => false);
       });
     }
     return result;

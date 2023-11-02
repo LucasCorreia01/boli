@@ -159,9 +159,7 @@ class Savings extends ChangeNotifier {
           .query('users', where: 'fullName = ?', whereArgs: [fullName]);
       List<User> listUsers = toListUser(mapUser);
       double balanceUser = listUsers.first.balance;
-      print(balanceUser);
       balanceUser = balanceUser + balance;
-      print(balanceUser);
       userDb.update(
           'users',
           where: 'fullName = ?',
@@ -173,6 +171,17 @@ class Savings extends ChangeNotifier {
       print('Um erro aconteceu ao tentar realizar a ação');
       return false;
     }
+  }
+
+  static Future<bool> deleteSavingsForFullname(String fullName) async{
+    Database db = await getDatabaseSavings();
+    try{
+      db.delete('savings', where: 'fullName = ?', whereArgs: [fullName]);
+      return true;
+    } catch(e){
+      return false;
+    }
+
   }
 
   // Adicionar novo usuário - Salvando as informações entre os formulários sections

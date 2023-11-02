@@ -1,7 +1,7 @@
-import 'package:boli/screens/sections/new_user_sections.dart/date_of_birth_section.dart';
-import 'package:boli/screens/sections/new_user_sections.dart/email_section.dart';
-import 'package:boli/screens/sections/new_user_sections.dart/name_section.dart';
-import 'package:boli/screens/sections/new_user_sections.dart/password_section.dart';
+import 'package:boli/screens/sections/new_user_sections/date_of_birth_section.dart';
+import 'package:boli/screens/sections/new_user_sections/email_section.dart';
+import 'package:boli/screens/sections/new_user_sections/name_section.dart';
+import 'package:boli/screens/sections/new_user_sections/password_section.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:animations/animations.dart';
@@ -96,7 +96,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                 _currentIndex++;
                 if (_currentIndex == 4) {
                   Navigator.of(context)
-                      .pushReplacementNamed('loading_creation_screen')
+                      .pushNamedAndRemoveUntil('loading_creation_screen', (Route<dynamic> route) => false)
                       .then(
                         (value) => _currentIndex--,
                       );

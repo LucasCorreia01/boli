@@ -21,7 +21,7 @@ class ActionsButtonsHome extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context)
                       .pushNamed('receive_money', arguments: user).then((value){
-                        Navigator.pushReplacementNamed(context, 'home-screen', arguments: user);
+                        Navigator. pushNamedAndRemoveUntil(context, 'home-screen', (Route<dynamic> route) => false, arguments: user);
                       });
                 },
                 child: Column(

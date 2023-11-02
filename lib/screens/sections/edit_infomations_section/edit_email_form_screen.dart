@@ -74,7 +74,7 @@ class EditEmailFormScreen extends StatelessWidget {
         onPressed: () {
           if(formKey.currentState!.validate()){
             user.editInformation('email', email.text);
-            Navigator.pushReplacementNamed(context, 'login-screen');
+            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
           }
         },
         child: const Icon(Icons.check),

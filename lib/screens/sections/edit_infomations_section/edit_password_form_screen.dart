@@ -92,7 +92,7 @@ class _EditPasswordFormScreen extends State<EditPasswordFormScreen> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.user.editInformation('password', password.text);
-            Navigator.pushReplacementNamed(context, 'login-screen');
+            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
           }
         },
         child: const Icon(Icons.check),

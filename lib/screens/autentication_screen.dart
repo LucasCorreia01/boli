@@ -33,7 +33,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       } else {
         // ignore: use_build_context_synchronously
         Navigator.of(context)
-            .pushReplacementNamed('home-screen', arguments: widget.user);
+            .pushNamedAndRemoveUntil('home-screen', arguments: widget.user, (Route<dynamic> route) => false);
       }
     }
   }
@@ -46,7 +46,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getPreferencesAccountAccess();
     return Scaffold(
       body: ValueListenableBuilder<bool>(
         valueListenable: isLocalAuthFailed,
@@ -349,16 +348,38 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   getPreferencesAccountAccess() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? fullName = await prefs.getString('fullName');
+    String? fullName = prefs.getString('fullName');
     User.selectInitUser(fullName).then((value) {
       try {
-        if (value[0] != null) {
+        if (value[0] != null && value[0].id != "") {
           setState(() {
             widget.user = value[0];
           });
         }
       } catch (e) {
-        Navigator.pushReplacementNamed(context, 'first-login');       
+        try {
+          User.getUsers().then((value) {
+            if (value.isNotEmpty && value[0].id != "") {
+              setState(() {
+                widget.user = value[0];
+              });
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Nenhuma conta salva. Faça login primeiro.'),
+                ),
+              );
+              Navigator.pushNamedAndRemoveUntil(context, 'first-login', (Route<dynamic> route) => false);
+            }
+          });
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Nenhuma conta salva. Faça login primeiro.'),
+            ),
+          );
+          Navigator.pushNamedAndRemoveUntil(context, 'first-login', (Route<dynamic> route) => false);
+        }
       }
     });
   }

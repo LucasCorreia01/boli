@@ -136,8 +136,8 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                   onPanUpdate: (details) {
                                     int sensibility = 300;
                                     if (details.delta.dx < sensibility) {
-                                      Navigator.of(context).pushReplacementNamed(
-                                          'home-screen',
+                                      Navigator.of(context).pushNamedAndRemoveUntil(
+                                          'home-screen', (Route<dynamic> route) => false,
                                           arguments: user);
                                     }
                                   },
@@ -181,7 +181,7 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                   int sensibility = 300;
                                   if (details.delta.dx < sensibility) {
                                     Navigator.of(context)
-                                        .pushReplacementNamed('login-screen');
+                                        . pushNamedAndRemoveUntil('login-screen', (Route<dynamic> route) => false);
                                   }
                                 },
                                 child: Container(
