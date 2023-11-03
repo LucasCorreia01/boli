@@ -1,4 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:boli/models/saved_accounts.dart';
 import 'package:boli/service/local_auth_service.dart';
 import 'package:boli/theme/theme_colors.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         isLocalAuthFailed.value = true;
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('home-screen', arguments: widget.user, (Route<dynamic> route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            'home-screen',
+            arguments: widget.user,
+            (Route<dynamic> route) => false);
       }
     }
   }
@@ -160,8 +163,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         .pushNamed('saved-accounts')
                                         .then((value) {
                                       if (value != null) {
-                                        value = value as User;
-                                        widget.user = value;
+                                        value = value as SavedAccounts;
+                                        widget.user = User(
+                                            name: value.name,
+                                            lastName: value.lastName,
+                                            fullname: value.fullname,
+                                            email: value.email,
+                                            password: value.password,
+                                            dateOfBirth: value.dateOfBirth,
+                                            lastSeen: value.lastSeen);
                                         setState(() {});
                                       }
                                     });
@@ -301,8 +311,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       .pushNamed('saved-accounts')
                                       .then((value) {
                                     if (value != null) {
-                                      value = value as User;
-                                      widget.user = value;
+                                      value = value as SavedAccounts;
+                                      widget.user = User(
+                                          name: value.name,
+                                          lastName: value.lastName,
+                                          fullname: value.fullname,
+                                          email: value.email,
+                                          password: value.password,
+                                          dateOfBirth: value.dateOfBirth,
+                                          lastSeen: value.lastSeen);
                                       setState(() {});
                                     }
                                   });
@@ -358,10 +375,18 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         }
       } catch (e) {
         try {
-          User.getUsers().then((value) {
+          SavedAccounts.getAllUsers().then((value) {
             if (value.isNotEmpty && value[0].id != "") {
               setState(() {
-                widget.user = value[0];
+                User user = User(
+                    name: value[0].name,
+                    lastName: value[0].lastName,
+                    fullname: value[0].fullname,
+                    email: value[0].email,
+                    password: value[0].password,
+                    dateOfBirth: value[0].dateOfBirth,
+                    lastSeen: value[0].lastSeen);
+                widget.user = user;
               });
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -369,7 +394,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   content: Text('Nenhuma conta salva. Faça login primeiro.'),
                 ),
               );
-              Navigator.pushNamedAndRemoveUntil(context, 'first-login', (Route<dynamic> route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, 'first-login', (Route<dynamic> route) => false);
             }
           });
         } catch (e) {
@@ -378,7 +404,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               content: Text('Nenhuma conta salva. Faça login primeiro.'),
             ),
           );
-          Navigator.pushNamedAndRemoveUntil(context, 'first-login', (Route<dynamic> route) => false);
+          Navigator.pushNamedAndRemoveUntil(
+              context, 'first-login', (Route<dynamic> route) => false);
         }
       }
     });

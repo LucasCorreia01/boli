@@ -1,9 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-//TODO:: Preciso implementar o método de login antes de fazer essa tabela, senão vou perder acesso a algumas contas.
 
-String table = "CREATE TABLE saved_users(id VARCHAR(11) NOT NULL, name VARCHAR(), fullName VARCHAR(80))";
+String table = "CREATE TABLE saved_users(id VARCHAR(11) NOT NULL, name VARCHAR(80) NOT NULL, lastName VARCHAR(80) NOT NULL, fullName VARCHAR(120) NOT NULL,  email VARCHAR(80) NOT NULL, password TEXT NOT NULL, dateOfBirth DateTime NOT NULL, lastSeen DateTime NOT NULL, balance FLOAT NOT NULL DEFAULT 0, movedValue FLOAT NOT NULL DEFAULT 0)";
 
 Future<Database> getDatabase() async {
   var databasesPath = await getDatabasesPath();

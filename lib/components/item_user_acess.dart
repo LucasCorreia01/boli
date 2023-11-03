@@ -1,10 +1,11 @@
 import 'package:boli/components/showDialogConfirmation.dart';
+import 'package:boli/models/saved_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 
 class ItemUserAcess extends StatelessWidget {
-  final User user;
+  final SavedAccounts user;
   const ItemUserAcess({required this.user, super.key});
 
   @override
@@ -34,7 +35,7 @@ class ItemUserAcess extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${user.name} ${user.lastName}",
+                    user.fullname,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -52,7 +53,7 @@ class ItemUserAcess extends StatelessWidget {
                 showConfirmationDialog(context: context, title: 'Apagar').then(
                   (value) {
                     if (value) {
-                      User.deleteUser(user.fullname).then((value) {
+                      SavedAccounts.deleteUser(user.fullname).then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Registro apagado.'),

@@ -74,7 +74,6 @@ class Savings extends ChangeNotifier {
   static getAllSavings() async {
     Database db = await getDatabaseSavings();
     var savings = await db.query('savings');
-    print(toList(savings));
     return toList(savings);
   }
 
@@ -135,8 +134,6 @@ class Savings extends ChangeNotifier {
       balance = balance - value;
       userDb.update('users', {'balance' : actualBalance}, where: 'fullName = ?', whereArgs: [fullName]);
       db.update('savings', {'balance' : balance}, where: 'fullName = ? and title = ?', whereArgs: [fullName, title]);
-      print(actualBalance);
-      print(balance);
       ExtractAccount extract = ExtractAccount(
         fullNameReceiver: "Resgate poupança: $title",
         fullNameSend: fullName,

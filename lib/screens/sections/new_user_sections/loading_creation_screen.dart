@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:boli/models/saved_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -24,6 +25,7 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
   bool success = true;
   double opacityLinearIndicator = 1;
   User? user;
+  SavedAccounts? savedUser;
 
   @override
   void initState() {
@@ -129,16 +131,18 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                       opacity: opacityBox,
                       child: (success)
                           ? Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: SizedBox(
                                 height: 40,
                                 child: GestureDetector(
                                   onPanUpdate: (details) {
                                     int sensibility = 300;
                                     if (details.delta.dx < sensibility) {
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
-                                          'home-screen', (Route<dynamic> route) => false,
-                                          arguments: user);
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil(
+                                              'home-screen',
+                                              (Route<dynamic> route) => false,
+                                              arguments: user);
                                     }
                                   },
                                   child: Container(
@@ -147,7 +151,8 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Padding(
                                           padding: EdgeInsets.only(right: 8.0),
@@ -173,7 +178,7 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                   ),
                                 ),
                               ),
-                          )
+                            )
                           : SizedBox(
                               height: 40,
                               child: GestureDetector(
@@ -181,7 +186,8 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                   int sensibility = 300;
                                   if (details.delta.dx < sensibility) {
                                     Navigator.of(context)
-                                        . pushNamedAndRemoveUntil('login-screen', (Route<dynamic> route) => false);
+                                        .pushNamedAndRemoveUntil('login-screen',
+                                            (Route<dynamic> route) => false);
                                   }
                                 },
                                 child: Container(
@@ -249,10 +255,24 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
         password: userMap['password']!,
         dateOfBirth: DateFormat('dd/MM/yyyy').parse(userMap['dateOfBirth']!),
         lastSeen: DateTime.now());
+
     if (user != null) {
       await user!.addUser().then((value) {
         setPreferencesAccountAccess(user!.name, userMap["fullName"]!);
         result = value;
+        savedUser = SavedAccounts(
+            id: user!.id,
+            name: user!.name,
+            lastName: user!.lastName,
+            email: user!.email,
+            fullname: user!.fullname,
+            password: user!.password,
+            dateOfBirth:
+                DateFormat('dd/MM/yyyy').parse(userMap['dateOfBirth']!),
+            lastSeen: DateTime.now(),
+            balance: user!.balance,
+            movedValue: user!.movedValue);
+        savedUser!.newAccountSave();
       });
     }
     return result;

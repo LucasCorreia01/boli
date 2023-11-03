@@ -238,7 +238,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Expanded(
                                 flex: 9,
                                 child: Text(
-                                  'Apagar conta',
+                                  'Apagar conta atual',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Expanded(
+                                flex: 2,
+                                child:
+                                    Icon(Icons.keyboard_arrow_right_outlined)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            padding: const EdgeInsets.only(left: 24),
+            child: Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  child: Icon(Icons.person_2_outlined,),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Container(
+                      height: 58,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                        bottom: BorderSide(
+                          width: 1,
+                          color: Color.fromRGBO(241, 242, 244, 1),
+                        ),
+                      )),
+                      child: InkWell(
+                        onTap: () {
+                          showConfirmationDialog(
+                                  context: context,
+                                  title: 'Apagar conta',
+                                  content:
+                                      'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.')
+                              .then((value) {
+                            if (value) {
+                              User.deleteUser(widget.user.fullname)
+                                  .then((value) {
+                                Navigator. pushNamedAndRemoveUntil(
+                                    context, 'login-screen', (Route<dynamic> route) => false);
+                              });
+                            }
+                          });
+                        },
+                        child: const Row(
+                          children: [
+                            Expanded(
+                                flex: 9,
+                                child: Text(
+                                  'Ver todas as contas',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),

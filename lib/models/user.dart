@@ -68,6 +68,7 @@ class User extends ChangeNotifier {
   static Future<List<User>> getUsers() async {
     Database db = await getDatabase();
     var list = await db.query('users');
+    print(list);
     return toList(list);
   }
 
@@ -174,7 +175,6 @@ class User extends ChangeNotifier {
     }
   }
 
-
   //Atualizar visto por último
   updateLastSeen() async {
     Database db = await getDatabase();
@@ -211,15 +211,27 @@ class User extends ChangeNotifier {
     await db.delete('users');
   }
 
-  static Future<bool> autenticar(String email, String password) async {
+  static Future<Map<String, dynamic>> autenticar(String email, String password) async {
     Database db = await getDatabase();
-    try{
-      db.query('users', where: 'email = ? and passaword = ?', whereArgs: [email, password]);
-      return true;
-    } catch(e){
+    Map<String, dynamic> result = {};
+    try {
+      List<User> list = await User.getUsers();
+      if (list.isNotEmpty) {
+        for (int i = 0; i < list.length; i++) {
+          if(list[i].email == email && list[i].password == password){
+            result['bool'] = true;
+            result['user'] = list[i];
+            return result;
+          }
+        }
+        result['bool'] = false;
+      }
+      result['bool'] = false;
+    } catch (e) {
       print(e.toString());
-      return false;
+      result['bool'] = false;
     }
+    return result;
   }
 
   //Apaga o banco de dados por completo

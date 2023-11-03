@@ -31,6 +31,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
+import 'models/saved_accounts.dart';
 import 'models/user.dart';
 import 'package:provider/provider.dart';
 
@@ -50,6 +51,7 @@ void main() async {
     ChangeNotifierProvider<User>(create: (context) => User.empty()),
     ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
   ], child: const MainApp()));
+  
 }
 
 class MainApp extends StatelessWidget {

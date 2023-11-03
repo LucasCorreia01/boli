@@ -22,7 +22,6 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   void dispose(){
-    // controller!.stopImageStream();
     controller!.dispose();
     super.dispose();
   }

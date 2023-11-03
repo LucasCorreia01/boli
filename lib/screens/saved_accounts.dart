@@ -1,7 +1,7 @@
 import 'package:boli/components/item_user_acess.dart';
 import 'package:flutter/material.dart';
 import '../components/showDialogConfirmation.dart';
-import '../models/user.dart';
+import '../models/saved_accounts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SavedAccountsScreen extends StatefulWidget {
@@ -44,9 +44,9 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: User.getUsers(),
+              future: SavedAccounts.getAllUsers(),
               builder: (context, snapshot) {
-                List<User>? accounts = snapshot.data;
+                List<SavedAccounts>? accounts = snapshot.data;
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
                     return const Center(
@@ -154,7 +154,43 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24,),
+              child: InkWell(
+                onTap: () {
+                  print(isPossibleCreateAccount);
+                  if (isPossibleCreateAccount) {
+                    Navigator.of(context).pushNamed('form-login-screen');
+                  } else {
+                    showConfirmationDialog(
+                        context: context,
+                        title: 'Desculpe-nos...  :(',
+                        content:
+                            'Descupe, estamos tendo problemas com nossa base de dados. Por favor tente mais tarde.');
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorDark,
+                      borderRadius: BorderRadius.circular(4)),
+                  child: const Center(
+                    child: Text(
+                      'FAZER LOGIN',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 14),
               child: InkWell(
                 onTap: () {
                   print(isPossibleCreateAccount);

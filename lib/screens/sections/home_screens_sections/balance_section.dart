@@ -59,7 +59,6 @@ class _BalanceSectionState extends State<BalanceSection> {
                     )
                     .toList(),
                 onChanged: (item) => setState(() {
-                  print(item);
                   widget.selectedItem = item;
                 }),
                 borderRadius: BorderRadius.circular(10),
