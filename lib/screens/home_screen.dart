@@ -29,34 +29,6 @@ class HomeScreen extends StatelessWidget {
           child: ActionsButtonsHome(user: user),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Poupanças',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Ver mais',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_right_outlined,
-                        color: Theme.of(context).primaryColorDark,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-        ),
-        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: SavingSection(user),
         ),

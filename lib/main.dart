@@ -27,10 +27,12 @@ import 'package:boli/screens/sections/new_savings_spending_screen/savings/single
 import 'package:boli/screens/sections/new_user_sections/loading_creation_screen.dart';
 import 'package:boli/screens/sections/profile_section/all_users_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
+import 'package:boli/service/notification_service.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
 import 'models/user.dart';
@@ -53,6 +55,7 @@ void main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider<User>(create: (context) => User.empty()),
       ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
+      Provider<NotificationService>(create: (context) => NotificationService(),)
     ], child: const MainApp()),
   );
 }

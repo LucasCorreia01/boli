@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../models/user.dart';
 import 'package:intl/intl.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
+import '../../service/notification_service.dart';
 
 class SendingMoneyScreen extends StatefulWidget {
   final User userSend;
@@ -18,19 +20,19 @@ class SendingMoneyScreen extends StatefulWidget {
 }
 
 class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
-
-  
-
-
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> arguments = {"userSend" : widget.userSend.fullname, "userReceiver" : widget.userReceiver.fullname, "valueToTransfer": widget.valueToTransfer, "date": DateTime.now()};
-    
+    Map<String, dynamic> arguments = {
+      "userSend": widget.userSend.fullname,
+      "userReceiver": widget.userReceiver.fullname,
+      "valueToTransfer": widget.valueToTransfer,
+      "date": DateTime.now()
+    };
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-
       body: Column(
         children: [
           FutureBuilder(
@@ -101,6 +103,12 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                     ),
                   );
                 case ConnectionState.done:
+                  Provider.of<NotificationService>(context, listen: false)
+                      .showNotification(CustomNotification(
+                          id: 1,
+                          title: 'Você recebeu uma transferência! ',
+                          body: 'Tranferência no valor de R\$${widget.valueToTransfer},00 de ${widget.userSend.fullname}',
+                          payload: ''));
                   return SizedBox(
                     width: double.infinity,
                     child: Padding(
@@ -185,15 +193,19 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 24),
                             child: InkWell(
-                              onTap: (){
-                                Navigator.pushNamed(context, 'transfer-voucher', arguments: arguments);
+                              onTap: () {
+                                Navigator.pushNamed(context, 'transfer-voucher',
+                                    arguments: arguments);
                               },
                               child: Container(
                                 width: 200,
-                                decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(24)),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(24)),
                                 padding: const EdgeInsets.all(10),
                                 child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(BoxIcons.bxs_news),
                                     Text(
@@ -209,12 +221,15 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                             ),
                           ),
                           InkWell(
-                            onTap: (){
-                              Navigator.popAndPushNamed(context, "home-screen", arguments: widget.userSend);
+                            onTap: () {
+                              Navigator.popAndPushNamed(context, "home-screen",
+                                  arguments: widget.userSend);
                             },
                             child: Container(
                               width: 200,
-                              decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(24)),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(24)),
                               padding: const EdgeInsets.all(10),
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

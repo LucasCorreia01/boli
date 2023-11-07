@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../models/user.dart';
+import 'package:provider/provider.dart';
 import 'dart:math' as math;
+
+import '../../service/notification_service.dart';
 
 class ReceiveMoney extends StatefulWidget {
   final User user;
@@ -71,6 +74,12 @@ class _ReceiveMoneyState extends State<ReceiveMoney> {
           if (_formKey.currentState!.validate()) {
             widget.user.receiveMoney(value.text);
             Navigator.of(context).pop();
+            Provider.of<NotificationService>(context, listen: false)
+                      .showNotification(CustomNotification(
+                          id: 1,
+                          title: 'Depósito recebido! ',
+                          body: 'Valor do depóstio: R\$${value.text},00',
+                          payload: ''));
           }
         },
         child: Transform.rotate(

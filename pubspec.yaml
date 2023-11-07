@@ -50,6 +50,7 @@ dev_dependencies:
   image_gallery_saver: ^2.0.3
   share_plus: ^7.1.0
   path_provider: ^2.1.1
+  flutter_local_notifications: ^9.4.0
 
 flutter:
   uses-material-design: true

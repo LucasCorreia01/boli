@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:sqflite/sqflite.dart';
 import '../database/users_database.dart';
+import '../service/notification_service.dart';
 
 class User extends ChangeNotifier {
   String id;
@@ -157,6 +158,7 @@ class User extends ChangeNotifier {
       await db.delete('users', where: 'fullName = ?', whereArgs: [fullName]);
       ExtractAccount.deleteExtractsOfUser(fullName);
       Savings.deleteSavingsForFullname(fullName);
+      SavedAccounts.deleteUser(fullName);
       return true;
     } catch (e) {
       return false;

@@ -7,6 +7,7 @@ class ReceiverSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> name = userReceiver.trim().split(" ");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32.0),
       child: Column(
@@ -53,9 +54,9 @@ class ReceiverSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        userReceiver,
+                        "${name.first} ${name.last}",
                         style: const TextStyle(
-                            fontSize: 18, overflow: TextOverflow.visible),
+                            fontSize: 18, overflow: TextOverflow.visible,),
                       ),
                     ],
                   ),

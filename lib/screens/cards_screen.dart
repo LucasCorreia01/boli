@@ -15,7 +15,7 @@ class CardScreen extends StatelessWidget {
     String balance = "";
     List<CardCredit> listCardExemples = getCardExemples();
     if (user != null) {
-      balance = "${user!.movedValue}";
+      balance = "${user!.balance}";
       balance = balance.replaceAll('.', ',');
     }
     return Scaffold(

@@ -1,7 +1,9 @@
+import 'package:boli/service/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:provider/provider.dart';
 
 class GeneralSettingsScreen extends StatefulWidget {
   const GeneralSettingsScreen({super.key});
@@ -165,6 +167,16 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                                   setState(() {
                                     isOnNotifications = !isOnNotifications!;
                                     switchNotification(isOnNotifications!);
+                                    if (value) {
+                                      Provider.of<NotificationService>(context,
+                                              listen: false)
+                                          .showNotification(CustomNotification(
+                                              id: 1,
+                                              title: 'Notificações ligadas!',
+                                              body:
+                                                  'Agora você receberá notificações no app!',
+                                              payload: ''));
+                                    }
                                   });
                                 },
                               ),

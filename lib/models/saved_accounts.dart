@@ -100,7 +100,6 @@ class SavedAccounts {
   static List<SavedAccounts> toList(List<Map<String, dynamic>> mapOfAccounts) {
     final List<SavedAccounts> accounts = [];
     for (Map<String, dynamic> item in mapOfAccounts) {
-      print(item);
       List<String> name = item["fullName"].trim().split(' ');
       final SavedAccounts account = SavedAccounts(
         id: item["id"],
