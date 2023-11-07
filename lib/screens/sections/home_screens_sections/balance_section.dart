@@ -7,7 +7,8 @@ import '../../../models/user.dart';
 class BalanceSection extends StatefulWidget {
   bool balanceVisibility;
   User user;
-  BalanceSection({super.key, required this.balanceVisibility, required this.user});
+  BalanceSection(
+      {super.key, required this.balanceVisibility, required this.user});
 
   List<String> items = ['BRL', 'USD', 'EUR'];
 
@@ -18,7 +19,6 @@ class BalanceSection extends StatefulWidget {
 }
 
 class _BalanceSectionState extends State<BalanceSection> {
-
   @override
   void initState() {
     super.initState();
@@ -40,10 +40,37 @@ class _BalanceSectionState extends State<BalanceSection> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              (widget.balanceVisibility) ? 'R\$$totalBalance' : 'R\$****',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            FutureBuilder(
+                future: widget.user.getMovedValueUser(),
+                builder: (context, snapshot) {
+                  double? movedValue = snapshot.data;
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return const Center(
+                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                      );
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                      );
+                    case ConnectionState.active:
+                      return const Center(
+                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                      );
+                    case ConnectionState.done:
+                      if (snapshot.hasData) {
+                        return Text(
+                          (widget.balanceVisibility)
+                              ? 'R\$$movedValue'
+                              : 'R\$****',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        );
+                      }
+                      return const Center(
+                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                      );
+                  }
+                }),
             DropdownButtonHideUnderline(
               child: DropdownButton(
                 value: widget.selectedItem,
@@ -71,10 +98,13 @@ class _BalanceSectionState extends State<BalanceSection> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CreditCardHome(balanceVisibility: widget.balanceVisibility, user: widget.user),
+              CreditCardHome(
+                  balanceVisibility: widget.balanceVisibility,
+                  user: widget.user),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed('screen-card', arguments: widget.user);
+                  Navigator.of(context)
+                      .pushNamed('screen-card', arguments: widget.user);
                 },
                 borderRadius: BorderRadius.circular(100),
                 child: Container(

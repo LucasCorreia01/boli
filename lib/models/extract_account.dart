@@ -1,5 +1,6 @@
 import 'package:boli/database/extract_account.dart';
 import 'package:boli/models/user.dart';
+import 'package:http/http.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
@@ -45,6 +46,12 @@ class ExtractAccount {
     );
     listFinal = listFinal.reversed.toList();
     return listFinal;
+  }
+
+  static getallExtracts() async{
+    Database db = await getDatabase();
+    var list = await db.query('extract', );
+    print(list);
   }
 
   // Transforma o Map que vem do banco de dados em uma lista de extrato para nossa aplicação.

@@ -1,12 +1,12 @@
 import 'package:boli/components/showDialogConfirmation.dart';
 import 'package:boli/models/saved_accounts.dart';
+import 'package:boli/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user.dart';
 
-class ItemUserAcess extends StatelessWidget {
-  final SavedAccounts user;
-  const ItemUserAcess({required this.user, super.key});
+class ItemAllUser extends StatelessWidget {
+  final User user;
+  const ItemAllUser({required this.user, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +53,15 @@ class ItemUserAcess extends StatelessWidget {
                 showConfirmationDialog(context: context, title: 'Apagar').then(
                   (value) {
                     if (value) {
-                      SavedAccounts.deleteUser(user.fullname).then((value) {
+                      User.deleteUser(user.fullname).then((value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Registro apagado.'),
+                            content: Text('Conta apagada com sucesso.'),
                           ),
                         );
-                        deleteInfoSharedPrefs();
+                        SavedAccounts.deleteUser(user.fullname).then((value){
+                          if(value) deleteInfoSharedPrefs();
+                        });
                         Navigator.pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
                       });
                     }

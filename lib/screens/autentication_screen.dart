@@ -164,7 +164,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         .then((value) {
                                       if (value != null) {
                                         value = value as SavedAccounts;
-                                        widget.user = User(
+                                        var user = User(
                                             name: value.name,
                                             lastName: value.lastName,
                                             fullname: value.fullname,
@@ -172,6 +172,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             password: value.password,
                                             dateOfBirth: value.dateOfBirth,
                                             lastSeen: value.lastSeen);
+                                        User.selectInitUser(user.fullname)
+                                            .then((value) {
+                                          widget.user = value[0];
+                                        });
                                         setState(() {});
                                       }
                                     });
@@ -312,7 +316,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       .then((value) {
                                     if (value != null) {
                                       value = value as SavedAccounts;
-                                      widget.user = User(
+                                      var user = User(
                                           name: value.name,
                                           lastName: value.lastName,
                                           fullname: value.fullname,
@@ -320,6 +324,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                           password: value.password,
                                           dateOfBirth: value.dateOfBirth,
                                           lastSeen: value.lastSeen);
+                                      User.selectInitUser(user.fullname)
+                                          .then((value) {
+                                        widget.user = value[0];
+                                      });
                                       setState(() {});
                                     }
                                   });

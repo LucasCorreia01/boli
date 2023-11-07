@@ -18,6 +18,7 @@ class ExtractAccountScreen extends StatelessWidget {
           'Extrato da conta',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        centerTitle: true,
       ),
       body: FutureBuilder(
         future: ExtractAccount.getExtractAccount(user),

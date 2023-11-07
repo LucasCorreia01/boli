@@ -49,9 +49,39 @@ class CreditCardHome extends StatelessWidget {
                 ],
               ),
             ),
-            Text(
-              (balanceVisibility) ? 'R\$$balance' : 'R\$****',
-              style: Theme.of(context).textTheme.titleMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                FutureBuilder(
+                    future: user.getBalanceUser(),
+                    builder: (context, snapshot) {
+                      double? movedValue = snapshot.data;
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          return const Center(
+                            child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator()),
+                          );
+                        case ConnectionState.waiting:
+                          return const Center(
+                            child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator()),
+                          );
+                        case ConnectionState.active:
+                          return const Center(
+                            child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator()),
+                          );
+                        case ConnectionState.done:
+                          if (snapshot.hasData) {
+                            return Text(
+                              (balanceVisibility) ? 'R\$$movedValue' : 'R\$****',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            );
+                          }
+                          return const Center(
+                            child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator()),
+                          );
+                      }
+                    }),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),

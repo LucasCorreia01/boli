@@ -40,7 +40,6 @@ class SavedAccounts {
       'balance': balance,
       'movedValue': movedValue
     });
-    print('estamos aqui');
   }
 
   static removeDB() async {
@@ -51,6 +50,27 @@ class SavedAccounts {
     Database db = await getDatabase();
     var list = await db.query('saved_users');
     return toList(list);
+  }
+
+  static updateInfo(String fullname, String attr, String value) async {
+    Database db = await getDatabase();
+
+    if (attr == 'fullname') {
+      List<String> name = value.trim().split(" ");
+      db.update('saved_users', {"name": name[0]},
+          where: 'fullname = ?', whereArgs: [fullname]);
+      db.update('saved_users', {"lastName": name[name.length - 1]},
+          where: 'fullname = ?', whereArgs: [fullname]);
+      db.update('saved_users', {"fullname": value},
+          where: 'fullname = ?', whereArgs: [fullname]);
+    } else {
+      await db.update(
+        'saved_users',
+        {attr: value},
+        where: 'fullname = ?',
+        whereArgs: [fullname],
+      );
+    }
   }
 
   //Seleciona o usuário com base no nome
@@ -68,7 +88,8 @@ class SavedAccounts {
   static Future<bool> deleteUser(String fullName) async {
     Database db = await getDatabase();
     try {
-      await db.delete('saved_users', where: 'fullName = ?', whereArgs: [fullName]);
+      await db
+          .delete('saved_users', where: 'fullName = ?', whereArgs: [fullName]);
       return true;
     } catch (e) {
       return false;
@@ -80,10 +101,11 @@ class SavedAccounts {
     final List<SavedAccounts> accounts = [];
     for (Map<String, dynamic> item in mapOfAccounts) {
       print(item);
+      List<String> name = item["fullName"].trim().split(' ');
       final SavedAccounts account = SavedAccounts(
         id: item["id"],
-        name: item["name"],
-        lastName: item["lastName"],
+        name: name[0],
+        lastName: name[name.length - 1],
         fullname: item["fullName"],
         email: item["email"],
         password: item["password"],

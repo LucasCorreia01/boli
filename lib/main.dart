@@ -1,3 +1,4 @@
+import 'package:boli/models/extract_account.dart';
 import 'package:boli/models/savings.dart';
 import 'package:boli/screens/actions/global_transfer_screen.dart';
 import 'package:boli/screens/actions/payment_qr_screen.dart';
@@ -24,6 +25,7 @@ import 'package:boli/screens/sections/new_savings_spending_screen/savings/creati
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/new_savings_screen.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/single_savings_screen.dart';
 import 'package:boli/screens/sections/new_user_sections/loading_creation_screen.dart';
+import 'package:boli/screens/sections/profile_section/all_users_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/theme/boli_theme.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,6 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
-import 'models/saved_accounts.dart';
 import 'models/user.dart';
 import 'package:provider/provider.dart';
 
@@ -47,11 +48,13 @@ void main() async {
     prefs.setBool('notifications', false);
     prefs.setBool('fingerprint', false);
   }
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<User>(create: (context) => User.empty()),
-    ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
-  ], child: const MainApp()));
-  
+  // ExtractAccount.getallExtracts();
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider<User>(create: (context) => User.empty()),
+      ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
+    ], child: const MainApp()),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -252,6 +255,11 @@ class MainApp extends StatelessWidget {
           return PageTransition(
             child: const LoginScreenMain(),
             type: PageTransitionType.bottomToTop,
+          );
+        } else if (settings.name == 'all-users-screen') {
+          return PageTransition(
+            child: const AllUsersScreen(),
+            type: PageTransitionType.rightToLeft,
           );
         } else {
           return MaterialPageRoute(builder: (context) {

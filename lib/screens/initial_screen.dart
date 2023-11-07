@@ -1,6 +1,6 @@
 import 'package:boli/screens/home_screen.dart';
 import 'package:boli/screens/extract_account_screen_home.dart';
-import 'package:boli/screens/profile_screen.dart';
+import 'package:boli/screens/sections/profile_section/profile_screen.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/main_screen_new.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';

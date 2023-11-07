@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/showDialogConfirmation.dart';
-import '../models/user.dart';
+import '../../../components/showDialogConfirmation.dart';
+import '../../../models/user.dart';
 import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -280,20 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       )),
                       child: InkWell(
                         onTap: () {
-                          showConfirmationDialog(
-                                  context: context,
-                                  title: 'Apagar conta',
-                                  content:
-                                      'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.')
-                              .then((value) {
-                            if (value) {
-                              User.deleteUser(widget.user.fullname)
-                                  .then((value) {
-                                Navigator. pushNamedAndRemoveUntil(
-                                    context, 'login-screen', (Route<dynamic> route) => false);
-                              });
-                            }
-                          });
+                          Navigator.pushNamed(context, 'all-users-screen');
                         },
                         child: const Row(
                           children: [

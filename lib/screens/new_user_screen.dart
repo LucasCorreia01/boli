@@ -36,6 +36,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
           'Nova conta',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {},

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../components/camera_page.dart';
+
 class PaymentQrScreen extends StatelessWidget {
   const PaymentQrScreen({super.key});
 
@@ -25,7 +27,13 @@ class PaymentQrScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) {
+                      return const CameraPage();
+                    },
+                    fullscreenDialog: true),
+              );
             },
             child: Container(
               decoration: const BoxDecoration(
@@ -36,11 +44,14 @@ class PaymentQrScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     const Padding(
-                    padding: EdgeInsets.only(right: 12),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(BoxIcons.bx_qr, size: 32,),
-                    ),
+                      padding: EdgeInsets.only(right: 12),
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(
+                          BoxIcons.bx_qr,
+                          size: 32,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Column(
@@ -87,7 +98,10 @@ class PaymentQrScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: 12),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Icon(BoxIcons.bx_copy, size: 32,),
+                        child: Icon(
+                          BoxIcons.bx_copy,
+                          size: 32,
+                        ),
                       ),
                     ),
                     Expanded(

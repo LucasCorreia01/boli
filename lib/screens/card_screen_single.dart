@@ -25,6 +25,7 @@ class CardScreenSingle extends StatelessWidget {
         centerTitle: true,
       ),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(child: CardSection(card)),
           const SliverToBoxAdapter(child: ActionsButtons()),

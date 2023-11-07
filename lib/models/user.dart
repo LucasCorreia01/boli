@@ -1,4 +1,5 @@
 import 'package:boli/models/extract_account.dart';
+import 'package:boli/models/saved_accounts.dart';
 import 'package:boli/models/savings.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -68,7 +69,6 @@ class User extends ChangeNotifier {
   static Future<List<User>> getUsers() async {
     Database db = await getDatabase();
     var list = await db.query('users');
-    print(list);
     return toList(list);
   }
 
@@ -84,7 +84,8 @@ class User extends ChangeNotifier {
             where: 'fullname = ?', whereArgs: [fullname]);
         db.update('users', {"fullname": value},
             where: 'fullname = ?', whereArgs: [fullname]);
-        notifyListeners();
+
+        SavedAccounts.updateInfo(fullname, attr, value);
         return true;
       } catch (e) {
         print(e.toString());
@@ -94,7 +95,7 @@ class User extends ChangeNotifier {
       try {
         db.update('users', {attr: value},
             where: 'fullname = ?', whereArgs: [fullname]);
-        notifyListeners();
+        SavedAccounts.updateInfo(fullname, attr, value);
         return true;
       } catch (e) {
         print(e.toString());
@@ -145,7 +146,6 @@ class User extends ChangeNotifier {
         date: DateTime.now(),
         value: valueToTransfer);
     extract.newExtract();
-    Future.delayed(const Duration(seconds: 5));
     notifyListeners();
     return true;
   }
@@ -160,6 +160,34 @@ class User extends ChangeNotifier {
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<double> getMovedValueUser() async {
+    Database db = await getDatabase();
+    try {
+      await Future.delayed(const Duration(milliseconds: 300));
+      var list =
+          await db.query('users', where: 'fullName = ?', whereArgs: [fullname]);
+      List<User> user = toList(list);
+      return user[0].movedValue;
+    } catch (e) {
+      print(e.toString());
+      return 0;
+    }
+  }
+
+  Future<double> getBalanceUser() async {
+    Database db = await getDatabase();
+    try {
+      await Future.delayed(const Duration(milliseconds: 300));
+      var list =
+          await db.query('users', where: 'fullName = ?', whereArgs: [fullname]);
+      List<User> user = toList(list);
+      return user[0].balance;
+    } catch (e) {
+      print(e.toString());
+      return 0;
     }
   }
 
@@ -211,14 +239,15 @@ class User extends ChangeNotifier {
     await db.delete('users');
   }
 
-  static Future<Map<String, dynamic>> autenticar(String email, String password) async {
+  static Future<Map<String, dynamic>> autenticar(
+      String email, String password) async {
     Database db = await getDatabase();
     Map<String, dynamic> result = {};
     try {
       List<User> list = await User.getUsers();
       if (list.isNotEmpty) {
         for (int i = 0; i < list.length; i++) {
-          if(list[i].email == email && list[i].password == password){
+          if (list[i].email == email && list[i].password == password) {
             result['bool'] = true;
             result['user'] = list[i];
             return result;
