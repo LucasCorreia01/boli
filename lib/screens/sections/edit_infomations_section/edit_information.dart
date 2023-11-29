@@ -16,13 +16,14 @@ class ChooseEditInformationsScreen extends StatelessWidget {
           'Cadastro',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        backgroundColor: Colors.transparent,
       ),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Container(
               decoration:
-                  const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+                  BoxDecoration(color: Theme.of(context).primaryColorLight),
               child: const Padding(
                 padding: EdgeInsets.fromLTRB(24, 30, 10, 20),
                 child: Column(
@@ -60,11 +61,11 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Container(
                         height: 58,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                           bottom: BorderSide(
                             width: 1,
-                            color: Color.fromRGBO(241, 242, 244, 1),
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         )),
                         child: InkWell(
@@ -110,11 +111,11 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Container(
                         height: 58,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                           bottom: BorderSide(
                             width: 1,
-                            color: Color.fromRGBO(241, 242, 244, 1),
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         )),
                         child: InkWell(
@@ -160,11 +161,11 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Container(
                         height: 58,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                           bottom: BorderSide(
                             width: 1,
-                            color: Color.fromRGBO(241, 242, 244, 1),
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         )),
                         child: InkWell(

@@ -17,6 +17,7 @@ class EditEmailFormScreen extends StatelessWidget {
           'Editar e-mail',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        backgroundColor: Colors.transparent,
       ),
       body: Form(
         key: formKey,

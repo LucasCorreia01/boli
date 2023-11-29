@@ -47,15 +47,24 @@ class _BalanceSectionState extends State<BalanceSection> {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return const Center(
-                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator()),
                       );
                     case ConnectionState.waiting:
                       return const Center(
-                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator()),
                       );
                     case ConnectionState.active:
                       return const Center(
-                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator()),
                       );
                     case ConnectionState.done:
                       if (snapshot.hasData) {
@@ -67,7 +76,10 @@ class _BalanceSectionState extends State<BalanceSection> {
                         );
                       }
                       return const Center(
-                        child: SizedBox(width: 30, height: 30, child: CircularProgressIndicator()),
+                        child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator()),
                       );
                   }
                 }),
@@ -80,7 +92,11 @@ class _BalanceSectionState extends State<BalanceSection> {
                         value: item,
                         child: Text(
                           item,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: TextStyle(
+                            color: Theme.of(context).indicatorColor,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     )

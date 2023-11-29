@@ -23,16 +23,17 @@ showConfirmationDialog({
             ),
             Text(
               title,
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: Theme.of(context).indicatorColor),
             ),
           ],
         ),
         content: Text(
           content,
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.normal,
-              overflow: TextOverflow.visible),
+              overflow: TextOverflow.visible,
+              color: Theme.of(context).indicatorColor),
         ),
         actions: [
           TextButton(
@@ -41,7 +42,7 @@ showConfirmationDialog({
             },
             child: Text(
               affirmationChoice,
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(color: Theme.of(context).indicatorColor),
             ),
           ),
           (twoOptions) ? TextButton(
@@ -50,7 +51,7 @@ showConfirmationDialog({
             },
             child: Text(
               negattiveChoice,
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(color: Theme.of(context).indicatorColor),
             ),
           ) : Container(),
         ],

@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 75,
                   height: 75,
                   decoration: BoxDecoration(
-                      color: const Color.fromRGBO(241, 242, 244, 1),
+                      color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(4)),
                   child: const Icon(
                     Icons.person_2,
@@ -67,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SliverToBoxAdapter(
           child: Container(
             decoration:
-                const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+               BoxDecoration(color: Theme.of(context).primaryColorLight),
             child: const Padding(
               padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
               child: Text(
@@ -94,11 +94,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Container(
                       height: 58,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           border: Border(
                         bottom: BorderSide(
                           width: 1,
-                          color: Color.fromRGBO(241, 242, 244, 1),
+                          color: Theme.of(context).primaryColorLight,
                         ),
                       )),
                       child: InkWell(
@@ -142,13 +142,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Container(
                       height: 58,
-                      decoration: const BoxDecoration(
-                          border: Border(
-                        bottom: BorderSide(
-                          width: 1,
-                          color: Color.fromRGBO(241, 242, 244, 1),
-                        ),
-                      )),
                       child: InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(
@@ -182,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SliverToBoxAdapter(
           child: Container(
             decoration:
-                const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+                BoxDecoration(color: Theme.of(context).primaryColorLight),
             child: const Padding(
               padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
               child: Text(
@@ -202,18 +195,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const Padding(
                   padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  child: Icon(Icons.delete),
+                  child: Icon(Icons.delete_outline),
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Container(
                       height: 58,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           border: Border(
                         bottom: BorderSide(
                           width: 1,
-                          color: Color.fromRGBO(241, 242, 244, 1),
+                          color: Theme.of(context).primaryColorLight,
                         ),
                       )),
                       child: InkWell(
@@ -271,11 +264,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Container(
                       height: 58,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           border: Border(
                         bottom: BorderSide(
                           width: 1,
-                          color: Color.fromRGBO(241, 242, 244, 1),
+                          color: Theme.of(context).primaryColorLight,
                         ),
                       )),
                       child: InkWell(

@@ -82,6 +82,7 @@ class _ReceiveMoneyState extends State<ReceiveMoney> {
                           payload: ''));
           }
         },
+        backgroundColor: Theme.of(context).primaryColor,
         child: Transform.rotate(
             angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)),
       ),

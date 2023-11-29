@@ -24,6 +24,7 @@ class _EditNameFormScreenState extends State<EditNameFormScreen> {
           'Editar nome',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        backgroundColor: Colors.transparent,
       ),
       body: Form(
         key: _formKey,
@@ -82,6 +83,7 @@ class _EditNameFormScreenState extends State<EditNameFormScreen> {
             Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
           }
         },
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.check),
       ),
     );

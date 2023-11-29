@@ -19,7 +19,8 @@ class ListItem extends StatelessWidget {
         decoration: BoxDecoration(
             border:
                 Border.all(color: Theme.of(context).dividerColor, width: 0.4),
-            borderRadius: BorderRadius.circular(16)),
+            borderRadius: BorderRadius.circular(16),
+            color: Theme.of(context).cardColor),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
           child: Row(
@@ -29,7 +30,7 @@ class ListItem extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Theme.of(context).primaryColorDark,
+                        color: Theme.of(context).indicatorColor,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(100)),
@@ -59,7 +60,7 @@ class ListItem extends StatelessWidget {
                 child: SizedBox(
                   child: Icon(
                     Icons.keyboard_arrow_right_outlined,
-                    color: Theme.of(context).primaryColorDark,
+                    color: Theme.of(context).indicatorColor,
                   ),
                 ),
               )

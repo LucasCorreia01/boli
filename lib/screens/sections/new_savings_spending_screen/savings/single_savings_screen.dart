@@ -89,12 +89,13 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(26)),
-                  child: const Text(
+                  child: Text(
                     'Adicionar mais dinheiro',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColorDark
                     ),
                   ),
                 ),
@@ -168,6 +169,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
   }
 
   Widget _offsetPopup(BuildContext context) => PopupMenuButton<int>(
+      color: Theme.of(context).primaryColorDark,
       itemBuilder: (context) => [
             const PopupMenuItem(
               value: 1,
@@ -176,7 +178,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
-                    fontSize: 18),
+                    fontSize: 18, ),
               ),
             ),
             const PopupMenuItem(
@@ -210,7 +212,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
             width: 4.5,
             height: 4.5,
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).indicatorColor,
               borderRadius: BorderRadius.circular(4.5),
             ),
           ),
@@ -220,7 +222,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
               width: 4.5,
               height: 4.5,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).indicatorColor,
                 borderRadius: BorderRadius.circular(4.5),
               ),
             ),
@@ -229,7 +231,7 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
             width: 4.5,
             height: 4.5,
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).indicatorColor,
               borderRadius: BorderRadius.circular(5),
             ),
           )

@@ -22,6 +22,7 @@ class _EditPasswordFormScreen extends State<EditPasswordFormScreen> {
           'Editar senha',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        backgroundColor: Colors.transparent,
       ),
       body: Form(
         key: formKey,
@@ -95,6 +96,7 @@ class _EditPasswordFormScreen extends State<EditPasswordFormScreen> {
             Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
           }
         },
+        backgroundColor: Theme.of(context).primaryColor ,
         child: const Icon(Icons.check),
       ),
     );

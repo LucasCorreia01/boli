@@ -17,9 +17,10 @@ class ActionsButtons extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+                        border: Border.all(width: 1.5),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).cardColor,
+                      ),
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Icon(BoxIcons.bx_arrow_from_top, size: 20),
@@ -41,9 +42,10 @@ class ActionsButtons extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+                        border: Border.all(width: 1.5),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).cardColor,
+                      ),
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Icon(BoxIcons.bx_arrow_from_bottom, size: 20),
@@ -66,7 +68,9 @@ class ActionsButtons extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(width: 1.5),
-                        borderRadius: BorderRadius.circular(100)),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).cardColor,
+                      ),
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Icon(BoxIcons.bx_list_ul, size: 20),
@@ -88,9 +92,10 @@ class ActionsButtons extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+                        border: Border.all(width: 1.5),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).cardColor,
+                      ),
                     child: const Padding(
                       padding: EdgeInsets.all(6.0),
                       child: Icon(BoxIcons.bx_qr_scan, size: 20),

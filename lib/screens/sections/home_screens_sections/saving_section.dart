@@ -161,7 +161,7 @@ class SavingSection extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                         color:
-                                            Theme.of(context).primaryColorDark,
+                                            Theme.of(context).indicatorColor,
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(100)),
@@ -178,7 +178,7 @@ class SavingSection extends StatelessWidget {
                                     Text('Nenhuma poupança cadastrada',
                                         style: TextStyle(
                                             color: Theme.of(context)
-                                                .primaryColorDark,
+                                                .indicatorColor,
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.visible)),

@@ -1,5 +1,6 @@
 import 'package:boli/models/extract_account.dart';
 import 'package:boli/models/savings.dart';
+import 'package:boli/routes.dart';
 import 'package:boli/screens/actions/global_transfer_screen.dart';
 import 'package:boli/screens/actions/payment_qr_screen.dart';
 import 'package:boli/screens/actions/receive_money.dart';
@@ -28,7 +29,7 @@ import 'package:boli/screens/sections/new_user_sections/loading_creation_screen.
 import 'package:boli/screens/sections/profile_section/all_users_screen.dart';
 import 'package:boli/screens/transfer_voucher/transfer_voucher_screen.dart';
 import 'package:boli/service/notification_service.dart';
-import 'package:boli/theme/boli_theme.dart';
+import 'package:boli/theme/boli_theme_light.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
@@ -37,6 +38,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
 import 'models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:boli/theme/boli_theme_dark.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,18 +57,54 @@ void main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider<User>(create: (context) => User.empty()),
       ChangeNotifierProvider<Savings>(create: (context) => Savings.empty()),
-      Provider<NotificationService>(create: (context) => NotificationService(),)
+      Provider<NotificationService>(
+        create: (context) => NotificationService(),
+      )
     ], child: const MainApp()),
   );
 }
 
-class MainApp extends StatelessWidget {
+var theme = boliThemeDark;
+
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    changeTheme();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    changeTheme();
+  }
+
+  changeTheme() {
+    var brightness = WidgetsBinding.instance!.window.platformBrightness;
+    brightness == Brightness.dark
+        ? theme = boliThemeDark
+        : theme = boliThemeLight;
+    print(brightness);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: boliTheme,
+      theme: theme,
       initialRoute: 'login-screen',
       onGenerateRoute: (settings) {
         if (settings.name == 'login-screen') {

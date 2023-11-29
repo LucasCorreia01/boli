@@ -74,6 +74,7 @@ class _SendMoneyState extends State<SendMoney> {
                   });
                 }
               },
+              backgroundColor: Theme.of(context).primaryColor,
               child: Transform.rotate(
                 angle: -math.pi,
                 child: const Icon(BoxIcons.bx_arrow_back),

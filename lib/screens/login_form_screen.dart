@@ -3,7 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../components/camera_page.dart';
 import '../models/user.dart';
-import '../theme/theme_colors.dart';
+import '../theme/theme_colors_light.dart';
 
 class LoginFormScreen extends StatefulWidget {
   User? user;  
@@ -30,7 +30,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                      colors: ThemeColors.gradientColorsLogin,
+                      colors: ThemeColorsLight.gradientColorsLogin,
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                     ),

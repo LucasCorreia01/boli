@@ -17,8 +17,8 @@ class MainScreenNew extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               height: 100,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(241, 242, 244, 1),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
               ),
               child: InkWell(
                 onTap: () {
@@ -71,8 +71,8 @@ class MainScreenNew extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Container(
               height: 100,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(241, 242, 244, 1),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
               ),
               child: const Row(
                 children: [

@@ -75,8 +75,8 @@ class _InitialScreenState extends State<InitialScreen> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: Theme.of(context).primaryColorDark,
-        unselectedItemColor: Theme.of(context).dividerColor,
+        selectedItemColor: Theme.of(context).indicatorColor,
+        unselectedItemColor: Theme.of(context).indicatorColor,
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -100,25 +100,26 @@ class _InitialScreenState extends State<InitialScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            // icon: Icon(Bootstrap.house_door_fill),
+            activeIcon: Icon(BoxIcons.bxs_home),
             icon: Icon(BoxIcons.bx_home),
             label: '',
           ),
           BottomNavigationBarItem(
-            // icon: Icon(FontAwesome.camera),
+            activeIcon:  Icon(BoxIcons.bxs_camera),
             icon: Icon(BoxIcons.bx_camera),
             label: '',
           ),
           BottomNavigationBarItem(
-            // icon: Icon(FontAwesome.camera),
             icon: Icon(Icons.add),
             label: '',
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(BoxIcons.bx_list_ul),
             icon: Icon(BoxIcons.bx_list_ul),
             label: '',
           ),
           BottomNavigationBarItem(
+            activeIcon: Icon(Icons.person_2),
             icon: Icon(Icons.person_2_outlined),
             label: '',
           ),

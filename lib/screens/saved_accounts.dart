@@ -23,7 +23,7 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
           style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.w600,
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).indicatorColor,
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -210,12 +210,13 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(4)),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'ABRIR UMA NOVA CONTA',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
+                        color: Theme.of(context).primaryColorDark
                       ),
                     ),
                   ),

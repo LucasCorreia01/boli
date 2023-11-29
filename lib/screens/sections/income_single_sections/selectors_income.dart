@@ -88,12 +88,12 @@ class _SelectorsIncomeState extends State<SelectorsIncome> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       'Frequência:',
                       style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16, fontWeight: FontWeight.bold, color: Theme.of(context).indicatorColor),
                     ),
                   ),
                   Container(
@@ -115,9 +115,11 @@ class _SelectorsIncomeState extends State<SelectorsIncome> {
                                 value: item,
                                 child: Text(
                                   item,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall,
+                                  style: TextStyle(
+                            color: Theme.of(context).indicatorColor,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                                 ),
                               ),
                             )
@@ -166,9 +168,11 @@ class _SelectorsIncomeState extends State<SelectorsIncome> {
                                 value: item,
                                 child: Text(
                                   item,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall,
+                                  style: TextStyle(
+                            color: Theme.of(context).indicatorColor,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                                 ),
                               ),
                             )

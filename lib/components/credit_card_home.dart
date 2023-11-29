@@ -36,7 +36,7 @@ class CreditCardHome extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
                         'Saldo da conta',
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                   ),
@@ -73,7 +73,7 @@ class CreditCardHome extends StatelessWidget {
                           if (snapshot.hasData) {
                             return Text(
                               (balanceVisibility) ? 'R\$$movedValue' : 'R\$****',
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: Theme.of(context).textTheme.labelMedium,
                             );
                           }
                           return const Center(
@@ -90,11 +90,11 @@ class CreditCardHome extends StatelessWidget {
                 children: [
                   Text(
                     '**** **** **** 7348',
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Text(
                     '12/26',
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   )
                 ],
               ),

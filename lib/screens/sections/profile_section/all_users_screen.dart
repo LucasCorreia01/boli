@@ -21,7 +21,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
           style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.w600,
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).indicatorColor,
           ),
         ),
         backgroundColor: Colors.transparent,

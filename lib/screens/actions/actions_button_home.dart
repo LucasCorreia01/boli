@@ -20,19 +20,22 @@ class ActionsButtonsHome extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context)
-                      .pushNamed('receive_money', arguments: user).then((value){
-                        Navigator. pushNamedAndRemoveUntil(context, 'home-screen', (Route<dynamic> route) => false, arguments: user);
-                      });
+                      .pushNamed('receive_money', arguments: user)
+                      .then((value) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, 'home-screen', (Route<dynamic> route) => false,
+                        arguments: user);
+                  });
                 },
                 child: Column(
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1.5),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
+                          border: Border.all(width: 1.5),
+                          borderRadius: BorderRadius.circular(100),
+                          color: Theme.of(context).cardColor),
                       child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Icon(BoxIcons.bx_arrow_from_top, size: 20),
                       ),
                     ),
@@ -67,11 +70,11 @@ class ActionsButtonsHome extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(width: 1.5),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
+                          border: Border.all(width: 1.5),
+                          borderRadius: BorderRadius.circular(100),
+                          color: Theme.of(context).cardColor),
                       child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Icon(BoxIcons.bx_arrow_from_bottom, size: 20),
                       ),
                     ),
@@ -89,17 +92,19 @@ class ActionsButtonsHome extends StatelessWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: (){
-                  Navigator.pushNamed(context, 'extract-screen', arguments: user);
+                onTap: () {
+                  Navigator.pushNamed(context, 'extract-screen',
+                      arguments: user);
                 },
                 child: Column(
                   children: [
                     Container(
                       decoration: BoxDecoration(
                           border: Border.all(width: 1.5),
-                          borderRadius: BorderRadius.circular(100)),
+                          borderRadius: BorderRadius.circular(100),
+                          color: Theme.of(context).cardColor),
                       child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Icon(BoxIcons.bx_list_ul, size: 20),
                       ),
                     ),
@@ -117,10 +122,12 @@ class ActionsButtonsHome extends StatelessWidget {
             ),
             Expanded(
               child: InkWell(
-                onTap: (){
-                 Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                  return const CameraPage();
-                 }, fullscreenDialog: true));
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return const CameraPage();
+                      },
+                      fullscreenDialog: true));
                 },
                 child: Column(
                   children: [
@@ -128,9 +135,10 @@ class ActionsButtonsHome extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(width: 1.5),
                         borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).cardColor,
                       ),
                       child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Icon(BoxIcons.bx_qr_scan, size: 20),
                       ),
                     ),

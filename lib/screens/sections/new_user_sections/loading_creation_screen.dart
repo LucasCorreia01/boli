@@ -154,13 +154,14 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(right: 8.0),
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 8.0),
                                           child: Text(
                                             'Deslize',
                                             style: TextStyle(
                                                 fontSize: 24,
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold, color: Theme.of(context).
+                                                primaryColorDark),
                                           ),
                                         ),
                                         Padding(
@@ -168,9 +169,10 @@ class _LoadingCreationScreenState extends State<LoadingCreationScreen> {
                                               const EdgeInsets.only(right: 8.0),
                                           child: Transform.rotate(
                                               angle: -math.pi,
-                                              child: const Icon(
+                                              child: Icon(
                                                 BoxIcons.bx_arrow_back,
                                                 size: 26,
+                                                color: Theme.of(context).primaryColorDark,
                                               )),
                                         )
                                       ],

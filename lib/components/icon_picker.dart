@@ -44,7 +44,7 @@ Future<IconData?> showIconPicker(
   await showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Escolha um ícone'),
+        title: Text('Escolha um ícone', style: TextStyle(color: Theme.of(context).indicatorColor),),
         content: Container(
           width: 320,
           height: 400,
@@ -64,8 +64,8 @@ Future<IconData?> showIconPicker(
                   child: IconButton(
                     // give the selected icon a different color
                     color: selectedIcon == allIcons[index]
-                        ? Colors.indigo
-                        : Colors.black,
+                        ? Theme.of(context).indicatorColor
+                        : Theme.of(context).indicatorColor,
                     iconSize: 30,
                     icon: Icon(
                       allIcons[index],

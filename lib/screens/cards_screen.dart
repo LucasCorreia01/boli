@@ -37,7 +37,7 @@ class CardScreen extends StatelessWidget {
                     width: 4.5,
                     height: 4.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(4.5),
                     ),
                   ),
@@ -47,7 +47,7 @@ class CardScreen extends StatelessWidget {
                       width: 4.5,
                       height: 4.5,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark,
+                        color: Theme.of(context).indicatorColor,
                         borderRadius: BorderRadius.circular(4.5),
                       ),
                     ),
@@ -56,7 +56,7 @@ class CardScreen extends StatelessWidget {
                     width: 4.5,
                     height: 4.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                   )
@@ -79,7 +79,11 @@ class CardScreen extends StatelessWidget {
                   Text(
                     "R\$$balance",
                     // (user != null) ? balance :'\$100.000.000',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: Theme.of(context).indicatorColor,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ],
               ),

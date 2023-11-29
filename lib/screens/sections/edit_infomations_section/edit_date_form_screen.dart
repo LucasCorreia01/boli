@@ -24,6 +24,7 @@ class EditDateFormScreen extends StatelessWidget {
           'Alterar senha',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        backgroundColor: Colors.transparent,
       ),
       body: CustomScrollView(
         slivers: [

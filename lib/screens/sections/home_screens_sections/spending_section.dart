@@ -28,7 +28,7 @@ class SpendingSection extends StatelessWidget {
                     ),
                     Icon(
                       Icons.keyboard_arrow_right_outlined,
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).indicatorColor,
                     )
                   ],
                 ),

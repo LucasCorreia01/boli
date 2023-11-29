@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:boli/models/saved_accounts.dart';
 import 'package:boli/service/local_auth_service.dart';
-import 'package:boli/theme/theme_colors.dart';
+import 'package:boli/theme/theme_colors_light.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -68,7 +68,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: ThemeColors.gradientColorsLogin,
+                      colors: ThemeColorsLight.gradientColorsLogin,
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                     ),
@@ -130,7 +130,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                                           .textTheme
                                                           .headlineSmall,
                                                     ),
-                                                    Text(widget.user!.fullname)
+                                                    Text(widget.user!.fullname, style: const TextStyle(color: Color.fromRGBO(43, 43, 63, 1)))
                                                   ],
                                                 )
                                               : Text(
@@ -231,7 +231,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: ThemeColors.gradientColorsLogin,
+                    colors: ThemeColorsLight.gradientColorsLogin,
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                   ),
@@ -283,7 +283,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                                         .textTheme
                                                         .headlineSmall,
                                                   ),
-                                                  Text(widget.user!.fullname)
+                                                  Text(widget.user!.fullname, style: const TextStyle(color: Color.fromRGBO(43, 43, 63, 1)),)
                                                 ],
                                               )
                                             : Text(

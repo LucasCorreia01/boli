@@ -1,45 +1,48 @@
-import 'package:boli/theme/theme_colors.dart';
+import 'package:boli/theme/theme_colors_light.dart';
 import 'package:flutter/material.dart';
 
-ThemeData boliTheme = ThemeData(
-  primaryColor: ThemeColors.primaryColor,
-  primarySwatch: ThemeColors.primarySwatch,
-  primaryColorDark: ThemeColors.onPrimaryColor,
-  dividerColor: ThemeColors.onSecondaryColor,
-  cardColor: ThemeColors.onPrimaryColor,
+ThemeData boliThemeLight = ThemeData(
+  brightness: Brightness.light,
+  primaryColor: ThemeColorsLight.primaryColor,
+  primarySwatch: ThemeColorsLight.primarySwatch,
+  primaryColorDark: ThemeColorsLight.onPrimaryColor,
+  primaryColorLight: const Color.fromRGBO(241, 242, 244, 1),
+  dividerColor: ThemeColorsLight.onSecondaryColor,
+  cardColor: Colors.transparent,
+  indicatorColor: ThemeColorsLight.onPrimaryColor,
   highlightColor: Colors.white,
   fontFamily: 'DM Sans',
   textTheme: TextTheme(
     titleLarge: TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 28,
-      color: ThemeColors.onPrimaryColor,
+      color: ThemeColorsLight.onPrimaryColor,
       overflow: TextOverflow.ellipsis
     ),
     titleMedium: TextStyle(
       fontSize: 23,
       fontWeight: FontWeight.bold,
-      color: ThemeColors.onPrimaryColor,
+      color: ThemeColorsLight.onPrimaryColor,
       overflow: TextOverflow.ellipsis
     ),
     titleSmall: TextStyle(
-      color: ThemeColors.onPrimaryColor,
+      color: ThemeColorsLight.onPrimaryColor,
       fontSize: 15,
       overflow: TextOverflow.ellipsis
     ),
     headlineSmall: TextStyle(
-      color: ThemeColors.onPrimaryColor,
+      color: ThemeColorsLight.onPrimaryColor,
       fontSize: 16,
       overflow: TextOverflow.ellipsis
     ),
     headlineMedium: TextStyle(
-      color: ThemeColors.onPrimaryColor,
+      color: ThemeColorsLight.onPrimaryColor,
       fontSize: 16,
       fontWeight: FontWeight.bold,
       overflow: TextOverflow.ellipsis
     ),
     headlineLarge: const TextStyle(
-      color: ThemeColors.highlightColor,
+      color: ThemeColorsLight.highlightColor,
       fontSize: 14,
       overflow: TextOverflow.ellipsis
     ),
@@ -50,8 +53,14 @@ ThemeData boliTheme = ThemeData(
     displayMedium: TextStyle(
       fontSize: 23,
       fontWeight: FontWeight.normal,
-      color: ThemeColors.onPrimaryColor,
-    )
+      color: ThemeColorsLight.onPrimaryColor,
+    ),
+     labelMedium: TextStyle(
+      fontSize: 23,
+      fontWeight: FontWeight.bold,
+      color: ThemeColorsLight.onPrimaryColor,
+      overflow: TextOverflow.ellipsis
+    ),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,

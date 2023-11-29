@@ -129,14 +129,14 @@ class _CreatingSavingState extends State<CreatingSaving> {
                                       color: Theme.of(context).primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: const Row(
+                                    child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Voltar',
                                           style: TextStyle(
                                               fontSize: 24,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark),
                                         ),
                                         
                                       ],

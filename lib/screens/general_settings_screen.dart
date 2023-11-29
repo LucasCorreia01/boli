@@ -41,7 +41,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
           SliverToBoxAdapter(
             child: Container(
               decoration:
-                  const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+                  BoxDecoration(color: Theme.of(context).primaryColorLight),
               child: const Padding(
                 padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
                 child: Text(
@@ -70,11 +70,11 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Container(
                         height: 58,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             border: Border(
                           bottom: BorderSide(
                             width: 1,
-                            color: Color.fromRGBO(241, 242, 244, 1),
+                            color: Theme.of(context).primaryColorLight,
                           ),
                         )),
                         child: Row(
@@ -131,15 +131,8 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16.0),
-                      child: Container(
+                      child: SizedBox(
                         height: 58,
-                        decoration: const BoxDecoration(
-                            border: Border(
-                          bottom: BorderSide(
-                            width: 1,
-                            color: Color.fromRGBO(241, 242, 244, 1),
-                          ),
-                        )),
                         child: Row(
                           children: [
                             const Expanded(
@@ -193,7 +186,7 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
           SliverToBoxAdapter(
             child: Container(
               decoration:
-                  const BoxDecoration(color: Color.fromRGBO(241, 242, 244, 1)),
+                  BoxDecoration(color: Theme.of(context).primaryColorLight),
               child: const Padding(
                 padding: EdgeInsets.fromLTRB(24, 40, 10, 20),
                 child: Column(
@@ -219,11 +212,11 @@ class _GeneralSettingsScreenState extends State<GeneralSettingsScreen> {
           ),
           SliverToBoxAdapter(
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   border: Border(
                 bottom: BorderSide(
                   width: 1,
-                  color: Color.fromRGBO(241, 242, 244, 1),
+                  color: Theme.of(context).primaryColorLight,
                 ),
               )),
               child: Padding(

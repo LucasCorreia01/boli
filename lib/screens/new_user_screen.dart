@@ -47,7 +47,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                     width: 4.5,
                     height: 4.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(4.5),
                     ),
                   ),
@@ -57,7 +57,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                       width: 4.5,
                       height: 4.5,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColorDark,
+                        color: Theme.of(context).indicatorColor,
                         borderRadius: BorderRadius.circular(4.5),
                       ),
                     ),
@@ -66,7 +66,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
                     width: 4.5,
                     height: 4.5,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Theme.of(context).indicatorColor,
                       borderRadius: BorderRadius.circular(5),
                     ),
                   )

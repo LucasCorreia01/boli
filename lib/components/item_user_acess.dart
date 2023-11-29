@@ -25,7 +25,7 @@ class ItemUserAcess extends StatelessWidget {
             child: Center(
                 child: Text(
               abbreviation,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark),
             )),
           ),
           Expanded(
