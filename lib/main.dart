@@ -1,6 +1,4 @@
-import 'package:boli/models/extract_account.dart';
 import 'package:boli/models/savings.dart';
-import 'package:boli/routes.dart';
 import 'package:boli/screens/actions/global_transfer_screen.dart';
 import 'package:boli/screens/actions/payment_qr_screen.dart';
 import 'package:boli/screens/actions/receive_money.dart';
@@ -33,7 +31,6 @@ import 'package:boli/theme/boli_theme_light.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/card_credit_item_model.dart';
 import 'models/user.dart';
@@ -97,7 +94,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     brightness == Brightness.dark
         ? theme = boliThemeDark
         : theme = boliThemeLight;
-    print(brightness);
     setState(() {});
   }
 

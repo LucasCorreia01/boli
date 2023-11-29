@@ -43,6 +43,25 @@ Design das telas:<br>
 
 **Tela de transferência**<br><br>
 <img src="/assets/gifs/make-transfer.gif.gif" alt="Tela de transferência" width="300"/>
+<br><br>
+
+**Dark Mode**<br><br>
+<img src="/assets/gifs/darkmode.gif" alt="Dark Mode" width="300">
+<br><br>
+
+**Nova poupança**<br><br>
+<img src="/assets/gifs/saving-new.gif" alt="Nova poupança" width="300">
+<br><br>
+
+**Comprovante de transferência**<br><br>
+<img src="/assets/gifs/comprovante.gif.gif" alt="Comprovante de transferência" width="300">
+
+
+**Login**<br><br>
+<img src="/assets/gifs/login.gif" alt="Login" width="300">
+<br><br>
+
+
 
 
 
