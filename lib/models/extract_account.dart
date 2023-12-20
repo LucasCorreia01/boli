@@ -1,6 +1,5 @@
 import 'package:boli/database/extract_account.dart';
 import 'package:boli/models/user.dart';
-import 'package:http/http.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 

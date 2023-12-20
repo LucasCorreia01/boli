@@ -2,7 +2,6 @@ import 'package:boli/components/showDialogConfirmation.dart';
 import 'package:boli/models/saved_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/user.dart';
 
 class ItemUserAcess extends StatelessWidget {
   final SavedAccounts user;
