@@ -38,6 +38,7 @@ class _NewSavingsScreenState extends State<NewSavingsScreen> {
           'Nova poupança',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
       body: Form(

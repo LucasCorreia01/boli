@@ -2,6 +2,7 @@ import 'package:boli/theme/theme_colors_dark.dart';
 import 'package:flutter/material.dart';
 
 ThemeData boliThemeDark = ThemeData(
+  useMaterial3: false,
   scaffoldBackgroundColor: Colors.black,
   canvasColor: Colors.black,
   brightness: Brightness.dark,

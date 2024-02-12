@@ -1,4 +1,5 @@
 import 'package:boli/components/list_item.dart';
+import 'package:boli/components/show_snackbar.dart';
 import 'package:boli/models/savings.dart';
 import 'package:flutter/material.dart';
 import '../../../models/user.dart';
@@ -23,9 +24,12 @@ class SavingSection extends StatelessWidget {
                 if (user.balance > 0) {
                   Navigator.pushNamed(context, 'new-savings', arguments: user);
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          'Você não tem saldo suficiente para criar uma poupança!')));
+                  showSnackBar(
+                    context: context,
+                    content:
+                        'Você não tem saldo suficiente para criar uma poupança!',
+                    isErro: true,
+                  );
                 }
               },
               child: Row(
@@ -45,7 +49,7 @@ class SavingSection extends StatelessWidget {
           ],
         ),
         FutureBuilder(
-            future: Savings.getSavingsHome(user.fullname),
+            future: Savings.getSavingsHome(user.fullName),
             builder: (context, snapshot) {
               List<Savings>? savings = snapshot.data;
               switch (snapshot.connectionState) {
@@ -144,9 +148,12 @@ class SavingSection extends StatelessWidget {
                           Navigator.pushNamed(context, 'new-savings',
                               arguments: user);
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Você não tem saldo suficiente para criar uma poupança!')));
+                          showSnackBar(
+                            context: context,
+                            content:
+                                'Você não tem saldo suficiente para criar uma poupança!',
+                            isErro: true,
+                          );
                         }
                       },
                       child: Padding(
@@ -160,8 +167,7 @@ class SavingSection extends StatelessWidget {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                        color:
-                                            Theme.of(context).indicatorColor,
+                                        color: Theme.of(context).indicatorColor,
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(100)),

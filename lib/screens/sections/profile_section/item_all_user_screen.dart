@@ -1,4 +1,5 @@
 import 'package:boli/components/showDialogConfirmation.dart';
+import 'package:boli/components/show_snackbar.dart';
 import 'package:boli/models/saved_accounts.dart';
 import 'package:boli/models/user.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,10 @@ class ItemAllUser extends StatelessWidget {
             child: Center(
                 child: Text(
               abbreviation,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorDark),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColorDark),
             )),
           ),
           Expanded(
@@ -35,7 +39,7 @@ class ItemAllUser extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.fullname,
+                    user.fullName,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -53,16 +57,16 @@ class ItemAllUser extends StatelessWidget {
                 showConfirmationDialog(context: context, title: 'Apagar').then(
                   (value) {
                     if (value) {
-                      User.deleteUser(user.fullname).then((value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Conta apagada com sucesso.'),
-                          ),
+                      User.deleteUser(user.fullName).then((value) {
+                        showSnackBar(
+                          context: context,
+                          content: 'Conta apagada com sucesso.',
                         );
-                        SavedAccounts.deleteUser(user.fullname).then((value){
-                          if(value) deleteInfoSharedPrefs();
+                        SavedAccounts.deleteUser(user.fullName).then((value) {
+                          if (value) deleteInfoSharedPrefs();
                         });
-                        Navigator.pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            'login-screen', (Route<dynamic> route) => false);
                       });
                     }
                   },

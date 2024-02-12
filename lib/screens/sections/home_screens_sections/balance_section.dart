@@ -1,4 +1,5 @@
 import 'package:boli/components/credit_card_home.dart';
+import 'package:boli/helpers/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/user.dart';
@@ -70,7 +71,7 @@ class _BalanceSectionState extends State<BalanceSection> {
                       if (snapshot.hasData) {
                         return Text(
                           (widget.balanceVisibility)
-                              ? 'R\$$movedValue'
+                              ? Utils.formatPrice(movedValue!)
                               : 'R\$****',
                           style: Theme.of(context).textTheme.titleMedium,
                         );

@@ -1,3 +1,4 @@
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/user.dart';
@@ -14,10 +15,9 @@ class _EditNameFormScreenState extends State<EditNameFormScreen> {
   final TextEditingController name = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
-    name.text = widget.user.fullname;
+    name.text = widget.user.fullName;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -78,9 +78,14 @@ class _EditNameFormScreenState extends State<EditNameFormScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if(_formKey.currentState!.validate()){
-            widget.user.editInformation('fullname', name.text);
-            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
+          if (_formKey.currentState!.validate()) {
+            UserAuthService()
+                .editInformations('fullName', name.text)
+                .then((value) {
+              // Navigator.pushNamedAndRemoveUntil(
+              //     context, 'login-screen', (Route<dynamic> route) => false);
+              Navigator.pop(context);
+            });
           }
         },
         backgroundColor: Theme.of(context).primaryColor,

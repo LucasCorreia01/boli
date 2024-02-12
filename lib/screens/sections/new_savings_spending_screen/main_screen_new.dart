@@ -1,3 +1,4 @@
+import 'package:boli/components/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -26,9 +27,12 @@ class MainScreenNew extends StatelessWidget {
                     Navigator.pushNamed(context, 'new-savings',
                         arguments: user);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                            'Você não tem saldo suficiente para criar uma poupança!')));
+                    showSnackBar(
+                      context: context,
+                      content:
+                          'Você não tem saldo suficiente para criar uma poupança!',
+                      isErro: true,
+                    );
                   }
                 },
                 child: const Row(

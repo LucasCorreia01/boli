@@ -1,3 +1,4 @@
+import 'package:boli/components/show_snackbar.dart';
 import 'package:boli/models/savings.dart';
 import 'package:boli/models/user.dart';
 import 'package:boli/screens/sections/new_savings_spending_screen/savings/add_balance_savings.dart';
@@ -93,10 +94,9 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
                     'Adicionar mais dinheiro',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColorDark
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColorDark),
                   ),
                 ),
               ),
@@ -139,8 +139,10 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
               child: InkWell(
                 onTap: () {
                   savings.deleteSaving();
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Poupança apagada com sucesso!')));
+                  showSnackBar(
+                    context: context,
+                    content: 'Poupança apagada com sucesso!',
+                  );
                   user.balance = user.balance + savings.balance;
                   Navigator.popAndPushNamed(context, "home-screen",
                       arguments: user);
@@ -176,9 +178,10 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
               child: Text(
                 "Exluir poupança",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18, ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
               ),
             ),
             const PopupMenuItem(
@@ -197,8 +200,8 @@ class _SingleSavingsScreenState extends State<SingleSavingsScreen> {
         User user = widget.infoSaving["user"];
         if (value == 1) {
           savings.deleteSaving();
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Poupança apagada com sucesso!')));
+          showSnackBar(
+              context: context, content: 'Poupança apagada com sucesso!');
           user.balance = user.balance + savings.balance;
           Navigator.popAndPushNamed(context, "home-screen", arguments: user);
         } else if (value == 2) {

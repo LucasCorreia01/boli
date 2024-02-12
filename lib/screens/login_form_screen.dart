@@ -84,7 +84,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                                                         .textTheme
                                                         .headlineSmall,
                                                   ),
-                                                  Text(widget.user!.fullname)
+                                                  Text(widget.user!.fullName)
                                                 ],
                                               )
                                             : Text(

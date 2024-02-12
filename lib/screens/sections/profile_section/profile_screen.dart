@@ -1,3 +1,4 @@
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 import '../../../components/showDialogConfirmation.dart';
 import '../../../models/user.dart';
@@ -40,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.user.fullname,
+                          widget.user.fullName,
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -67,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SliverToBoxAdapter(
           child: Container(
             decoration:
-               BoxDecoration(color: Theme.of(context).primaryColorLight),
+                BoxDecoration(color: Theme.of(context).primaryColorLight),
             child: const Padding(
               padding: EdgeInsets.fromLTRB(24, 20, 10, 20),
               child: Text(
@@ -212,17 +213,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: InkWell(
                         onTap: () {
                           showConfirmationDialog(
-                                  context: context,
-                                  title: 'Apagar conta',
-                                  content:
-                                      'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.')
-                              .then((value) {
+                            context: context,
+                            title: 'Apagar conta',
+                            content:
+                                'Tem certeza que deseja apagar sua conta?\n\nEssa ação não pode ser desfeita.',
+                          ).then((value) {
                             if (value) {
-                              User.deleteUser(widget.user.fullname)
-                                  .then((value) {
-                                Navigator. pushNamedAndRemoveUntil(
-                                    context, 'login-screen', (Route<dynamic> route) => false);
-                              });
+                              UserAuthService().deleteUser();
+                              // User.deleteUser(widget.user.fullName)
+                              //     .then((value) {
+                              //   Navigator.pushNamedAndRemoveUntil(
+                              //       context,
+                              //       'login-screen',
+                              //       (Route<dynamic> route) => false);
+                              // });
                             }
                           });
                         },
@@ -250,55 +254,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
-        SliverToBoxAdapter(
-          child: Container(
-            padding: const EdgeInsets.only(left: 24),
-            child: Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  child: Icon(Icons.person_2_outlined,),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Container(
-                      height: 58,
-                      decoration: BoxDecoration(
-                          border: Border(
-                        bottom: BorderSide(
-                          width: 1,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                      )),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'all-users-screen');
-                        },
-                        child: const Row(
-                          children: [
-                            Expanded(
-                                flex: 9,
-                                child: Text(
-                                  'Ver todas as contas',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                            Expanded(
-                                flex: 2,
-                                child:
-                                    Icon(Icons.keyboard_arrow_right_outlined)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // SliverToBoxAdapter(
+        //   child: Container(
+        //     padding: const EdgeInsets.only(left: 24),
+        //     child: Row(
+        //       children: [
+        //         const Padding(
+        //           padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+        //           child: Icon(
+        //             Icons.person_2_outlined,
+        //           ),
+        //         ),
+        //         Expanded(
+        //           child: Padding(
+        //             padding: const EdgeInsets.only(left: 16.0),
+        //             child: Container(
+        //               height: 58,
+        //               decoration: BoxDecoration(
+        //                   border: Border(
+        //                 bottom: BorderSide(
+        //                   width: 1,
+        //                   color: Theme.of(context).primaryColorLight,
+        //                 ),
+        //               )),
+        //               child: InkWell(
+        //                 onTap: () {
+        //                   Navigator.pushNamed(context, 'all-users-screen');
+        //                 },
+        //                 child: const Row(
+        //                   children: [
+        //                     Expanded(
+        //                         flex: 9,
+        //                         child: Text(
+        //                           'Ver todas as contas',
+        //                           style: TextStyle(
+        //                               fontSize: 16,
+        //                               fontWeight: FontWeight.bold),
+        //                         )),
+        //                     Expanded(
+        //                         flex: 2,
+        //                         child:
+        //                             Icon(Icons.keyboard_arrow_right_outlined)),
+        //                   ],
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         const SliverFillRemaining(
           hasScrollBody: false,
           child: Padding(
@@ -306,8 +312,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('VERSÃO', style: TextStyle(fontSize: 14,)),
-                Text('1.0.0', style: TextStyle(fontSize: 14),)
+                Text('VERSÃO',
+                    style: TextStyle(
+                      fontSize: 14,
+                    )),
+                Text(
+                  '1.0.0',
+                  style: TextStyle(fontSize: 14),
+                )
               ],
             ),
           ),

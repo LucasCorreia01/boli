@@ -16,6 +16,7 @@ class ChooseEditInformationsScreen extends StatelessWidget {
           'Cadastro',
           style: Theme.of(context).textTheme.displayMedium,
         ),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
       body: CustomScrollView(
@@ -71,7 +72,9 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             map['information'] = 1;
-                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map);
+                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map).then((value){
+                              Navigator.pop(context);
+                            });
                           },
                           child: const Row(
                             children: [
@@ -121,7 +124,9 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             map['information'] = 2;
-                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map);
+                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map).then((value){
+                              Navigator.pop(context);
+                            });
                           },
                           child: const Row(
                             children: [
@@ -171,7 +176,9 @@ class ChooseEditInformationsScreen extends StatelessWidget {
                         child: InkWell(
                           onTap: (){
                             map['information'] = 3;
-                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map);
+                            Navigator.of(context).pushNamed('edit-form-screen', arguments: map).then((value){
+                              Navigator.pop(context);
+                            });
                           },
                           child: const Row(
                             children: [

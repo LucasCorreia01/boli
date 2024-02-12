@@ -5,7 +5,7 @@ class SavedAccounts {
   String id;
   String name;
   String lastName;
-  String fullname;
+  String fullName;
   String email;
   String password;
   DateTime dateOfBirth;
@@ -17,7 +17,7 @@ class SavedAccounts {
     required this.id,
     required this.name,
     required this.lastName,
-    required this.fullname,
+    required this.fullName,
     required this.email,
     required this.password,
     required this.dateOfBirth,
@@ -32,7 +32,7 @@ class SavedAccounts {
       'id': id,
       'name': name,
       'lastName': lastName,
-      'fullname': fullname,
+      'fullName': fullName,
       'email': email,
       'password': password,
       'dateOfBirth': "$dateOfBirth",
@@ -52,23 +52,23 @@ class SavedAccounts {
     return toList(list);
   }
 
-  static updateInfo(String fullname, String attr, String value) async {
+  static updateInfo(String id, String attr, String value) async {
     Database db = await getDatabase();
 
-    if (attr == 'fullname') {
+    if (attr == 'fullName') {
       List<String> name = value.trim().split(" ");
       db.update('saved_users', {"name": name[0]},
-          where: 'fullname = ?', whereArgs: [fullname]);
+          where: 'id = ?', whereArgs: [id]);
       db.update('saved_users', {"lastName": name[name.length - 1]},
-          where: 'fullname = ?', whereArgs: [fullname]);
-      db.update('saved_users', {"fullname": value},
-          where: 'fullname = ?', whereArgs: [fullname]);
+          where: 'id = ?', whereArgs: [id]);
+      db.update('saved_users', {"fullName": value},
+          where: 'id = ?', whereArgs: [id]);
     } else {
       await db.update(
         'saved_users',
         {attr: value},
-        where: 'fullname = ?',
-        whereArgs: [fullname],
+        where: 'id = ?',
+        whereArgs: [id],
       );
     }
   }
@@ -105,7 +105,7 @@ class SavedAccounts {
         id: item["id"],
         name: name[0],
         lastName: name[name.length - 1],
-        fullname: item["fullName"],
+        fullName: item["fullName"],
         email: item["email"],
         password: item["password"],
         dateOfBirth: DateTime.parse(item['dateOfBirth']),

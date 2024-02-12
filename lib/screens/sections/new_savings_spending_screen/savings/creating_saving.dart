@@ -204,7 +204,7 @@ class _CreatingSavingState extends State<CreatingSaving> {
       title: savingMap['name']!,
       description: savingMap['description']!,
       icon: int.parse(savingMap['icon']!),
-      fullName: widget.user.fullname,
+      fullName: widget.user.fullName,
       date: DateTime.now(),
       balance: double.parse(savingMap['valueToSave']!),
     );

@@ -18,11 +18,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
       appBar: AppBar(
         title: Text(
           'Todos os usuários',
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).indicatorColor,
-          ),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -98,13 +94,10 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
                     if (snapshot.hasData && accounts != null) {
                       if (accounts.isNotEmpty) {
                         return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: accounts.length,
                           itemBuilder: (BuildContext context, index) {
-                            return InkWell(
-                                onTap: () {
-                                  //TODO::: Apagar usuário
-                                },
-                                child: ItemAllUser(user: accounts[index]));
+                            return ItemAllUser(user: accounts[index]);
                           },
                         );
                       }

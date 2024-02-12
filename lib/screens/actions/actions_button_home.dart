@@ -1,4 +1,5 @@
 import 'package:boli/components/camera_page.dart';
+import 'package:boli/components/show_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -58,11 +59,11 @@ class ActionsButtonsHome extends StatelessWidget {
                     Navigator.of(context)
                         .pushNamed('send_money', arguments: user);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                            'Você não tem saldo para fazer uma tranferência.'),
-                      ),
+                    showSnackBar(
+                      context: context,
+                      content:
+                          'Você não tem saldo para fazer uma tranferência.',
+                      isErro: true,
                     );
                   }
                 },

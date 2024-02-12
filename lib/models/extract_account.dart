@@ -33,9 +33,9 @@ class ExtractAccount {
   static Future<List<ExtractAccount>> getExtractAccount(User user) async {
     Database db = await getDatabase();
     dynamic list1 = await db.query('extract',
-        where: 'fullNameSend = ?', whereArgs: [user.fullname], orderBy: 'date DESC');
+        where: 'fullNameSend = ?', whereArgs: [user.fullName], orderBy: 'date DESC');
     dynamic list2 = await db.query('extract',
-        where: 'fullNameReceiver = ?', whereArgs: [user.fullname], orderBy: 'date DESC');
+        where: 'fullNameReceiver = ?', whereArgs: [user.fullName], orderBy: 'date DESC');
     List<ExtractAccount> listSend = toList(list1);
     List<ExtractAccount> listReceiver = toList(list2);
     List<ExtractAccount> listFinal = listSend + listReceiver;
@@ -67,11 +67,11 @@ class ExtractAccount {
     return accounts;
   }
 
-  static Future<bool> deleteExtractsOfUser(String fullname) async{
+  static Future<bool> deleteExtractsOfUser(String fullName) async{
     Database db = await getDatabase();
     try{
-      db.delete('extract', where: 'fullNameReceiver = ?', whereArgs: [fullname]);
-      db.delete('extract', where: 'fullNameSend = ?', whereArgs: [fullname]);
+      db.delete('extract', where: 'fullNameReceiver = ?', whereArgs: [fullName]);
+      db.delete('extract', where: 'fullNameSend = ?', whereArgs: [fullName]);
       return true;
     } catch(e){
       return false;

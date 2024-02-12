@@ -28,7 +28,7 @@ class _UsersToTransferState extends State<UsersToTransfer> {
         ),
         Expanded(
           child: FutureBuilder(
-            future: User.getUsersForTransfer(widget.user.fullname),
+            future: User.getUsersForTransfer(widget.user.fullName),
             builder: (context, snapshot) {
               List<User>? accounts = snapshot.data;
               switch (snapshot.connectionState) {

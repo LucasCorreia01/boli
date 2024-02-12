@@ -5,7 +5,7 @@ import '../../models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-import '../../service/notification_service.dart';
+import '../../services/notification_service.dart';
 
 class ReceiveMoney extends StatefulWidget {
   final User user;

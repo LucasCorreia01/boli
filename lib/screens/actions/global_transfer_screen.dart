@@ -39,7 +39,7 @@ class _GlobalTransferScreenState extends State<GlobalTransferScreen> {
       body: Column(
         children: [
           Expanded(
-            flex: 14,
+            flex: 16,
             child: CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
@@ -423,7 +423,7 @@ class _GlobalTransferScreenState extends State<GlobalTransferScreen> {
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Text(
-                          'Ao continuar, você declara ter lido e concordado com os Termos e Condições',
+                          'Ao continuar, você declara ter lido e concordado com os Termos e Condições.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             overflow: TextOverflow.visible,

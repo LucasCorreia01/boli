@@ -1,4 +1,4 @@
-import 'package:boli/service/notification_service.dart';
+import 'package:boli/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';

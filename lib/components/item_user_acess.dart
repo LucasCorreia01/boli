@@ -1,4 +1,5 @@
 import 'package:boli/components/showDialogConfirmation.dart';
+import 'package:boli/components/show_snackbar.dart';
 import 'package:boli/models/saved_accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,7 +35,7 @@ class ItemUserAcess extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.fullname,
+                    user.fullName,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -52,12 +53,8 @@ class ItemUserAcess extends StatelessWidget {
                 showConfirmationDialog(context: context, title: 'Apagar').then(
                   (value) {
                     if (value) {
-                      SavedAccounts.deleteUser(user.fullname).then((value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Registro apagado.'),
-                          ),
-                        );
+                      SavedAccounts.deleteUser(user.fullName).then((value) {
+                        showSnackBar(context: context, content: 'Registro apagado.');
                         deleteInfoSharedPrefs();
                         Navigator.pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
                       });

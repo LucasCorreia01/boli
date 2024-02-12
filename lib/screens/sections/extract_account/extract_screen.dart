@@ -110,7 +110,7 @@ class ExtractAccountScreen extends StatelessWidget {
                               date: extractAccounts[index].date,
                             );
                           }
-                        } else if (user.fullname ==
+                        } else if (user.fullName ==
                             extractAccounts[index].fullNameSend) {
                           return ExtractAccountItemTransferSend(
                             actualUser: user,

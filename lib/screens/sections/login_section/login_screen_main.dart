@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:boli/models/saved_accounts.dart';
 import 'package:boli/models/user.dart';
 import 'package:boli/screens/sections/login_section/login_password_section.dart';
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'dart:math' as math;
@@ -21,7 +22,8 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
   final _formKey = GlobalKey<FormState>();
   List<Widget> pages = [
     const LoginEmailSection(),
-    const LoginPasswordSection()
+    const LoginPasswordSection(),
+    const Loading()
   ];
 
   @override
@@ -58,25 +60,31 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
               if (_currentIndex == 2) {
                 Map<String, String> userMap = User.getUserMap();
                 if (userMap["email"] != null && userMap["password"] != null) {
-                  User.autenticar(userMap["email"]!, userMap["password"]!)
-                      .then((value) {
-                    print('O valor do value é: ${value["bool"]}');
-                    if (value["bool"]) {
-                      Navigator.pushNamedAndRemoveUntil(context, 'home-screen',
-                          (Route<dynamic> route) => false,
-                          arguments: value["user"]);
-                      var save = SavedAccounts(
-                          id: value["user"].id,
-                          name: value["user"].name,
-                          fullname: value["user"].fullname,
-                          lastName: value["user"].lastName,
-                          email: value["user"].email,
-                          password: value["user"].password,
-                          dateOfBirth: value["user"].dateOfBirth,
-                          lastSeen: value["user"].lastSeen,
-                          balance: value["user"].balance,
-                          movedValue: value["user"].movedValue);
-                      save.newAccountSave();
+                  UserAuthService()
+                      .login(
+                          email: userMap["email"]!,
+                          password: userMap["password"]!)
+                      .then((error) {
+                    if (error == null) {
+                      UserAuthService().getUserLoggedData().then((value) {
+                        if (value['error'] == null) {
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              'home-screen', (Route<dynamic> route) => false,
+                              arguments: value["user"]);
+                          var save = SavedAccounts(
+                              id: value["user"].id,
+                              name: value["user"].name,
+                              fullName: value["user"].fullName,
+                              lastName: value["user"].lastName,
+                              email: value["user"].email,
+                              password: value["user"].password,
+                              dateOfBirth: value["user"].dateOfBirth,
+                              lastSeen: value["user"].lastSeen,
+                              balance: value["user"].balance,
+                              movedValue: value["user"].movedValue);
+                          save.newAccountSave();
+                        }
+                      });
                     } else {
                       _currentIndex = 0;
                       setState(() {
@@ -88,6 +96,7 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
                       });
                     }
                   });
+
                 } else {
                   _currentIndex = 0;
                   showConfirmationDialog(
@@ -102,6 +111,17 @@ class _LoginScreenMainState extends State<LoginScreenMain> {
         child: Transform.rotate(
             angle: -math.pi, child: const Icon(BoxIcons.bx_arrow_back)),
       ),
+    );
+  }
+}
+
+class Loading extends StatelessWidget {
+  const Loading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

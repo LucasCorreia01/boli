@@ -3,7 +3,7 @@ import '../../models/user.dart';
 import 'package:intl/intl.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
-import '../../service/notification_service.dart';
+import '../../services/notification_service.dart';
 
 class SendingMoneyScreen extends StatefulWidget {
   final User userSend;
@@ -23,8 +23,8 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> arguments = {
-      "userSend": widget.userSend.fullname,
-      "userReceiver": widget.userReceiver.fullname,
+      "userSend": widget.userSend.fullName,
+      "userReceiver": widget.userReceiver.fullName,
       "valueToTransfer": widget.valueToTransfer,
       "date": DateTime.now()
     };
@@ -37,8 +37,8 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
         children: [
           FutureBuilder(
             future: widget.userSend.makeTransfer(
-                fullnameSend: widget.userSend.fullname,
-                fullnameReceiver: widget.userReceiver.fullname,
+                fullNameSend: widget.userSend.fullName,
+                fullNameReceiver: widget.userReceiver.fullName,
                 value: widget.valueToTransfer),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
@@ -107,7 +107,7 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                       .showNotification(CustomNotification(
                           id: 1,
                           title: 'Você recebeu uma transferência! ',
-                          body: 'Tranferência no valor de R\$${widget.valueToTransfer},00 de ${widget.userSend.fullname}',
+                          body: 'Tranferência no valor de R\$${widget.valueToTransfer},00 de ${widget.userSend.fullName}',
                           payload: ''));
                   return Center(
                     child: SizedBox(
@@ -174,7 +174,7 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Text(
-                                widget.userReceiver.fullname.toUpperCase(),
+                                widget.userReceiver.fullName.toUpperCase(),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),

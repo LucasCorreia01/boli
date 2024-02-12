@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983109549401",
+    "project_id": "boli-digital-bank",
+    "storage_bucket": "boli-digital-bank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983109549401:android:4bd2aac87149f6b751e048",
+        "android_client_info": {
+          "package_name": "com.example.boli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwbUwXIR02voiQU8YAlB4qU8lmUYjrCVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

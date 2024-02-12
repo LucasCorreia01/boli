@@ -111,7 +111,7 @@ class _ExtractAccountScreenHomeState extends State<ExtractAccountScreenHome> {
                             date: extractAccounts[index].date,
                           );
                         }
-                    } else if (widget.user.fullname ==
+                    } else if (widget.user.fullName ==
                         extractAccounts[index].fullNameSend) {
                       return ExtractAccountItemTransferSend(
                         actualUser: widget.user,

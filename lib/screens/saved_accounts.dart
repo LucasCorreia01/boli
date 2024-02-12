@@ -106,7 +106,7 @@ class _SavedAccountsScreenState extends State<SavedAccountsScreen> {
                             return InkWell(
                                 onTap: () {
                                   Navigator.of(context).pop(accounts[index]);
-                                  setPreferencesAccountAccess(accounts[index].fullname);
+                                  setPreferencesAccountAccess(accounts[index].fullName);
                                 },
                                 child: ItemUserAcess(user: accounts[index]));
                           },

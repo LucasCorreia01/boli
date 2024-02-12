@@ -1,3 +1,4 @@
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 import '../../../models/user.dart';
 
@@ -92,11 +93,14 @@ class _EditPasswordFormScreen extends State<EditPasswordFormScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.user.editInformation('password', password.text);
-            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
+            UserAuthService()
+                .editInformations('password', password.text)
+                .then((value) {
+              Navigator.pop(context);
+            });
           }
         },
-        backgroundColor: Theme.of(context).primaryColor ,
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.check),
       ),
     );

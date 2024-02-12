@@ -1,3 +1,4 @@
+import 'package:boli/helpers/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user.dart';
@@ -72,7 +73,7 @@ class CreditCardHome extends StatelessWidget {
                         case ConnectionState.done:
                           if (snapshot.hasData) {
                             return Text(
-                              (balanceVisibility) ? 'R\$$movedValue' : 'R\$****',
+                              (balanceVisibility) ? Utils.formatPrice(movedValue!) : 'R\$****',
                               style: Theme.of(context).textTheme.labelMedium,
                             );
                           }

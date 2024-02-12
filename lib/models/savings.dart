@@ -48,14 +48,14 @@ class Savings extends ChangeNotifier {
       });
       Database userDb = await getDatabase();
       var mapUser = await userDb
-          .query('users', where: 'fullName = ?', whereArgs: [user.fullname]);
+          .query('users', where: 'fullName = ?', whereArgs: [user.fullName]);
       List<User> listUsers = toListUser(mapUser);
       double balanceUser = listUsers.first.balance;
       balanceUser = balanceUser - balance;
       userDb.update(
           'users',
           where: 'fullName = ?',
-          whereArgs: [user.fullname],
+          whereArgs: [user.fullName],
           {'balance': balanceUser});
       ExtractAccount extract = ExtractAccount(
         fullNameReceiver: "Poupança: $title",
@@ -215,7 +215,7 @@ class Savings extends ChangeNotifier {
       final User account = User(
           name: item["name"],
           lastName: item["lastName"],
-          fullname: item["fullName"],
+          fullName: item["fullName"],
           email: item["email"],
           password: item["password"],
           dateOfBirth: DateTime.parse(item['dateOfBirth']),

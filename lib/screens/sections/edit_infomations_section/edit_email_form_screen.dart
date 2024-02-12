@@ -1,4 +1,5 @@
 import 'package:boli/models/user.dart';
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 
 class EditEmailFormScreen extends StatelessWidget {
@@ -74,8 +75,9 @@ class EditEmailFormScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(formKey.currentState!.validate()){
-            user.editInformation('email', email.text);
-            Navigator. pushNamedAndRemoveUntil(context, 'login-screen', (Route<dynamic> route) => false);
+            UserAuthService().editInformations('email', email.text).then((value){
+              Navigator.pop(context);
+            });
           }
         },
         child: const Icon(Icons.check),

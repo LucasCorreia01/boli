@@ -48,6 +48,17 @@ List<CardCredit> getCardExemples() {
       nameCard: 'MasterCard',
       imageLogo: 'assets/images/mastercard-logo.png',
     ),
+    CardCredit(
+      balanceCard: '20,000,000',
+      cardNumber: '5376 8371 0923 0921',
+      cvv: '097',
+      dueDate: '12/23',
+      colorCard: const Color.fromRGBO(100, 106, 226, 1),
+      colorText: Colors.white,
+      iconCard: BoxIcons.bxl_visa,
+      nameCard: 'Visa',
+      imageLogo: 'assets/images/visa-logo.png',
+    ),
   ];
 }
 
