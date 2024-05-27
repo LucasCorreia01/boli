@@ -1,4 +1,5 @@
 import 'package:boli/screens/actions/sending_money.dart';
+import 'package:boli/services/account_service.dart';
 import 'package:flutter/material.dart';
 import '../../components/item_user_transfer.dart';
 import '../../models/user.dart';
@@ -28,7 +29,7 @@ class _UsersToTransferState extends State<UsersToTransfer> {
         ),
         Expanded(
           child: FutureBuilder(
-            future: User.getUsersForTransfer(widget.user.fullName),
+            future: AccountService().getUsersForTransfer(),
             builder: (context, snapshot) {
               List<User>? accounts = snapshot.data;
               switch (snapshot.connectionState) {

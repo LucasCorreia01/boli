@@ -1,4 +1,5 @@
 import 'package:boli/helpers/utils.dart';
+import 'package:boli/services/account_service.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user.dart';
@@ -54,7 +55,7 @@ class CreditCardHome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 FutureBuilder(
-                    future: user.getBalanceUser(),
+                    future: AccountService().getBalanceUser(),
                     builder: (context, snapshot) {
                       double? movedValue = snapshot.data;
                       switch (snapshot.connectionState) {

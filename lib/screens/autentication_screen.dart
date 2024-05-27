@@ -6,7 +6,7 @@ import 'package:boli/services/local_auth_service.dart';
 import 'package:boli/services/user_auth_service.dart';
 import 'package:boli/theme/theme_colors_light.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+// import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -501,12 +501,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   }
 
   readQRCode() async{
-    String code = await FlutterBarcodeScanner.scanBarcode(
-      "#FFFFFF",
-      "Cancelar",
-      true,
-      ScanMode.QR,
-    );
+    // String code = await FlutterBarcodeScanner.scanBarcode(
+    //   "#FFFFFF",
+    //   "Cancelar",
+    //   true,
+    //   ScanMode.QR,
+    // );
 
   }
 }

@@ -101,45 +101,45 @@ class User extends ChangeNotifier {
   }
 
   //Editar informações
-  Future<bool> editInformation(String attr, String value) async {
-    Database db = await getDatabase();
-    if (attr == 'fullName') {
-      try {
-        List<String> name = value.trim().split(" ");
-        db.update('users', {"name": name[0]},
-            where: 'fullName = ?', whereArgs: [fullName]);
-        db.update('users', {"lastName": name[name.length - 1]},
-            where: 'fullName = ?', whereArgs: [fullName]);
-        db.update('users', {"fullName": value},
-            where: 'fullName = ?', whereArgs: [fullName]);
+  // Future<bool> editInformation(String attr, String value) async {
+  //   Database db = await getDatabase();
+  //   if (attr == 'fullName') {
+  //     try {
+  //       List<String> name = value.trim().split(" ");
+  //       db.update('users', {"name": name[0]},
+  //           where: 'fullName = ?', whereArgs: [fullName]);
+  //       db.update('users', {"lastName": name[name.length - 1]},
+  //           where: 'fullName = ?', whereArgs: [fullName]);
+  //       db.update('users', {"fullName": value},
+  //           where: 'fullName = ?', whereArgs: [fullName]);
 
-        SavedAccounts.updateInfo(fullName, attr, value);
-        return true;
-      } catch (e) {
-        print(e.toString());
-        return false;
-      }
-    } else {
-      try {
-        db.update('users', {attr: value},
-            where: 'fullName = ?', whereArgs: [fullName]);
-        SavedAccounts.updateInfo(fullName, attr, value);
-        return true;
-      } catch (e) {
-        print(e.toString());
-        return false;
-      }
-    }
-  }
+  //       SavedAccounts.updateInfo(fullName, attr, value);
+  //       return true;
+  //     } catch (e) {
+  //       print(e.toString());
+  //       return false;
+  //     }
+  //   } else {
+  //     try {
+  //       db.update('users', {attr: value},
+  //           where: 'fullName = ?', whereArgs: [fullName]);
+  //       SavedAccounts.updateInfo(fullName, attr, value);
+  //       return true;
+  //     } catch (e) {
+  //       print(e.toString());
+  //       return false;
+  //     }
+  //   }
+  // }
 
   //Pega todos os usuários disponíveis para transferência
-  static Future<List<User>> getUsersForTransfer(String fullName) async {
-    Database db = await getDatabase();
-    var list =
-        await db.query('users', where: 'fullName != ?', whereArgs: [fullName]);
-    await Future.delayed(const Duration(milliseconds: 500));
-    return toList(list);
-  }
+  // static Future<List<User>> getUsersForTransfer(String fullName) async {
+  //   Database db = await getDatabase();
+  //   var list =
+  //       await db.query('users', where: 'fullName != ?', whereArgs: [fullName]);
+  //   await Future.delayed(const Duration(milliseconds: 500));
+  //   return toList(list);
+  // }
 
   // Faz a transferência entre as contas
   Future<bool> makeTransfer(
@@ -192,33 +192,35 @@ class User extends ChangeNotifier {
     }
   }
 
-  Future<double> getMovedValueUser() async {
-    Database db = await getDatabase();
-    try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      var list =
-          await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
-      List<User> user = toList(list);
-      return user[0].movedValue;
-    } catch (e) {
-      print(e.toString());
-      return 0;
-    }
-  }
+  //Recupera o valor movimentado
+  // Future<double> getMovedValueUser() async {
+  //   Database db = await getDatabase();
+  //   try {
+  //     await Future.delayed(const Duration(milliseconds: 300));
+  //     var list =
+  //         await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
+  //     List<User> user = toList(list);
+  //     return user[0].movedValue;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return 0;
+  //   }
+  // }
 
-  Future<double> getBalanceUser() async {
-    Database db = await getDatabase();
-    try {
-      await Future.delayed(const Duration(milliseconds: 300));
-      var list =
-          await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
-      List<User> user = toList(list);
-      return user[0].balance;
-    } catch (e) {
-      print(e.toString());
-      return 0;
-    }
-  }
+  //Recupera o saldo do usuário
+  // Future<double> getBalanceUser() async {
+  //   Database db = await getDatabase();
+  //   try {
+  //     await Future.delayed(const Duration(milliseconds: 300));
+  //     var list =
+  //         await db.query('users', where: 'fullName = ?', whereArgs: [fullName]);
+  //     List<User> user = toList(list);
+  //     return user[0].balance;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     return 0;
+  //   }
+  // }
 
   //Seleciona o usuário com base no nome
   static Future<dynamic> selectInitUser(String? fullName) async {
@@ -268,29 +270,29 @@ class User extends ChangeNotifier {
     await db.delete('users');
   }
 
-  static Future<Map<String, dynamic>> autenticar(
-      String email, String password) async {
-    Database db = await getDatabase();
-    Map<String, dynamic> result = {};
-    try {
-      List<User> list = await User.getUsers();
-      if (list.isNotEmpty) {
-        for (int i = 0; i < list.length; i++) {
-          if (list[i].email == email && list[i].password == password) {
-            result['bool'] = true;
-            result['user'] = list[i];
-            return result;
-          }
-        }
-        result['bool'] = false;
-      }
-      result['bool'] = false;
-    } catch (e) {
-      print(e.toString());
-      result['bool'] = false;
-    }
-    return result;
-  }
+  // static Future<Map<String, dynamic>> autenticar(
+  //     String email, String password) async {
+  //   Database db = await getDatabase();
+  //   Map<String, dynamic> result = {};
+  //   try {
+  //     List<User> list = await User.getUsers();
+  //     if (list.isNotEmpty) {
+  //       for (int i = 0; i < list.length; i++) {
+  //         if (list[i].email == email && list[i].password == password) {
+  //           result['bool'] = true;
+  //           result['user'] = list[i];
+  //           return result;
+  //         }
+  //       }
+  //       result['bool'] = false;
+  //     }
+  //     result['bool'] = false;
+  //   } catch (e) {
+  //     print(e.toString());
+  //     result['bool'] = false;
+  //   }
+  //   return result;
+  // }
 
   //Apaga o banco de dados por completo
   static removeDB() async {

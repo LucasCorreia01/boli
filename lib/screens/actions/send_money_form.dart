@@ -1,3 +1,4 @@
+import 'package:boli/helpers/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../models/user.dart';
@@ -67,7 +68,7 @@ class SendMoneyForm extends StatelessWidget {
                   style: const TextStyle(fontSize: 18),
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'R\$${user.balance}',
+                        text: Utils.formatPrice(user.balance),
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ]),
             ),

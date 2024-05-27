@@ -1,3 +1,4 @@
+import 'package:boli/services/account_service.dart';
 import 'package:flutter/material.dart';
 import '../../models/user.dart';
 import 'package:intl/intl.dart';
@@ -36,9 +37,9 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
       body: Column(
         children: [
           FutureBuilder(
-            future: widget.userSend.makeTransfer(
-                fullNameSend: widget.userSend.fullName,
-                fullNameReceiver: widget.userReceiver.fullName,
+            future: AccountService().makeTransfer(
+                uidSend: widget.userSend.id,
+                uidReceiver: widget.userReceiver.id,
                 value: widget.valueToTransfer),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
@@ -103,12 +104,6 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                     ),
                   );
                 case ConnectionState.done:
-                  Provider.of<NotificationService>(context, listen: false)
-                      .showNotification(CustomNotification(
-                          id: 1,
-                          title: 'Você recebeu uma transferência! ',
-                          body: 'Tranferência no valor de R\$${widget.valueToTransfer},00 de ${widget.userSend.fullName}',
-                          payload: ''));
                   return Center(
                     child: SizedBox(
                       width: double.infinity,
@@ -153,14 +148,16 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).primaryColorDark),
+                                          color: Theme.of(context)
+                                              .primaryColorDark),
                                     )),
                                   ),
                                   Container(
                                     width: 25,
                                     height: 25,
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color:
+                                          Theme.of(context).primaryColorLight,
                                       borderRadius: BorderRadius.circular(100),
                                     ),
                                     child: const Icon(
@@ -187,22 +184,26 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                                   color: Colors.grey[700]),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 12, bottom: 28),
+                              padding:
+                                  const EdgeInsets.only(top: 12, bottom: 28),
                               child: Text("R\$${widget.valueToTransfer}",
                                   style: const TextStyle(
-                                      fontSize: 26, fontWeight: FontWeight.bold)),
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 24),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, 'transfer-voucher',
+                                  Navigator.pushNamed(
+                                      context, 'transfer-voucher',
                                       arguments: arguments);
                                 },
                                 child: Container(
                                   width: 200,
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color:
+                                          Theme.of(context).primaryColorLight,
                                       borderRadius: BorderRadius.circular(24)),
                                   padding: const EdgeInsets.all(10),
                                   child: const Row(
@@ -224,7 +225,8 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.popAndPushNamed(context, "home-screen",
+                                Navigator.popAndPushNamed(
+                                    context, "home-screen",
                                     arguments: widget.userSend);
                               },
                               child: Container(
@@ -238,17 +240,21 @@ class _SendingMoneyScreenState extends State<SendingMoneyScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(right: 4),
-                                      child: Icon(BoxIcons.bx_arrow_back, color: Theme.of(context).primaryColorDark,),
+                                      child: Icon(
+                                        BoxIcons.bx_arrow_back,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 4),
                                       child: Text(
                                         'Voltar',
                                         style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Theme.of(context).primaryColorDark
-                                        ),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Theme.of(context)
+                                                .primaryColorDark),
                                       ),
                                     )
                                   ],

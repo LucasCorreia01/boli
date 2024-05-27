@@ -9,34 +9,38 @@ import 'actions/actions_button_home.dart';
 class HomeScreen extends StatelessWidget {
   final bool balanceVisibility;
   final User user;
+  final Function refresh;
   const HomeScreen(
-      {required this.balanceVisibility, required this.user, super.key});
+      {required this.balanceVisibility, required this.user, required this.refresh, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: BalanceSection(
-            user: user,
-            balanceVisibility: balanceVisibility,
+    return RefreshIndicator(
+      onRefresh: () => refresh(),
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: BalanceSection(
+              user: user,
+              balanceVisibility: balanceVisibility,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: ActionsButtonsHome(user: user),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SavingSection(user),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: SpendingSection(),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ActionsButtonsHome(user: user),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: SavingSection(user),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: SpendingSection(),
+          )
+        ],
+      ),
     );
   }
 }

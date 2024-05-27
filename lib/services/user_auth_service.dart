@@ -162,7 +162,7 @@ class UserAuthService {
 
     return null;
   }
-
+  //Recupera o Id do usuário
   String getUid(){
     return firebaseAuth.currentUser!.uid;
   }

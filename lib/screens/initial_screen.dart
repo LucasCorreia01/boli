@@ -156,6 +156,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget pages(int index) {
     List<Widget> pages = [
       HomeScreen(
+        refresh: refresh,
         balanceVisibility: balanceVisibility,
         user: widget.user,
       ),
@@ -186,7 +187,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
   refresh({DocumentSnapshot<Map<String, dynamic>>? snapshot}) async {
     if (snapshot != null) {
-      User user = User.fromMap(snapshot!.data()!);
+      User user = User.fromMap(snapshot.data()!);
       setState(() {
         widget.user = user;
       });

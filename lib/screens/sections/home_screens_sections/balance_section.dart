@@ -1,5 +1,6 @@
 import 'package:boli/components/credit_card_home.dart';
 import 'package:boli/helpers/utils.dart';
+import 'package:boli/services/account_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/user.dart';
@@ -42,7 +43,7 @@ class _BalanceSectionState extends State<BalanceSection> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FutureBuilder(
-                future: widget.user.getMovedValueUser(),
+                future: AccountService().getMovedValueUser(),
                 builder: (context, snapshot) {
                   double? movedValue = snapshot.data;
                   switch (snapshot.connectionState) {

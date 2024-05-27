@@ -1,3 +1,5 @@
+import 'package:boli/components/show_snackbar.dart';
+import 'package:boli/services/user_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -5,6 +7,7 @@ import '../../models/user.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import '../../services/account_service.dart';
 import '../../services/notification_service.dart';
 
 class ReceiveMoney extends StatefulWidget {
@@ -72,14 +75,14 @@ class _ReceiveMoneyState extends State<ReceiveMoney> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            widget.user.receiveMoney(value.text);
-            Navigator.of(context).pop();
-            Provider.of<NotificationService>(context, listen: false)
-                      .showNotification(CustomNotification(
-                          id: 1,
-                          title: 'Depósito recebido! ',
-                          body: 'Valor do depóstio: R\$${value.text},00',
-                          payload: ''));
+            AccountService().receiveMoney(value.text).then((value){
+              if(value != null){
+                showSnackBar(context: context, content: value, isErro: true);
+              } else {
+                Navigator.of(context).pop();
+              }
+
+            });
           }
         },
         backgroundColor: Theme.of(context).primaryColor,
